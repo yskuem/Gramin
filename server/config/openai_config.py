@@ -35,7 +35,7 @@ CREATE_QUIZ_FUNCTION = {
                 "description": "問題のカテゴリ（例えば「関係代名詞」など）"
             },
         },
-        "required": ["theme", "question", "choices", "answer","translation","explanation","category"]
+        "required": ["question", "choices", "answer","translation","explanation","category"]
     }
 }
 
