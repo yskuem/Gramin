@@ -12,6 +12,6 @@ def read_root():
 
 
 @router.get("/generate_quiz")
-async def generate_quiz():
-    return await OpenAIClient().generate_quiz("TOEIC英語の4択の文法問題を作成してください。")
+async def generate_quiz(user_id : str):
+    return await OpenAIClient().generate_quiz("TOEIC英語の4択の文法問題を作成してください。",user_id)
 
