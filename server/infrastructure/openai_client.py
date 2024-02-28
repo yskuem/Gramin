@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 from openai import AsyncOpenAI
 from server.api.schemas.schemas import Quiz
 from server.config.openai_config import CREATE_QUIZ_FUNCTION
@@ -20,7 +21,7 @@ class OpenAIClient:
             )
             self._is_initialized = True
 
-    async def generate_quiz(self, sentence: str, model: str = "gpt-4-0125-preview"):
+    async def generate_quiz(self, sentence: str,user_id: str, model: str = "gpt-4-0125-preview"):
         response = await self.client.chat.completions.create(
             messages=[
                 {
@@ -37,6 +38,8 @@ class OpenAIClient:
         data = json.loads(response.choices[0].message.function_call.arguments)
 
         return Quiz(
+            quiz_id = uuid.uuid4,
+            create_user_id = user_id,
             question = data["question"],
             choices = data["choices"],
             answer = data["answer"],
