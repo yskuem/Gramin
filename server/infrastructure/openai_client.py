@@ -38,7 +38,7 @@ class OpenAIClient:
         data = json.loads(response.choices[0].message.function_call.arguments)
 
         return Quiz(
-            quiz_id = uuid.uuid4,
+            quiz_id = str(uuid.uuid4),
             create_user_id = user_id,
             question = data["question"],
             choices = data["choices"],
