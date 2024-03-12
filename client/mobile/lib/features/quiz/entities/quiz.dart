@@ -26,11 +26,20 @@ class Quiz with _$Quiz {
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   const Quiz._();
   static String get collectionPath => 'quiz';
+
   static CollectionReference<SnapType> get colRef =>
       Document.colRef(collectionPath);
+
+  static Query<Map<String, dynamic>> unansweredQuizListRef(String userId) =>
+    FirebaseFirestore.instance.collection(collectionPath).where('answeredUserIds', whereNotIn: [userId]);
+
+
+
   static String docPath(String quizId) => '$collectionPath/$quizId';
+
   static DocumentReference<SnapType> docRef(String id) =>
       Document.docRefWithDocPath(docPath(id));
+
   Map<String, dynamic> get toDoc => <String, dynamic>{
     ...toJson(),
     'createdAt': createdAt ?? FieldValue.serverTimestamp(),

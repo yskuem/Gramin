@@ -69,6 +69,7 @@ class DocumentRepository {
     );
   }
 
+
   Future<Document<T>> fetchCache<T extends Object>(
     String documentPath, {
     required T Function(Map<String, dynamic>) decode,
