@@ -21,7 +21,7 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Quiz {
   @JsonKey(name: 'quiz_id')
-  String get quizId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'create_user_id')
   String get createUserId => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $QuizCopyWith<$Res> {
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'quiz_id') String quizId,
+      {@JsonKey(name: 'quiz_id') String id,
       @JsonKey(name: 'create_user_id') String createUserId,
       String question,
       List<String> choices,
@@ -77,7 +77,7 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? quizId = null,
+    Object? id = null,
     Object? createUserId = null,
     Object? question = null,
     Object? choices = null,
@@ -92,9 +92,9 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
     Object? countAnswers = null,
   }) {
     return _then(_value.copyWith(
-      quizId: null == quizId
-          ? _value.quizId
-          : quizId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       createUserId: null == createUserId
           ? _value.createUserId
@@ -156,7 +156,7 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'quiz_id') String quizId,
+      {@JsonKey(name: 'quiz_id') String id,
       @JsonKey(name: 'create_user_id') String createUserId,
       String question,
       List<String> choices,
@@ -181,7 +181,7 @@ class __$$QuizImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? quizId = null,
+    Object? id = null,
     Object? createUserId = null,
     Object? question = null,
     Object? choices = null,
@@ -196,9 +196,9 @@ class __$$QuizImplCopyWithImpl<$Res>
     Object? countAnswers = null,
   }) {
     return _then(_$QuizImpl(
-      quizId: null == quizId
-          ? _value.quizId
-          : quizId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       createUserId: null == createUserId
           ? _value.createUserId
@@ -256,7 +256,7 @@ class __$$QuizImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$QuizImpl extends _Quiz {
   _$QuizImpl(
-      {@JsonKey(name: 'quiz_id') required this.quizId,
+      {@JsonKey(name: 'quiz_id') required this.id,
       @JsonKey(name: 'create_user_id') required this.createUserId,
       required this.question,
       required final List<String> choices,
@@ -280,7 +280,7 @@ class _$QuizImpl extends _Quiz {
 
   @override
   @JsonKey(name: 'quiz_id')
-  final String quizId;
+  final String id;
   @override
   @JsonKey(name: 'create_user_id')
   final String createUserId;
@@ -337,7 +337,7 @@ class _$QuizImpl extends _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(quizId: $quizId, createUserId: $createUserId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, answeredUserIds: $answeredUserIds, countAnswers: $countAnswers)';
+    return 'Quiz(id: $id, createUserId: $createUserId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, answeredUserIds: $answeredUserIds, countAnswers: $countAnswers)';
   }
 
   @override
@@ -345,7 +345,7 @@ class _$QuizImpl extends _Quiz {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QuizImpl &&
-            (identical(other.quizId, quizId) || other.quizId == quizId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.createUserId, createUserId) ||
                 other.createUserId == createUserId) &&
             (identical(other.question, question) ||
@@ -374,7 +374,7 @@ class _$QuizImpl extends _Quiz {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      quizId,
+      id,
       createUserId,
       question,
       const DeepCollectionEquality().hash(_choices),
@@ -404,7 +404,7 @@ class _$QuizImpl extends _Quiz {
 
 abstract class _Quiz extends Quiz {
   factory _Quiz(
-      {@JsonKey(name: 'quiz_id') required final String quizId,
+      {@JsonKey(name: 'quiz_id') required final String id,
       @JsonKey(name: 'create_user_id') required final String createUserId,
       required final String question,
       required final List<String> choices,
@@ -423,7 +423,7 @@ abstract class _Quiz extends Quiz {
 
   @override
   @JsonKey(name: 'quiz_id')
-  String get quizId;
+  String get id;
   @override
   @JsonKey(name: 'create_user_id')
   String get createUserId;

@@ -38,8 +38,4 @@ class QuizApiRepository {
       throw AppException.error(e.errorMessage);
     }
   }
-
-  Future<void> saveQuiz () async {
-
-  }
 }
