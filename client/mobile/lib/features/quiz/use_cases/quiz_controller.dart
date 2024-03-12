@@ -13,11 +13,11 @@ class QuizController extends _$QuizController {
   static const pagingLimitCount = 10;
   @override
   Future<List<Quiz>> build() async {
-    final quizList = await onFetch();
+    final quizList = await onFetch(isFirstFetch: true);
     return quizList;
   }
 
-  Future<List<Quiz>> onFetch() async {
+  Future<List<Quiz>> onFetch({required bool isFirstFetch}) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
@@ -29,7 +29,7 @@ class QuizController extends _$QuizController {
       decode: Quiz.fromJson,
     ).fetch();
     final quizList = documentList.map((document) => document.entity).whereType<Quiz>().toList();
-    final previousState = await future;
+    final previousState = isFirstFetch ? <Quiz>[] : await future;
     state = AsyncData([
       ...previousState,
       ...quizList

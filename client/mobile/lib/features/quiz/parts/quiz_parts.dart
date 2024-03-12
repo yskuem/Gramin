@@ -1,16 +1,32 @@
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../entities/quiz.dart';
 
 class QuizParts extends HookConsumerWidget {
-  const QuizParts({super.key,required this.quizData});
+  const QuizParts({super.key,required this.quizListData});
 
-  final Quiz quizData;
+  final List<Quiz> quizListData;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+    final index = useState<int>(0).value;
+    final isCorrect = useState<bool?>(null);
+    final audioPlayer = AudioPlayer();
+    useEffect(() {
+      final value = isCorrect.value;
+      if(value == null) {
+        return;
+      }
+      if(value) {
+        audioPlayer.play(AssetSource('sound/correct.mp3'));
+      } else {
+        audioPlayer.play(AssetSource('sound/incorrect.mp3'));
+      }
+      return;
+    }, [isCorrect.value],);
     return Scaffold(
       appBar: AppBar(
         title: const Text('クイズ'),
@@ -18,7 +34,9 @@ class QuizParts extends HookConsumerWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(quizData.question),
+          if(isCorrect.value != null)
+            _displayResult(isCorrect: isCorrect.value!),
+          Text(quizListData[index].question),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(2, (rowIndex) =>
@@ -35,6 +53,12 @@ class QuizParts extends HookConsumerWidget {
                       width: MediaQuery.sizeOf(context).width / 2.5,
                       child: ElevatedButton(
                         onPressed: () {
+                          final isCorrectQuiz = _isAnswerCorrect(
+                              quizData: quizListData[index],
+                              selectIndex: rowIndex * 2 + buttonIndex,
+                          );
+                          isCorrect.value = isCorrectQuiz;
+                          debugPrint(isCorrect.value.toString());
                           //context.go('/');
                         },
                         style: ButtonStyle(
@@ -47,7 +71,7 @@ class QuizParts extends HookConsumerWidget {
                             ),
                           ),
                         ),
-                        child: Text(quizData.choices[rowIndex * 2 + buttonIndex]),
+                        child: Text(quizListData[index].choices[rowIndex * 2 + buttonIndex]),
                       ),
                     ),
                   ),
@@ -57,6 +81,27 @@ class QuizParts extends HookConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+  bool _isAnswerCorrect ({required Quiz quizData,required int selectIndex}) {
+    if (quizData.choices[selectIndex] == quizData.answer) {
+      return true;
+    }
+    return false;
+  }
+
+  Widget _displayResult({required bool isCorrect}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        isCorrect
+            ? const Icon(Icons.circle_outlined,color: Colors.red,size: 40,)
+            : const Icon(Icons.close_outlined,color: Colors.blue,size: 50,),
+        const SizedBox(width: 20,),
+        isCorrect
+            ? const Text('正解！',style: TextStyle(color: Colors.red,fontSize: 25),)
+            : const Text('不正解！',style: TextStyle(color: Colors.blue,fontSize: 25),)
+      ],
     );
   }
 }

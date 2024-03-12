@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/error/widgets/error_message.dart';
 import 'package:flutter_app_template/features/quiz/parts/quiz_parts.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,12 +21,11 @@ class QuizPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quiz = ref.watch(quizControllerProvider);
-    final index = useState<int>(0);
+    final quizList = ref.watch(quizControllerProvider);
     return Scaffold(
-      body: quiz.when(
+      body: quizList.when(
         data: (data) {
-          return QuizParts(quizData: data[index.value]);
+          return QuizParts(quizListData: data,);
         },
         error: (e, _) => ErrorMessage(
           message: e.toString(),

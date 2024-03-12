@@ -19,10 +19,24 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [neko];
 }
 
+class $AssetsSoundGen {
+  const $AssetsSoundGen();
+
+  /// File path: assets/sound/correct.mp3
+  String get correct => 'assets/sound/correct.mp3';
+
+  /// File path: assets/sound/incorrect.mp3
+  String get incorrect => 'assets/sound/incorrect.mp3';
+
+  /// List of all assets
+  List<String> get values => [correct, incorrect];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSoundGen sound = $AssetsSoundGen();
 }
 
 class AssetGenImage {
