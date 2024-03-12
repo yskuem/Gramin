@@ -19,9 +19,9 @@ class _QuizApiClient implements QuizApiClient {
   String? baseUrl;
 
   @override
-  Future<Quiz> fetchQuiz() async {
+  Future<Quiz> createQuiz(String userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'user_id': userId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result =

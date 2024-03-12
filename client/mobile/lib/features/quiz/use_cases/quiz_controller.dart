@@ -7,7 +7,16 @@ part 'quiz_controller.g.dart';
 class QuizController extends _$QuizController {
   @override
   Future<Quiz> build() async {
-    final data = await ref.watch(quizApiRepositoryProvider).fetchQuiz();
+    final quiz = await onCreate();
+    return quiz;
+  }
+
+  Future<Quiz> onCreate () async {
+    final data = await ref.read(quizApiRepositoryProvider).createQuiz();
     return data;
+  }
+
+  Future<void> onSave (Quiz quiz) async {
+    await ref.read(quizApiRepositoryProvider).saveQuiz(quiz);
   }
 }

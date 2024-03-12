@@ -7,7 +7,8 @@ part of 'quiz.dart';
 // **************************************************************************
 
 _$QuizImpl _$$QuizImplFromJson(Map<String, dynamic> json) => _$QuizImpl(
-      quizId: json['quizId'] as String,
+      quizId: json['quiz_id'] as String,
+      createUserId: json['create_user_id'] as String,
       question: json['question'] as String,
       choices:
           (json['choices'] as List<dynamic>).map((e) => e as String).toList(),
@@ -15,7 +16,6 @@ _$QuizImpl _$$QuizImplFromJson(Map<String, dynamic> json) => _$QuizImpl(
       translation: json['translation'] as String,
       explanation: json['explanation'] as String,
       category: json['category'] as String,
-      createUserId: json['createUserId'] as String,
       createdAt: const DateTimeTimestampConverter()
           .fromJson(json['createdAt'] as Timestamp?),
       updatedAt: const DateTimeTimestampConverter()
@@ -36,14 +36,14 @@ _$QuizImpl _$$QuizImplFromJson(Map<String, dynamic> json) => _$QuizImpl(
 
 Map<String, dynamic> _$$QuizImplToJson(_$QuizImpl instance) =>
     <String, dynamic>{
-      'quizId': instance.quizId,
+      'quiz_id': instance.quizId,
+      'create_user_id': instance.createUserId,
       'question': instance.question,
       'choices': instance.choices,
       'answer': instance.answer,
       'translation': instance.translation,
       'explanation': instance.explanation,
       'category': instance.category,
-      'createUserId': instance.createUserId,
       'createdAt':
           const DateTimeTimestampConverter().toJson(instance.createdAt),
       'updatedAt':

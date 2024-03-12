@@ -31,5 +31,7 @@ abstract class QuizApiClient {
         String baseUrl,
       }) = _QuizApiClient;
   @GET('/generate_quiz')
-  Future<Quiz> fetchQuiz();
+  Future<Quiz> createQuiz(
+      @Query('user_id') String userId,// TODO(yskuem): カスタムクイズの機能を追加した時はuserIdを引数に追加する
+  );
 }

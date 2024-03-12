@@ -20,14 +20,16 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Quiz {
-  String get quizId => throw _privateConstructorUsedError; //バックエンドにない
+  @JsonKey(name: 'quiz_id')
+  String get quizId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'create_user_id')
+  String get createUserId => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   List<String> get choices => throw _privateConstructorUsedError;
   String get answer => throw _privateConstructorUsedError;
   String get translation => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  String get createUserId => throw _privateConstructorUsedError; //バックエンドにない
   @DateTimeTimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
@@ -47,14 +49,14 @@ abstract class $QuizCopyWith<$Res> {
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
   $Res call(
-      {String quizId,
+      {@JsonKey(name: 'quiz_id') String quizId,
+      @JsonKey(name: 'create_user_id') String createUserId,
       String question,
       List<String> choices,
       String answer,
       String translation,
       String explanation,
       String category,
-      String createUserId,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
@@ -76,13 +78,13 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @override
   $Res call({
     Object? quizId = null,
+    Object? createUserId = null,
     Object? question = null,
     Object? choices = null,
     Object? answer = null,
     Object? translation = null,
     Object? explanation = null,
     Object? category = null,
-    Object? createUserId = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? commentIds = null,
@@ -93,6 +95,10 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
       quizId: null == quizId
           ? _value.quizId
           : quizId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createUserId: null == createUserId
+          ? _value.createUserId
+          : createUserId // ignore: cast_nullable_to_non_nullable
               as String,
       question: null == question
           ? _value.question
@@ -117,10 +123,6 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      createUserId: null == createUserId
-          ? _value.createUserId
-          : createUserId // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -154,14 +156,14 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String quizId,
+      {@JsonKey(name: 'quiz_id') String quizId,
+      @JsonKey(name: 'create_user_id') String createUserId,
       String question,
       List<String> choices,
       String answer,
       String translation,
       String explanation,
       String category,
-      String createUserId,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
@@ -180,13 +182,13 @@ class __$$QuizImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? quizId = null,
+    Object? createUserId = null,
     Object? question = null,
     Object? choices = null,
     Object? answer = null,
     Object? translation = null,
     Object? explanation = null,
     Object? category = null,
-    Object? createUserId = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? commentIds = null,
@@ -197,6 +199,10 @@ class __$$QuizImplCopyWithImpl<$Res>
       quizId: null == quizId
           ? _value.quizId
           : quizId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createUserId: null == createUserId
+          ? _value.createUserId
+          : createUserId // ignore: cast_nullable_to_non_nullable
               as String,
       question: null == question
           ? _value.question
@@ -221,10 +227,6 @@ class __$$QuizImplCopyWithImpl<$Res>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      createUserId: null == createUserId
-          ? _value.createUserId
-          : createUserId // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -254,14 +256,14 @@ class __$$QuizImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$QuizImpl extends _Quiz {
   _$QuizImpl(
-      {required this.quizId,
+      {@JsonKey(name: 'quiz_id') required this.quizId,
+      @JsonKey(name: 'create_user_id') required this.createUserId,
       required this.question,
       required final List<String> choices,
       required this.answer,
       required this.translation,
       required this.explanation,
       required this.category,
-      required this.createUserId,
       @DateTimeTimestampConverter() this.createdAt,
       @DateTimeTimestampConverter() this.updatedAt,
       final List<String> commentIds = const [],
@@ -277,8 +279,11 @@ class _$QuizImpl extends _Quiz {
       _$$QuizImplFromJson(json);
 
   @override
+  @JsonKey(name: 'quiz_id')
   final String quizId;
-//バックエンドにない
+  @override
+  @JsonKey(name: 'create_user_id')
+  final String createUserId;
   @override
   final String question;
   final List<String> _choices;
@@ -297,9 +302,6 @@ class _$QuizImpl extends _Quiz {
   final String explanation;
   @override
   final String category;
-  @override
-  final String createUserId;
-//バックエンドにない
   @override
   @DateTimeTimestampConverter()
   final DateTime? createdAt;
@@ -335,7 +337,7 @@ class _$QuizImpl extends _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(quizId: $quizId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createUserId: $createUserId, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, answeredUserIds: $answeredUserIds, countAnswers: $countAnswers)';
+    return 'Quiz(quizId: $quizId, createUserId: $createUserId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, answeredUserIds: $answeredUserIds, countAnswers: $countAnswers)';
   }
 
   @override
@@ -344,6 +346,8 @@ class _$QuizImpl extends _Quiz {
         (other.runtimeType == runtimeType &&
             other is _$QuizImpl &&
             (identical(other.quizId, quizId) || other.quizId == quizId) &&
+            (identical(other.createUserId, createUserId) ||
+                other.createUserId == createUserId) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             const DeepCollectionEquality().equals(other._choices, _choices) &&
@@ -354,8 +358,6 @@ class _$QuizImpl extends _Quiz {
                 other.explanation == explanation) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.createUserId, createUserId) ||
-                other.createUserId == createUserId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -373,13 +375,13 @@ class _$QuizImpl extends _Quiz {
   int get hashCode => Object.hash(
       runtimeType,
       quizId,
+      createUserId,
       question,
       const DeepCollectionEquality().hash(_choices),
       answer,
       translation,
       explanation,
       category,
-      createUserId,
       createdAt,
       updatedAt,
       const DeepCollectionEquality().hash(_commentIds),
@@ -402,14 +404,14 @@ class _$QuizImpl extends _Quiz {
 
 abstract class _Quiz extends Quiz {
   factory _Quiz(
-      {required final String quizId,
+      {@JsonKey(name: 'quiz_id') required final String quizId,
+      @JsonKey(name: 'create_user_id') required final String createUserId,
       required final String question,
       required final List<String> choices,
       required final String answer,
       required final String translation,
       required final String explanation,
       required final String category,
-      required final String createUserId,
       @DateTimeTimestampConverter() final DateTime? createdAt,
       @DateTimeTimestampConverter() final DateTime? updatedAt,
       final List<String> commentIds,
@@ -420,8 +422,12 @@ abstract class _Quiz extends Quiz {
   factory _Quiz.fromJson(Map<String, dynamic> json) = _$QuizImpl.fromJson;
 
   @override
+  @JsonKey(name: 'quiz_id')
   String get quizId;
-  @override //バックエンドにない
+  @override
+  @JsonKey(name: 'create_user_id')
+  String get createUserId;
+  @override
   String get question;
   @override
   List<String> get choices;
@@ -434,8 +440,6 @@ abstract class _Quiz extends Quiz {
   @override
   String get category;
   @override
-  String get createUserId;
-  @override //バックエンドにない
   @DateTimeTimestampConverter()
   DateTime? get createdAt;
   @override

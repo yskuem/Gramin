@@ -9,14 +9,14 @@ part 'quiz.g.dart';
 @freezed
 class Quiz with _$Quiz {
   factory Quiz({
-    required String quizId,//バックエンドにない
+    @JsonKey(name: 'quiz_id') required String quizId,
+    @JsonKey(name: 'create_user_id') required String createUserId,
     required String question,
     required List<String> choices,
     required String answer,
     required String translation,
     required String explanation,
     required String category,
-    required String createUserId,//バックエンドにない
     @DateTimeTimestampConverter() DateTime? createdAt,
     @DateTimeTimestampConverter() DateTime? updatedAt,
     @Default([]) List<String> commentIds,

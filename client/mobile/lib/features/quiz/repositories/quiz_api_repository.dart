@@ -22,9 +22,9 @@ class QuizApiRepository {
 
   final QuizApiClient _client;
 
-  Future<Quiz> fetchQuiz() async {
+  Future<Quiz> createQuiz() async {
     try {
-      final result = await _client.fetchQuiz();
+      final result = await _client.createQuiz('');
       return result;
     } on DioException catch (e) {
       final response = e.response;
@@ -37,5 +37,9 @@ class QuizApiRepository {
       logger.shout(e);
       throw AppException.error(e.errorMessage);
     }
+  }
+
+  Future<void> saveQuiz () async {
+
   }
 }
