@@ -4,13 +4,28 @@ import 'package:flutter_app_template/core/repositories/firestore/document_reposi
 import 'package:flutter_app_template/features/quiz/repositories/quiz_api_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/repositories/firestore/collection_paging_repository.dart';
+import '../constants/constants.dart';
 import '../entities/quiz.dart';
 part 'quiz_controller.g.dart';
 
+@Riverpod(keepAlive: true)
+CollectionPagingRepository<Quiz> quizCollectionPagingRepository(
+    QuizCollectionPagingRepositoryRef ref,
+    CollectionParam<Quiz> query,
+    ) {
+  return CollectionPagingRepository<Quiz>(
+    query: query.query,
+    initialLimit: query.initialLimit,
+    pagingLimit: query.pagingLimit,
+    decode: query.decode,
+  );
+}
+
+
 @riverpod
 class QuizController extends _$QuizController {
-  static const initialLimitCount = 10;
-  static const pagingLimitCount = 10;
+
+  CollectionPagingRepository<Quiz>? _collectionPagingRepository;
   @override
   Future<List<Quiz>> build() async {
     final quizList = await onFetch(isFirstFetch: true);
@@ -22,12 +37,18 @@ class QuizController extends _$QuizController {
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
     }
-    final documentList = await CollectionPagingRepository<Quiz>(
-      query: Quiz.unansweredQuizListRef(userId),
-      initialLimit: initialLimitCount,
-      pagingLimit: pagingLimitCount,
-      decode: Quiz.fromJson,
-    ).fetch();
+    final repository = ref.watch(
+      quizCollectionPagingRepositoryProvider(
+        CollectionParam<Quiz>(
+          query: Quiz.unansweredQuizListRef(userId),
+          initialLimit: initialLimitCount,
+          pagingLimit: pagingLimitCount,
+          decode: Quiz.fromJson,
+        ),
+      ),
+    );
+    _collectionPagingRepository = repository;
+    final documentList = await repository.fetch();
     final quizList = documentList.map((document) => document.entity).whereType<Quiz>().toList();
     final previousState = isFirstFetch ? <Quiz>[] : await future;
     state = AsyncData([
@@ -36,6 +57,7 @@ class QuizController extends _$QuizController {
     ]);
     return quizList;
   }
+
 
   Future<void> onCreate () async {
     state = await AsyncValue.guard(() async {
