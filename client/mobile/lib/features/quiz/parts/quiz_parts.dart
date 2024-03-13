@@ -1,9 +1,13 @@
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/features/quiz/constants/constants.dart';
+import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../entities/quiz.dart';
+import 'explanation_part.dart';
 
 class QuizParts extends HookConsumerWidget {
   const QuizParts({super.key,required this.quizListData});
@@ -12,7 +16,8 @@ class QuizParts extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final index = useState<int>(0).value;
+    final currentQuizIndex = useState<int>(0);
+    final selectButtonIndex = useState<int>(0);
     final isCorrect = useState<bool?>(null);
     final audioPlayer = AudioPlayer();
     useEffect(() {
@@ -28,66 +33,58 @@ class QuizParts extends HookConsumerWidget {
       return;
     }, [isCorrect.value],);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('クイズ'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if(isCorrect.value != null)
-            _displayResult(isCorrect: isCorrect.value!),
-          Text(quizListData[index].question),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(2, (rowIndex) =>
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(2, (buttonIndex) =>
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 18,
-                    ),
-                    child: SizedBox(
-                      height: MediaQuery.sizeOf(context).height / 8,
-                      width: MediaQuery.sizeOf(context).width / 2.5,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          final isCorrectQuiz = _isAnswerCorrect(
-                              quizData: quizListData[index],
-                              selectIndex: rowIndex * 2 + buttonIndex,
-                          );
-                          isCorrect.value = isCorrectQuiz;
-                          debugPrint(isCorrect.value.toString());
-                          //context.go('/');
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blue,
-                          ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Visibility(
+                visible: isCorrect.value != null,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text(quizListData[index].choices[rowIndex * 2 + buttonIndex]),
                       ),
+                      onPressed: () {
+                        currentQuizIndex.value ++;
+                        isCorrect.value = null;
+                      },
+                      child: const Text('次へ'),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ),
+              const SizedBox(height: 10,),
+              if(isCorrect.value == null)
+                const SizedBox(height: 50,),
+              if(isCorrect.value != null)
+                _displayResult(isCorrect: isCorrect.value!),
+              Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+              const SizedBox(height: 50,),
+              Visibility(
+                  visible: isCorrect.value == null,
+                  child: ButtonPart(
+                      quizIndex: currentQuizIndex,
+                      isCorrect: isCorrect,
+                      selectButtonIndex: selectButtonIndex,
+                  ),
+              ),
+              Visibility(
+                visible: isCorrect.value != null,
+                child: ExplanationPart(
+                  quizIndex: currentQuizIndex,
+                  selectButtonIndex: selectButtonIndex,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
-  }
-  bool _isAnswerCorrect ({required Quiz quizData,required int selectIndex}) {
-    if (quizData.choices[selectIndex] == quizData.answer) {
-      return true;
-    }
-    return false;
   }
 
   Widget _displayResult({required bool isCorrect}) {
@@ -100,8 +97,10 @@ class QuizParts extends HookConsumerWidget {
         const SizedBox(width: 20,),
         isCorrect
             ? const Text('正解！',style: TextStyle(color: Colors.red,fontSize: 25),)
-            : const Text('不正解！',style: TextStyle(color: Colors.blue,fontSize: 25),)
+            : const Text('不正解！',style: TextStyle(color: Colors.blue,fontSize: 25),),
       ],
     );
   }
 }
+
+

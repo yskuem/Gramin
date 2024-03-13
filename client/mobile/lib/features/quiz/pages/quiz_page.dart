@@ -22,19 +22,21 @@ class QuizPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizList = ref.watch(quizControllerProvider);
-    return Scaffold(
-      body: quizList.when(
-        data: (data) {
-          return QuizParts(quizListData: data,);
-        },
-        error: (e, _) => ErrorMessage(
-          message: e.toString(),
-          onTapRetry: () async {
-            ref.invalidate(quizControllerProvider);
+    return SafeArea(
+      child: Scaffold(
+        body: quizList.when(
+          data: (data) {
+            return QuizParts(quizListData: data,);
           },
-        ),
-        loading: () => const Center(
-          child: CupertinoActivityIndicator(),
+          error: (e, _) => ErrorMessage(
+            message: e.toString(),
+            onTapRetry: () async {
+              ref.invalidate(quizControllerProvider);
+            },
+          ),
+          loading: () => const Center(
+            child: CupertinoActivityIndicator(),
+          ),
         ),
       ),
     );

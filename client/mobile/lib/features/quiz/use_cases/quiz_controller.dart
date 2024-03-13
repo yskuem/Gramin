@@ -32,7 +32,7 @@ class QuizController extends _$QuizController {
     final previousState = isFirstFetch ? <Quiz>[] : await future;
     state = AsyncData([
       ...previousState,
-      ...quizList
+      ...quizList,
     ]);
     return quizList;
   }
