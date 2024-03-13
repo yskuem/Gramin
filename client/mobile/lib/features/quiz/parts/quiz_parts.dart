@@ -2,8 +2,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
+import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../entities/quiz.dart';
@@ -50,8 +53,13 @@ class QuizParts extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () {
-                        currentQuizIndex.value ++;
+                        currentQuizIndex.value++;
                         isCorrect.value = null;
+                        _answeredUserIdUpdate(
+                            ref: ref,
+                            quiz: quizListData[currentQuizIndex.value],
+                        );
+
                       },
                       child: const Text('次へ'),
                     ),
@@ -85,6 +93,20 @@ class QuizParts extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _answeredUserIdUpdate ({
+    required WidgetRef ref,
+    required Quiz quiz,
+  }) async {
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    if(userId == null) {
+      return;
+    }
+    final updateQuizData = quiz.copyWith(
+      answeredUserIds: [...quiz.answeredUserIds,userId],
+    );
+    await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
   }
 
   Widget _displayResult({required bool isCorrect}) {

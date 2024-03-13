@@ -46,6 +46,21 @@ class QuizController extends _$QuizController {
     });
   }
 
+  Future<void> onUpdate (Quiz quiz) async {
+    await ref.read(documentRepositoryProvider).update(
+        Quiz.docPath(quiz.id),
+        data: quiz.toDoc,
+    );
+    final previousData = await future;
+    final newList = previousData.map((data) {
+      if(data.id == quiz.id) {
+        return quiz;
+      }
+      return data;
+    }).toList();
+    state = AsyncData(newList);
+  }
+
   Future<void> onSave (Quiz quiz) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if (userId == null) {
