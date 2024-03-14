@@ -44,7 +44,7 @@ class QuizController extends _$QuizController {
     final repository = ref.watch(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
-          query: Quiz.colRef.where('answeredUserIds', whereNotIn: [userId]),
+          query: Quiz.colRef,//.where('answeredUserIds', whereNotIn: [userId]),//TODO: 未回答のクイズを取得する
           initialLimit: initialLimitCount,
           pagingLimit: pagingLimitCount,
           decode: Quiz.fromJson,
