@@ -1,5 +1,6 @@
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
@@ -34,6 +35,10 @@ class QuizParts extends HookConsumerWidget {
       }
       return;
     }, [isCorrect.value],);
+
+    if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
+      return const Center(child: CupertinoActivityIndicator());
+    }
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -51,14 +56,18 @@ class QuizParts extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        final quizState = ref.read(quizControllerProvider);
+                        if(quizState is AsyncLoading){
+                          return;
+                        }
                         currentQuizIndex.value++;
                         isCorrect.value = null;
-                        _answeredUserIdUpdate(
+                        await _answeredUserIdUpdate(
                             ref: ref,
                             quiz: quizListData[currentQuizIndex.value],
                         );
-                        _fetchMoreQuiz(ref);
+                        await _fetchMoreQuiz(ref);
 
                       },
                       child: const Text('次へ'),
@@ -101,16 +110,16 @@ class QuizParts extends HookConsumerWidget {
     if(quizList == null || userId == null) {
       throw AppException.irregular();
     }
-    final unansweredCount = quizList.where((quiz) => !quiz.answeredUserIds.contains(userId)).toList().length;
-    debugPrint('残りの問題数 $unansweredCount');
-    if(unansweredCount >= fetchMoreIfBelowThreshold) {
+    final unansweredQuiz = quizList.where((quiz) => !quiz.answeredUserIds.contains(userId)).toList();
+    debugPrint('残りの問題数 ${unansweredQuiz.length}');
+    if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {
       return;
     }
     final newList = await ref.read(quizControllerProvider.notifier).onFetch(isFirstFetch: false);
     debugPrint('fireStoreから${newList.length}問追加');
     if(newList.length < pagingLimitCount) {
       debugPrint('新規問題作成');
-      await ref.read(quizControllerProvider.notifier).onCreate();
+      await ref.read(quizControllerProvider.notifier).onCreate(isFirstCreate: false);
     }
   }
 
@@ -123,7 +132,7 @@ class QuizParts extends HookConsumerWidget {
       return;
     }
     final updateQuizData = quiz.copyWith(
-      answeredUserIds: [...quiz.answeredUserIds,userId],
+      answeredUserIds: quiz.answeredUserIds.contains(userId) ? quiz.answeredUserIds : [...quiz.answeredUserIds,userId],
     );
     await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
   }

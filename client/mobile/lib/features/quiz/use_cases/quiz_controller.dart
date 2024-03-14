@@ -29,7 +29,11 @@ class QuizController extends _$QuizController {
   @override
   Future<List<Quiz>> build() async {
     final quizList = await onFetch(isFirstFetch: true);
-    return quizList;
+    if(quizList.isNotEmpty) {
+      return quizList;
+    }
+    final newList = await onCreate(isFirstCreate: true);
+    return newList;
   }
 
   Future<List<Quiz>> onFetch({required bool isFirstFetch}) async {
@@ -40,7 +44,7 @@ class QuizController extends _$QuizController {
     final repository = ref.watch(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
-          query: Quiz.unansweredQuizListRef(userId),
+          query: Quiz.colRef.where('answeredUserIds', whereNotIn: [userId]),
           initialLimit: initialLimitCount,
           pagingLimit: pagingLimitCount,
           decode: Quiz.fromJson,
@@ -59,13 +63,13 @@ class QuizController extends _$QuizController {
   }
 
 
-  Future<void> onCreate () async {
-    state = await AsyncValue.guard(() async {
-      final data = await ref.read(quizApiRepositoryProvider).createQuiz();
-      await onSave(data);
-      final previousData = await future;
-      return [...previousData,data];
-    });
+  Future<List<Quiz>> onCreate ({required bool isFirstCreate}) async {
+    final data = await ref.read(quizApiRepositoryProvider).createQuiz();
+    await onSave(data);
+    final previousData = isFirstCreate ? <Quiz>[] : await future;
+    final dataList = [...previousData,data];
+    state = AsyncData(dataList);
+    return dataList;
   }
 
   Future<void> onUpdate (Quiz quiz) async {
