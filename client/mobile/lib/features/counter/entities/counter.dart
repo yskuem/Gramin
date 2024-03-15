@@ -31,5 +31,5 @@ class Counter with _$Counter {
         ...toJson(),
         'createdAt': createdAt ?? FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
-      };
+  };
 }
