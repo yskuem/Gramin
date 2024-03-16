@@ -33,10 +33,16 @@ class AppUserController extends _$AppUserController {
     return doc.entity;
   }
 
-  //
-  // Future<AppUser> onCreate() async {
-  //
-  // }
+
+  Future<void> onCreate(AppUser newUser) async {
+    state = await AsyncValue.guard(() async {
+      await ref.read(documentRepositoryProvider).save(
+        AppUser.docPath(newUser.authId),
+        data: newUser.toJson(),
+      );
+      return newUser;
+    });
+  }
 }
 
 
