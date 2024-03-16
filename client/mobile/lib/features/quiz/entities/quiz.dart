@@ -17,8 +17,8 @@ class Quiz with _$Quiz {
     required String translation,
     required String explanation,
     required String category,
-    @DateTimeTimestampConverter() DateTime? createdAt,
-    @DateTimeTimestampConverter() DateTime? updatedAt,
+    @DateTimeTimestampConverter() required DateTime createdAt,
+    @DateTimeTimestampConverter() required DateTime updatedAt,
     @Default([]) List<String> commentIds,
     @Default([]) List<String> answeredUserIds,
     @Default([0,0,0,0]) List<int> countAnswers,
@@ -42,7 +42,7 @@ class Quiz with _$Quiz {
 
   Map<String, dynamic> get toDoc => <String, dynamic>{
     ...toJson(),
-    'createdAt': createdAt ?? FieldValue.serverTimestamp(),
+    'createdAt': createdAt,
     'updatedAt': FieldValue.serverTimestamp(),
   };
 
