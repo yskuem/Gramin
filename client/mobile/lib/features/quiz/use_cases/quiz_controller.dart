@@ -73,18 +73,21 @@ class QuizController extends _$QuizController {
   }
 
   Future<void> onUpdate (Quiz quiz) async {
-    await ref.read(documentRepositoryProvider).update(
+
+    state = await AsyncValue.guard(() async {
+      await ref.read(documentRepositoryProvider).update(
         Quiz.docPath(quiz.id),
         data: quiz.toDoc,
-    );
-    final previousData = await future;
-    final newList = previousData.map((data) {
-      if(data.id == quiz.id) {
-        return quiz;
-      }
-      return data;
-    }).toList();
-    state = AsyncData(newList);
+      );
+      final previousData = await future;
+      final newList = previousData.map((data) {
+        if(data.id == quiz.id) {
+          return quiz;
+        }
+        return data;
+      }).toList();
+      return newList;
+    });
   }
 
   Future<void> onSave (Quiz quiz) async {
