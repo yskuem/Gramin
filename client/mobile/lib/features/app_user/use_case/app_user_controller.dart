@@ -43,6 +43,17 @@ class AppUserController extends _$AppUserController {
       return newUser;
     });
   }
+
+
+  Future<void> onUpdate (AppUser updateUser) async {
+    state = await AsyncValue.guard(() async {
+      await ref.read(documentRepositoryProvider).update(
+          AppUser.docPath(updateUser.authId),
+          data: updateUser.toJson(),
+      );
+      return updateUser;
+    });
+  }
 }
 
 
