@@ -13,16 +13,25 @@ class RegisterNamePage extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final textKey = useFormFieldStateKey();
     final errorTextNotifier = useState<String?>(null);
-    return Scaffold(
-      body: Column(
-        children: [
-          CustomTextFormField(
-              maxLength: 10,
-              labelName: 'ユーザーネーム',
-              errorTextNotifier: errorTextNotifier,
-              textKey: textKey,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomTextFormField(
+                    maxLength: 10,
+                    labelName: 'ユーザーネーム',
+                    errorTextNotifier: errorTextNotifier,
+                    textKey: textKey,
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
