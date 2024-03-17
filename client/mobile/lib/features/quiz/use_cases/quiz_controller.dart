@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
+import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
 import 'package:flutter_app_template/features/quiz/repositories/quiz_api_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/repositories/firestore/collection_paging_repository.dart';
@@ -33,19 +35,27 @@ class QuizController extends _$QuizController {
     if(quizList.isNotEmpty) {
       return quizList;
     }
+    debugPrint('クイズが存在しないため新規作成します');
     final newList = await onCreate(isFirstCreate: true);
     return newList;
   }
 
   Future<List<Quiz>> onFetch({required bool isFirstFetch}) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    final currentUser = await ref.read(appUserControllerProvider.future);
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
     }
+    if(currentUser == null) {
+      throw AppException(title: 'ユーザー情報が取得できませんでした');
+    }
+    final answeredQuizIds =
+        currentUser.answeredQuizIds.isNotEmpty ? currentUser.answeredQuizIds : [''];
+
     final repository = ref.watch(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
-          query: Quiz.colRef,//.where('answeredUserIds', whereNotIn: [userId]),//TODO: 未回答のクイズを取得する
+          query: Quiz.colRef.where('quiz_id', whereNotIn: answeredQuizIds),//TODO: 未回答のクイズを取得する
           initialLimit: initialLimitCount,
           pagingLimit: pagingLimitCount,
           decode: Quiz.fromJson,

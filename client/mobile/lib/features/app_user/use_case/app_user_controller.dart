@@ -31,7 +31,9 @@ class AppUserController extends _$AppUserController {
         AppUser.docPath(userId),
         decode: AppUser.fromJson,
     );
-    return doc.entity;
+    final appUser = doc.entity;
+    state = AsyncData(appUser);
+    return appUser;
   }
 
 

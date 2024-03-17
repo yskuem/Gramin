@@ -29,9 +29,9 @@ mixin _$AppUser {
   List<String> get commentQuizIds => throw _privateConstructorUsedError;
   List<String> get favoriteQuizIds => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime get updateAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,8 +52,8 @@ abstract class $AppUserCopyWith<$Res> {
       List<String> inCorrectQuizIds,
       List<String> commentQuizIds,
       List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updateAt});
+      @DateTimeTimestampConverter() DateTime? createdAt,
+      @DateTimeTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -77,8 +77,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? inCorrectQuizIds = null,
     Object? commentQuizIds = null,
     Object? favoriteQuizIds = null,
-    Object? createdAt = null,
-    Object? updateAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       authId: null == authId
@@ -113,14 +113,14 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updateAt: null == updateAt
-          ? _value.updateAt
-          : updateAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -141,8 +141,8 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       List<String> inCorrectQuizIds,
       List<String> commentQuizIds,
       List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updateAt});
+      @DateTimeTimestampConverter() DateTime? createdAt,
+      @DateTimeTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -164,8 +164,8 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? inCorrectQuizIds = null,
     Object? commentQuizIds = null,
     Object? favoriteQuizIds = null,
-    Object? createdAt = null,
-    Object? updateAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$AppUserImpl(
       authId: null == authId
@@ -200,14 +200,14 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value._favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updateAt: null == updateAt
-          ? _value.updateAt
-          : updateAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -224,8 +224,8 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       final List<String> inCorrectQuizIds = const [],
       final List<String> commentQuizIds = const [],
       final List<String> favoriteQuizIds = const [],
-      @DateTimeTimestampConverter() required this.createdAt,
-      @DateTimeTimestampConverter() required this.updateAt})
+      @DateTimeTimestampConverter() this.createdAt,
+      @DateTimeTimestampConverter() this.updatedAt})
       : _answeredQuizIds = answeredQuizIds,
         _correctQuizIds = correctQuizIds,
         _inCorrectQuizIds = inCorrectQuizIds,
@@ -290,14 +290,14 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   @DateTimeTimestampConverter()
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @DateTimeTimestampConverter()
-  final DateTime updateAt;
+  final DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, answeredQuizIds: $answeredQuizIds, correctQuizIds: $correctQuizIds, inCorrectQuizIds: $inCorrectQuizIds, commentQuizIds: $commentQuizIds, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updateAt: $updateAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, answeredQuizIds: $answeredQuizIds, correctQuizIds: $correctQuizIds, inCorrectQuizIds: $inCorrectQuizIds, commentQuizIds: $commentQuizIds, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -314,7 +314,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('commentQuizIds', commentQuizIds))
       ..add(DiagnosticsProperty('favoriteQuizIds', favoriteQuizIds))
       ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('updateAt', updateAt));
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -338,8 +338,8 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
                 .equals(other._favoriteQuizIds, _favoriteQuizIds) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.updateAt, updateAt) ||
-                other.updateAt == updateAt));
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -355,7 +355,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(_commentQuizIds),
       const DeepCollectionEquality().hash(_favoriteQuizIds),
       createdAt,
-      updateAt);
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -373,17 +373,16 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
 abstract class _AppUser extends AppUser {
   factory _AppUser(
-          {required final String authId,
-          required final String displayId,
-          required final String name,
-          final List<String> answeredQuizIds,
-          final List<String> correctQuizIds,
-          final List<String> inCorrectQuizIds,
-          final List<String> commentQuizIds,
-          final List<String> favoriteQuizIds,
-          @DateTimeTimestampConverter() required final DateTime createdAt,
-          @DateTimeTimestampConverter() required final DateTime updateAt}) =
-      _$AppUserImpl;
+      {required final String authId,
+      required final String displayId,
+      required final String name,
+      final List<String> answeredQuizIds,
+      final List<String> correctQuizIds,
+      final List<String> inCorrectQuizIds,
+      final List<String> commentQuizIds,
+      final List<String> favoriteQuizIds,
+      @DateTimeTimestampConverter() final DateTime? createdAt,
+      @DateTimeTimestampConverter() final DateTime? updatedAt}) = _$AppUserImpl;
   _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -406,10 +405,10 @@ abstract class _AppUser extends AppUser {
   List<String> get favoriteQuizIds;
   @override
   @DateTimeTimestampConverter()
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
   @DateTimeTimestampConverter()
-  DateTime get updateAt;
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>

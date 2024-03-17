@@ -31,8 +31,10 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updateAt: DateTime.parse(json['updateAt'] as String),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['createdAt'] as Timestamp?),
+      updatedAt: const DateTimeTimestampConverter()
+          .fromJson(json['updatedAt'] as Timestamp?),
     );
 
 Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
@@ -45,6 +47,8 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'inCorrectQuizIds': instance.inCorrectQuizIds,
       'commentQuizIds': instance.commentQuizIds,
       'favoriteQuizIds': instance.favoriteQuizIds,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updateAt': instance.updateAt.toIso8601String(),
+      'createdAt':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'updatedAt':
+          const DateTimeTimestampConverter().toJson(instance.updatedAt),
     };

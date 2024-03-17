@@ -29,6 +29,8 @@ class StartUpStateController extends _$StartUpStateController {
       /// ログインしていなければ匿名認証でログインする
       await ref.watch(signInWithAnonymouslyProvider)();
     }
+    ref.read(appUserControllerProvider);
+    //await ref.read(appUserControllerProvider.notifier).onFetch();
 
     // TODO(yy): 強制バージョンアップを実装する場合はここで確認して StartUpResultType.forcedVersionUpgrade を返却する
 
@@ -48,7 +50,7 @@ class StartUpStateController extends _$StartUpStateController {
           displayId: RandomUserIdGenerator.generateUserId(10),
           name: userName,
           createdAt: DateTime.now(),
-          updateAt: DateTime.now(),
+          updatedAt: DateTime.now(),
         ),
       );
       return StartUpResultType.loginSuccess;

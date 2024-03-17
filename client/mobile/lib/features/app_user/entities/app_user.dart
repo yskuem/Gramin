@@ -18,18 +18,12 @@ class AppUser with _$AppUser {
     @Default([]) List<String> inCorrectQuizIds,
     @Default([]) List<String> commentQuizIds,
     @Default([]) List<String> favoriteQuizIds,
-    @DateTimeTimestampConverter() required DateTime createdAt,
-    @DateTimeTimestampConverter() required DateTime updateAt,
+    @DateTimeTimestampConverter() DateTime? createdAt,
+    @DateTimeTimestampConverter() DateTime? updatedAt,
   }) = _AppUser;
   const AppUser._();
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
-
-  Map<String, dynamic> get toDoc => <String, dynamic>{
-    ...toJson(),
-    'createdAt': createdAt,
-    'updatedAt': FieldValue.serverTimestamp(),
-  };
   static String get collectionPath => 'user';
   static CollectionReference<SnapType> colRef() =>
       Document.colRef(collectionPath);

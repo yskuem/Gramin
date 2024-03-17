@@ -9,6 +9,7 @@ import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dar
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/exceptions/app_exception.dart';
+import '../../app_user/use_case/app_user_controller.dart';
 import '../entities/quiz.dart';
 import 'explanation_part.dart';
 
@@ -61,10 +62,16 @@ class QuizParts extends HookConsumerWidget {
                         if(quizState is AsyncLoading){
                           return;
                         }
-                        await _answeredUserIdUpdate(
-                          ref: ref,
-                          quiz: quizListData[currentQuizIndex.value],
-                        );
+                        await Future.wait([
+                          _answeredQuizUpdate(
+                            ref: ref,
+                            quiz: quizListData[currentQuizIndex.value],
+                          ),
+                          _usrStateUpdate(
+                            ref: ref,
+                            quizId: quizListData[currentQuizIndex.value].id,
+                          ),
+                        ]);
                         currentQuizIndex.value++;
                         isCorrect.value = null;
                         await _fetchMoreQuiz(ref);
@@ -104,13 +111,45 @@ class QuizParts extends HookConsumerWidget {
     );
   }
 
+  Future<void> _answeredQuizUpdate ({
+    required WidgetRef ref,
+    required Quiz quiz,
+  }) async {
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    if(userId == null) {
+      return;
+    }
+    final updateQuizData = quiz.copyWith(
+      // TODO(yy): ここでcountAnswersを更新する
+      //answeredUserIds: quiz.answeredUserIds.contains(userId) ? quiz.answeredUserIds : [...quiz.answeredUserIds,userId],
+    );
+    await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
+  }
+
+  Future<void> _usrStateUpdate ({
+    required WidgetRef ref,
+    required String quizId,
+  }) async {
+    final currentUser = await ref.read(appUserControllerProvider.future);
+    if(currentUser == null) {
+      throw AppException.irregular();
+    }
+    final updatedUser = currentUser.copyWith(
+      answeredQuizIds: [...currentUser.answeredQuizIds,quizId],
+    );
+    await ref.read(appUserControllerProvider.notifier).onUpdate(updatedUser);
+  }
+
+
+
   Future<void> _fetchMoreQuiz(WidgetRef ref) async {
     final quizList = ref.read(quizControllerProvider).asData?.value;
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    if(quizList == null || userId == null) {
+    final currentUser = await ref.read(appUserControllerProvider.future);
+    if(quizList == null || userId == null || currentUser == null) {
       throw AppException.irregular();
     }
-    final unansweredQuiz = quizList.where((quiz) => !quiz.answeredUserIds.contains(userId)).toList();
+    final unansweredQuiz = quizList.where((quiz) => !currentUser.answeredQuizIds.contains(quiz.id)).toList();
     debugPrint('残りの問題数 ${unansweredQuiz.length}');
     if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {
       return;
@@ -123,19 +162,6 @@ class QuizParts extends HookConsumerWidget {
     }
   }
 
-  Future<void> _answeredUserIdUpdate ({
-    required WidgetRef ref,
-    required Quiz quiz,
-  }) async {
-    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    if(userId == null) {
-      return;
-    }
-    final updateQuizData = quiz.copyWith(
-      answeredUserIds: quiz.answeredUserIds.contains(userId) ? quiz.answeredUserIds : [...quiz.answeredUserIds,userId],
-    );
-    await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
-  }
 
   Widget _displayResult({required bool isCorrect}) {
     return Row(
