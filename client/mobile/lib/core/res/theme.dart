@@ -17,6 +17,18 @@ ThemeData getAppTheme() {
       primary: primaryColor,
       surfaceTint: Colors.white,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          width: 2,
+          color: primaryColor
+        ),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
+    ),
   );
 
   return base.copyWith(
@@ -57,6 +69,11 @@ ThemeData getAppTheme() {
         TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
         TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
       },
+    ),
+    inputDecorationTheme: base.inputDecorationTheme.copyWith(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
     ),
   );
 }
@@ -111,6 +128,21 @@ ThemeData getAppThemeDark() {
         TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
         TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
       },
+    ),
+    inputDecorationTheme: base.inputDecorationTheme.copyWith(
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+            width: 2,
+            color: primaryColor
+        ),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25),
+        borderSide: const BorderSide(
+          color: Colors.white,
+        ),
+      ),
     ),
   );
 }
