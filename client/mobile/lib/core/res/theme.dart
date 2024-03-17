@@ -36,6 +36,7 @@ ThemeData getAppTheme() {
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: primaryColor,
+        shape: const StadiumBorder(),
       ),
     ),
     appBarTheme: base.appBarTheme.copyWith(
@@ -97,6 +98,7 @@ ThemeData getAppThemeDark() {
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: primaryColor,
+        shape: const StadiumBorder(),
       ),
     ),
     appBarTheme: base.appBarTheme.copyWith(
