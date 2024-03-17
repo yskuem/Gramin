@@ -1,4 +1,5 @@
 
+import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,7 +31,9 @@ class AppUserController extends _$AppUserController {
         AppUser.docPath(userId),
         decode: AppUser.fromJson,
     );
-    return doc.entity;
+    final appUser = doc.entity;
+    state = AsyncData(appUser);
+    return appUser;
   }
 
 
@@ -38,7 +41,7 @@ class AppUserController extends _$AppUserController {
     state = await AsyncValue.guard(() async {
       await ref.read(documentRepositoryProvider).save(
         AppUser.docPath(newUser.authId),
-        data: newUser.toJson(),
+        data: ref.read(upLoadConverterProvider).toCreateDoc(data: newUser.toJson()),
       );
       return newUser;
     });
@@ -49,11 +52,16 @@ class AppUserController extends _$AppUserController {
     state = await AsyncValue.guard(() async {
       await ref.read(documentRepositoryProvider).update(
           AppUser.docPath(updateUser.authId),
-          data: updateUser.toJson(),
+          data: ref.read(upLoadConverterProvider).toUpdateDoc(
+              data: updateUser.toJson(),
+              createdAt: updateUser.createdAt,
+          ),
       );
       return updateUser;
     });
   }
 }
+
+
 
 

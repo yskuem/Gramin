@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'start_up.dart';
+part of 'up_load_converter.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$startUpStateControllerHash() =>
-    r'9a907ed8245fbbfbfb1ee7631939d0504c0024a6';
+String _$upLoadConverterHash() => r'b55e9bf6ba8b35144c8b6d96564bb296565cde10';
 
-/// See also [StartUpStateController].
-@ProviderFor(StartUpStateController)
-final startUpStateControllerProvider = AutoDisposeAsyncNotifierProvider<
-    StartUpStateController, StartUpResultType>.internal(
-  StartUpStateController.new,
-  name: r'startUpStateControllerProvider',
+/// See also [upLoadConverter].
+@ProviderFor(upLoadConverter)
+final upLoadConverterProvider = Provider<UpLoadConverter>.internal(
+  upLoadConverter,
+  name: r'upLoadConverterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$startUpStateControllerHash,
+      : _$upLoadConverterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$StartUpStateController = AutoDisposeAsyncNotifier<StartUpResultType>;
+typedef UpLoadConverterRef = ProviderRef<UpLoadConverter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

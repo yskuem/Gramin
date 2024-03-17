@@ -17,10 +17,9 @@ class Quiz with _$Quiz {
     required String translation,
     required String explanation,
     required String category,
-    @DateTimeTimestampConverter() required DateTime createdAt,
-    @DateTimeTimestampConverter() required DateTime updatedAt,
+    @DateTimeTimestampConverter() DateTime? createdAt,
+    @DateTimeTimestampConverter() DateTime? updatedAt,
     @Default([]) List<String> commentIds,
-    @Default([]) List<String> answeredUserIds,
     @Default([0,0,0,0]) List<int> countAnswers,
   }) = _Quiz;
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
@@ -39,13 +38,11 @@ class Quiz with _$Quiz {
 
   static DocumentReference<SnapType> docRef(String id) =>
       Document.docRefWithDocPath(docPath(id));
-
   Map<String, dynamic> get toDoc => <String, dynamic>{
     ...toJson(),
     'createdAt': createdAt,
     'updatedAt': FieldValue.serverTimestamp(),
   };
-
 }
 
 

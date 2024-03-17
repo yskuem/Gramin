@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/features/start_up/pages/register_name_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
@@ -39,13 +40,16 @@ class StartUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(startUpProvider);
+    final asyncValue = ref.watch(startUpStateControllerProvider);
 
     useEffectOnce(() {
       Future.microtask(() async {
-        final result = await ref.read(startUpProvider.future);
+        final result = await ref.read(startUpStateControllerProvider.future);
         if (result == StartUpResultType.forcedVersionUpgrade) {
           // TODO(shohei): 強制バージョンアップのダイアログ出したりする
+          return;
+        }
+        if(result == StartUpResultType.noLogin) {
           return;
         }
         MainPage.go(context);
@@ -80,6 +84,9 @@ class StartUpPage extends HookConsumerWidget {
                 ],
               );
             }
+            if (data == StartUpResultType.noLogin) {
+              return const RegisterNamePage();
+            }
             return const SizedBox.shrink();
           },
           error: (e, __) {
@@ -88,7 +95,7 @@ class StartUpPage extends HookConsumerWidget {
             return ErrorText(
               message: message,
               onRetry: () {
-                ref.invalidate(startUpProvider);
+                ref.invalidate(startUpStateControllerProvider);
               },
             );
           },
