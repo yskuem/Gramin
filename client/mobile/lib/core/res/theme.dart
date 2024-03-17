@@ -135,7 +135,7 @@ ThemeData getAppThemeDark() {
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
             width: 2,
-            color: primaryColor
+            color: primaryColor,
         ),
         borderRadius: BorderRadius.circular(25),
       ),

@@ -20,6 +20,7 @@ class AppUser with _$AppUser {
     @Default([]) List<String> favoriteQuizIds,
     @DateTimeTimestampConverter() DateTime? createdAt,
     @DateTimeTimestampConverter() DateTime? updatedAt,
+    @DateTimeTimestampConverter() DateTime? lastAnsweredQuizCreatedAt,
   }) = _AppUser;
   const AppUser._();
   factory AppUser.fromJson(Map<String, dynamic> json) =>

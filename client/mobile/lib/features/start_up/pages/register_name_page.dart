@@ -58,7 +58,7 @@ class RegisterNamePage extends HookConsumerWidget {
                         ),
                       ),
                   ),
-                )
+                ),
               ],
             ),
           ),
