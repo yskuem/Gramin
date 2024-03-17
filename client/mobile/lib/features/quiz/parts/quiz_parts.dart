@@ -61,12 +61,12 @@ class QuizParts extends HookConsumerWidget {
                         if(quizState is AsyncLoading){
                           return;
                         }
+                        await _answeredUserIdUpdate(
+                          ref: ref,
+                          quiz: quizListData[currentQuizIndex.value],
+                        );
                         currentQuizIndex.value++;
                         isCorrect.value = null;
-                        await _answeredUserIdUpdate(
-                            ref: ref,
-                            quiz: quizListData[currentQuizIndex.value],
-                        );
                         await _fetchMoreQuiz(ref);
 
                       },

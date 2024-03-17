@@ -31,9 +31,9 @@ mixin _$Quiz {
   String get explanation => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<String> get commentIds => throw _privateConstructorUsedError;
   List<String> get answeredUserIds => throw _privateConstructorUsedError;
   List<int> get countAnswers => throw _privateConstructorUsedError;
@@ -57,8 +57,8 @@ abstract class $QuizCopyWith<$Res> {
       String translation,
       String explanation,
       String category,
-      @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updatedAt,
+      @DateTimeTimestampConverter() DateTime? createdAt,
+      @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
       List<String> answeredUserIds,
       List<int> countAnswers});
@@ -85,8 +85,8 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
     Object? translation = null,
     Object? explanation = null,
     Object? category = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? commentIds = null,
     Object? answeredUserIds = null,
     Object? countAnswers = null,
@@ -124,14 +124,14 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       commentIds: null == commentIds
           ? _value.commentIds
           : commentIds // ignore: cast_nullable_to_non_nullable
@@ -164,8 +164,8 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
       String translation,
       String explanation,
       String category,
-      @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updatedAt,
+      @DateTimeTimestampConverter() DateTime? createdAt,
+      @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
       List<String> answeredUserIds,
       List<int> countAnswers});
@@ -189,8 +189,8 @@ class __$$QuizImplCopyWithImpl<$Res>
     Object? translation = null,
     Object? explanation = null,
     Object? category = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? commentIds = null,
     Object? answeredUserIds = null,
     Object? countAnswers = null,
@@ -228,14 +228,14 @@ class __$$QuizImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       commentIds: null == commentIds
           ? _value._commentIds
           : commentIds // ignore: cast_nullable_to_non_nullable
@@ -264,8 +264,8 @@ class _$QuizImpl extends _Quiz {
       required this.translation,
       required this.explanation,
       required this.category,
-      @DateTimeTimestampConverter() required this.createdAt,
-      @DateTimeTimestampConverter() required this.updatedAt,
+      @DateTimeTimestampConverter() this.createdAt,
+      @DateTimeTimestampConverter() this.updatedAt,
       final List<String> commentIds = const [],
       final List<String> answeredUserIds = const [],
       final List<int> countAnswers = const [0, 0, 0, 0]})
@@ -304,10 +304,10 @@ class _$QuizImpl extends _Quiz {
   final String category;
   @override
   @DateTimeTimestampConverter()
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @DateTimeTimestampConverter()
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   final List<String> _commentIds;
   @override
   @JsonKey()
@@ -412,8 +412,8 @@ abstract class _Quiz extends Quiz {
       required final String translation,
       required final String explanation,
       required final String category,
-      @DateTimeTimestampConverter() required final DateTime createdAt,
-      @DateTimeTimestampConverter() required final DateTime updatedAt,
+      @DateTimeTimestampConverter() final DateTime? createdAt,
+      @DateTimeTimestampConverter() final DateTime? updatedAt,
       final List<String> commentIds,
       final List<String> answeredUserIds,
       final List<int> countAnswers}) = _$QuizImpl;
@@ -441,10 +441,10 @@ abstract class _Quiz extends Quiz {
   String get category;
   @override
   @DateTimeTimestampConverter()
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
   @DateTimeTimestampConverter()
-  DateTime get updatedAt;
+  DateTime? get updatedAt;
   @override
   List<String> get commentIds;
   @override

@@ -25,10 +25,13 @@ class UpLoadConverter{
 
   Map<String, dynamic> toUpdateDoc({
     required Map<String, dynamic> data,
-    required DateTime createdAt,
+    required DateTime? createdAt,
   }) => <String, dynamic>{
     ...data,
-    'createdAt': createdAt,
+    'createdAt': createdAt ?? FieldValue.serverTimestamp(),
     'updatedAt': FieldValue.serverTimestamp(),
   };
 }
+
+
+
