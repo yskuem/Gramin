@@ -40,11 +40,11 @@ class StartUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(startUpProvider);
+    final asyncValue = ref.watch(startUpStateControllerProvider);
 
     useEffectOnce(() {
       Future.microtask(() async {
-        final result = await ref.read(startUpProvider.future);
+        final result = await ref.read(startUpStateControllerProvider.future);
         if (result == StartUpResultType.forcedVersionUpgrade) {
           // TODO(shohei): 強制バージョンアップのダイアログ出したりする
           return;
@@ -95,7 +95,7 @@ class StartUpPage extends HookConsumerWidget {
             return ErrorText(
               message: message,
               onRetry: () {
-                ref.invalidate(startUpProvider);
+                ref.invalidate(startUpStateControllerProvider);
               },
             );
           },

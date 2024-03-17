@@ -28,6 +28,23 @@ class RegisterNamePage extends HookConsumerWidget {
                     errorTextNotifier: errorTextNotifier,
                     textKey: textKey,
                 ),
+                const SizedBox(height: 50,),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 7/10,
+                  height: MediaQuery.sizeOf(context).height * 1/15,
+                  child: ElevatedButton(
+                      onPressed: () async {
+
+                      },
+                      child: const Text(
+                        'はじめる',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                  ),
+                )
               ],
             ),
           ),
