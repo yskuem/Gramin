@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/text_form_field/custom_text_form_field.dart';
+import 'package:flutter_app_template/features/start_up/use_cases/start_up.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/custom_hooks/use_form_field_state_key.dart';
+import '../../../core/widgets/show_indicator.dart';
+import '../../app_wrapper/pages/main_page.dart';
 
 class RegisterNamePage extends HookConsumerWidget {
   const RegisterNamePage({super.key});
@@ -34,7 +37,18 @@ class RegisterNamePage extends HookConsumerWidget {
                   height: MediaQuery.sizeOf(context).height * 1/15,
                   child: ElevatedButton(
                       onPressed: () async {
-
+                        if (textKey.currentState?.validate() != true) {
+                          return;
+                        }
+                        showIndicator(context);
+                        await ref.read(startUpStateControllerProvider.notifier).singInApp(
+                            userName: textKey.currentState?.value ?? '',
+                        );
+                        final type = await ref.read(startUpStateControllerProvider.future);
+                        dismissIndicator(context);
+                        if(type == StartUpResultType.loginSuccess) {
+                          MainPage.go(context);
+                        }
                       },
                       child: const Text(
                         'はじめる',

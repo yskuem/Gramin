@@ -35,22 +35,24 @@ class StartUpStateController extends _$StartUpStateController {
     return StartUpResultType.loginSuccess;
   }
 
-  Future<StartUpResultType> singInApp ({required String userName}) async {
-    await ref.read(signInWithAnonymouslyProvider)();
-    final useId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    if(useId == null){
-      throw AppException.irregular();
-    }
-    await ref.read(appUserControllerProvider.notifier).onCreate(
+  Future<void> singInApp ({required String userName}) async {
+    state = await AsyncValue.guard(() async {
+      await ref.read(signInWithAnonymouslyProvider)();
+      final useId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+      if(useId == null){
+        throw AppException.irregular();
+      }
+      await ref.read(appUserControllerProvider.notifier).onCreate(
         AppUser(
-            authId: useId,
-            displayId: RandomUserIdGenerator.generateUserId(10),
-            name: userName,
-            createdAt: DateTime.now(),
-            updateAt: DateTime.now(),
+          authId: useId,
+          displayId: RandomUserIdGenerator.generateUserId(10),
+          name: userName,
+          createdAt: DateTime.now(),
+          updateAt: DateTime.now(),
         ),
-    );
-    return StartUpResultType.loginSuccess;
+      );
+      return StartUpResultType.loginSuccess;
+    });
   }
 }
 
