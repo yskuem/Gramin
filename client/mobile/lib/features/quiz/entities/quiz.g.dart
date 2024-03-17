@@ -24,10 +24,6 @@ _$QuizImpl _$$QuizImplFromJson(Map<String, dynamic> json) => _$QuizImpl(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      answeredUserIds: (json['answeredUserIds'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
       countAnswers: (json['countAnswers'] as List<dynamic>?)
               ?.map((e) => e as int)
               .toList() ??
@@ -49,6 +45,5 @@ Map<String, dynamic> _$$QuizImplToJson(_$QuizImpl instance) =>
       'updatedAt':
           const DateTimeTimestampConverter().toJson(instance.updatedAt),
       'commentIds': instance.commentIds,
-      'answeredUserIds': instance.answeredUserIds,
       'countAnswers': instance.countAnswers,
     };

@@ -20,7 +20,6 @@ class Quiz with _$Quiz {
     @DateTimeTimestampConverter() DateTime? createdAt,
     @DateTimeTimestampConverter() DateTime? updatedAt,
     @Default([]) List<String> commentIds,
-    @Default([]) List<String> answeredUserIds,
     @Default([0,0,0,0]) List<int> countAnswers,
   }) = _Quiz;
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);

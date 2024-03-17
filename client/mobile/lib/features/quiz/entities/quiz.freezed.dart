@@ -35,7 +35,6 @@ mixin _$Quiz {
   @DateTimeTimestampConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<String> get commentIds => throw _privateConstructorUsedError;
-  List<String> get answeredUserIds => throw _privateConstructorUsedError;
   List<int> get countAnswers => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,7 +59,6 @@ abstract class $QuizCopyWith<$Res> {
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
-      List<String> answeredUserIds,
       List<int> countAnswers});
 }
 
@@ -88,7 +86,6 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? commentIds = null,
-    Object? answeredUserIds = null,
     Object? countAnswers = null,
   }) {
     return _then(_value.copyWith(
@@ -136,10 +133,6 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.commentIds
           : commentIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      answeredUserIds: null == answeredUserIds
-          ? _value.answeredUserIds
-          : answeredUserIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       countAnswers: null == countAnswers
           ? _value.countAnswers
           : countAnswers // ignore: cast_nullable_to_non_nullable
@@ -167,7 +160,6 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
       List<String> commentIds,
-      List<String> answeredUserIds,
       List<int> countAnswers});
 }
 
@@ -192,7 +184,6 @@ class __$$QuizImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? commentIds = null,
-    Object? answeredUserIds = null,
     Object? countAnswers = null,
   }) {
     return _then(_$QuizImpl(
@@ -240,10 +231,6 @@ class __$$QuizImplCopyWithImpl<$Res>
           ? _value._commentIds
           : commentIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      answeredUserIds: null == answeredUserIds
-          ? _value._answeredUserIds
-          : answeredUserIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       countAnswers: null == countAnswers
           ? _value._countAnswers
           : countAnswers // ignore: cast_nullable_to_non_nullable
@@ -267,11 +254,9 @@ class _$QuizImpl extends _Quiz {
       @DateTimeTimestampConverter() this.createdAt,
       @DateTimeTimestampConverter() this.updatedAt,
       final List<String> commentIds = const [],
-      final List<String> answeredUserIds = const [],
       final List<int> countAnswers = const [0, 0, 0, 0]})
       : _choices = choices,
         _commentIds = commentIds,
-        _answeredUserIds = answeredUserIds,
         _countAnswers = countAnswers,
         super._();
 
@@ -317,15 +302,6 @@ class _$QuizImpl extends _Quiz {
     return EqualUnmodifiableListView(_commentIds);
   }
 
-  final List<String> _answeredUserIds;
-  @override
-  @JsonKey()
-  List<String> get answeredUserIds {
-    if (_answeredUserIds is EqualUnmodifiableListView) return _answeredUserIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_answeredUserIds);
-  }
-
   final List<int> _countAnswers;
   @override
   @JsonKey()
@@ -337,7 +313,7 @@ class _$QuizImpl extends _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(id: $id, createUserId: $createUserId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, answeredUserIds: $answeredUserIds, countAnswers: $countAnswers)';
+    return 'Quiz(id: $id, createUserId: $createUserId, question: $question, choices: $choices, answer: $answer, translation: $translation, explanation: $explanation, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, commentIds: $commentIds, countAnswers: $countAnswers)';
   }
 
   @override
@@ -365,8 +341,6 @@ class _$QuizImpl extends _Quiz {
             const DeepCollectionEquality()
                 .equals(other._commentIds, _commentIds) &&
             const DeepCollectionEquality()
-                .equals(other._answeredUserIds, _answeredUserIds) &&
-            const DeepCollectionEquality()
                 .equals(other._countAnswers, _countAnswers));
   }
 
@@ -385,7 +359,6 @@ class _$QuizImpl extends _Quiz {
       createdAt,
       updatedAt,
       const DeepCollectionEquality().hash(_commentIds),
-      const DeepCollectionEquality().hash(_answeredUserIds),
       const DeepCollectionEquality().hash(_countAnswers));
 
   @JsonKey(ignore: true)
@@ -415,7 +388,6 @@ abstract class _Quiz extends Quiz {
       @DateTimeTimestampConverter() final DateTime? createdAt,
       @DateTimeTimestampConverter() final DateTime? updatedAt,
       final List<String> commentIds,
-      final List<String> answeredUserIds,
       final List<int> countAnswers}) = _$QuizImpl;
   _Quiz._() : super._();
 
@@ -447,8 +419,6 @@ abstract class _Quiz extends Quiz {
   DateTime? get updatedAt;
   @override
   List<String> get commentIds;
-  @override
-  List<String> get answeredUserIds;
   @override
   List<int> get countAnswers;
   @override
