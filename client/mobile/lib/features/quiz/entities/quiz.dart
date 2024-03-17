@@ -39,13 +39,6 @@ class Quiz with _$Quiz {
 
   static DocumentReference<SnapType> docRef(String id) =>
       Document.docRefWithDocPath(docPath(id));
-
-  Map<String, dynamic> get toDoc => <String, dynamic>{
-    ...toJson(),
-    'createdAt': createdAt,
-    'updatedAt': FieldValue.serverTimestamp(),
-  };
-
 }
 
 

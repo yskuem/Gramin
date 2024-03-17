@@ -1,3 +1,4 @@
+import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
@@ -75,9 +76,13 @@ class QuizController extends _$QuizController {
   Future<void> onUpdate (Quiz quiz) async {
 
     state = await AsyncValue.guard(() async {
+      final data = ref.read(upLoadConverterProvider).toUpdateDoc(
+          data: quiz.toJson(), 
+          createdAt: quiz.createdAt,
+      );
       await ref.read(documentRepositoryProvider).update(
         Quiz.docPath(quiz.id),
-        data: quiz.toDoc,
+        data: data,
       );
       final previousData = await future;
       final newList = previousData.map((data) {
@@ -95,9 +100,10 @@ class QuizController extends _$QuizController {
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
     }
+    final data = ref.read(upLoadConverterProvider).toCreateDoc(data: quiz.toJson());
     await ref.read(documentRepositoryProvider).save(
       Quiz.docPath(quiz.id),
-      data: quiz.toDoc,
+      data: data,
     );
   }
 }
