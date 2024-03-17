@@ -49,13 +49,11 @@ class QuizController extends _$QuizController {
     if(currentUser == null) {
       throw AppException(title: 'ユーザー情報が取得できませんでした');
     }
-    final answeredQuizIds =
-        currentUser.answeredQuizIds.isNotEmpty ? currentUser.answeredQuizIds : [''];
 
     final repository = ref.watch(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
-          query: Quiz.colRef.where('quiz_id', whereNotIn: answeredQuizIds),//TODO: 未回答のクイズを取得する
+          query: Quiz.colRef.orderBy('createdAt',descending: false).startAfter([currentUser.lastAnsweredQuizCreatedAt]),//TODO(''): 未回答のクイズを取得する
           initialLimit: initialLimitCount,
           pagingLimit: pagingLimitCount,
           decode: Quiz.fromJson,
@@ -71,6 +69,24 @@ class QuizController extends _$QuizController {
       ...quizList,
     ]);
     return quizList;
+  }
+
+
+  Future<List<Quiz>> onFetchMore() async {
+    final repository = _collectionPagingRepository;
+    if (repository == null) {
+      throw AppException.irregular();
+    }
+
+    final data = await repository.fetchMore();
+    final previousState = await future;
+    final newQuizList = data.map((e) => e.entity).whereType<Quiz>().toList();
+
+    state = AsyncData([
+      ...previousState,
+      ...newQuizList,
+    ]);
+    return newQuizList;
   }
 
 

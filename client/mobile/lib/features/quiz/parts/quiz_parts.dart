@@ -23,6 +23,7 @@ class QuizParts extends HookConsumerWidget {
     final currentQuizIndex = useState<int>(0);
     final selectButtonIndex = useState<int>(0);
     final isCorrect = useState<bool?>(null);
+    final isCreatingNewQuiz = useState<bool>(false);
     final audioPlayer = AudioPlayer();
     useEffect(() {
       final value = isCorrect.value;
@@ -69,12 +70,12 @@ class QuizParts extends HookConsumerWidget {
                           ),
                           _usrStateUpdate(
                             ref: ref,
-                            quizId: quizListData[currentQuizIndex.value].id,
+                            quiz: quizListData[currentQuizIndex.value],
                           ),
                         ]);
                         currentQuizIndex.value++;
                         isCorrect.value = null;
-                        await _fetchMoreQuiz(ref);
+                        await _fetchMoreQuiz(ref,isCreatingNewQuiz);
 
                       },
                       child: const Text('次へ'),
@@ -128,38 +129,45 @@ class QuizParts extends HookConsumerWidget {
 
   Future<void> _usrStateUpdate ({
     required WidgetRef ref,
-    required String quizId,
+    required Quiz quiz,
   }) async {
     final currentUser = await ref.read(appUserControllerProvider.future);
     if(currentUser == null) {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
-      answeredQuizIds: [...currentUser.answeredQuizIds,quizId],
+      answeredQuizIds: [...currentUser.answeredQuizIds,quiz.id],
+      lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
     );
     await ref.read(appUserControllerProvider.notifier).onUpdate(updatedUser);
   }
 
 
 
-  Future<void> _fetchMoreQuiz(WidgetRef ref) async {
+  Future<void> _fetchMoreQuiz(WidgetRef ref,ValueNotifier<bool> isCreatingNotifier) async {
     final quizList = ref.read(quizControllerProvider).asData?.value;
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     final currentUser = await ref.read(appUserControllerProvider.future);
-    if(quizList == null || userId == null || currentUser == null) {
+    final lastAnsweredQuizCreatedAt = currentUser?.lastAnsweredQuizCreatedAt;
+    if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
       throw AppException.irregular();
     }
-    final unansweredQuiz = quizList.where((quiz) => !currentUser.answeredQuizIds.contains(quiz.id)).toList();
+    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt?.isAfter(lastAnsweredQuizCreatedAt) ?? false).toList();
     debugPrint('残りの問題数 ${unansweredQuiz.length}');
-    if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {
+    if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {//残りの問題数が5問以下かどうか
       return;
     }
-    final newList = await ref.read(quizControllerProvider.notifier).onFetch(isFirstFetch: false);
+    final newList = await ref.read(quizControllerProvider.notifier).onFetchMore();
     debugPrint('fireStoreから${newList.length}問追加');
-    if(newList.length < pagingLimitCount) {
+    if(isCreatingNotifier.value) {
+      return;
+    }
+    isCreatingNotifier.value = true;
+    if(newList.length < pagingLimitCount) {// firestoreから取得できる問題が10問以下かどうか
       debugPrint('新規問題作成');
       await ref.read(quizControllerProvider.notifier).onCreate(isFirstCreate: false);
     }
+    isCreatingNotifier.value = false;
   }
 
 
