@@ -24,6 +24,7 @@ class QuizPage extends HookConsumerWidget {
     final quizList = ref.watch(quizControllerProvider);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: quizList.when(
           data: (data) {
             return QuizParts(quizListData: data,);

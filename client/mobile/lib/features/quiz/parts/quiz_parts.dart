@@ -40,72 +40,70 @@ class QuizParts extends HookConsumerWidget {
     if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
       return const Center(child: CupertinoActivityIndicator());
     }
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Visibility(
-                visible: isCorrect.value != null,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Visibility(
+              visible: isCorrect.value != null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      onPressed: () async {
-                        final quizState = ref.read(quizControllerProvider);
-                        if(quizState is AsyncLoading){
-                          return;
-                        }
-                        await Future.wait([
-                          _answeredQuizUpdate(
-                            ref: ref,
-                            quiz: quizListData[currentQuizIndex.value],
-                          ),
-                          _usrStateUpdate(
-                            ref: ref,
-                            quiz: quizListData[currentQuizIndex.value],
-                          ),
-                        ]);
-                        currentQuizIndex.value++;
-                        isCorrect.value = null;
-                        await _fetchMoreQuiz(ref);
-
-                      },
-                      child: const Text('次へ'),
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10,),
-              if(isCorrect.value == null)
-                const SizedBox(height: 50,),
-              if(isCorrect.value != null)
-                _displayResult(isCorrect: isCorrect.value!),
-              Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
-              const SizedBox(height: 50,),
-              Visibility(
-                  visible: isCorrect.value == null,
-                  child: ButtonPart(
-                      quizIndex: currentQuizIndex,
-                      isCorrect: isCorrect,
-                      selectButtonIndex: selectButtonIndex,
+                    onPressed: () async {
+                      final quizState = ref.read(quizControllerProvider);
+                      if(quizState is AsyncLoading){
+                        return;
+                      }
+                      await Future.wait([
+                        _answeredQuizUpdate(
+                          ref: ref,
+                          quiz: quizListData[currentQuizIndex.value],
+                        ),
+                        _usrStateUpdate(
+                          ref: ref,
+                          quiz: quizListData[currentQuizIndex.value],
+                        ),
+                      ]);
+                      currentQuizIndex.value++;
+                      isCorrect.value = null;
+                      await _fetchMoreQuiz(ref);
+
+                    },
+                    child: const Text('次へ'),
                   ),
+                ],
               ),
-              Visibility(
-                visible: isCorrect.value != null,
-                child: ExplanationPart(
-                  quizIndex: currentQuizIndex,
-                  selectButtonIndex: selectButtonIndex,
-                ),
+            ),
+            const SizedBox(height: 10,),
+            if(isCorrect.value == null)
+              const SizedBox(height: 50,),
+            if(isCorrect.value != null)
+              _displayResult(isCorrect: isCorrect.value!),
+            Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+            const SizedBox(height: 50,),
+            Visibility(
+              visible: isCorrect.value == null,
+              child: ButtonPart(
+                quizIndex: currentQuizIndex,
+                isCorrect: isCorrect,
+                selectButtonIndex: selectButtonIndex,
               ),
-            ],
-          ),
+            ),
+            Visibility(
+              visible: isCorrect.value != null,
+              child: ExplanationPart(
+                quizIndex: currentQuizIndex,
+                selectButtonIndex: selectButtonIndex,
+              ),
+            ),
+          ],
         ),
       ),
     );

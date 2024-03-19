@@ -506,7 +506,7 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SDWebImage: 981fd7e860af070920f249fd092420006014c3eb
-  SDWebImageWebPCoder: eb09ecbb5a65a1deb5c5f7960fdb788daae0dd43
+  SDWebImageWebPCoder: c94f09adbca681822edad9e532ac752db713eabf
   share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
@@ -514,4 +514,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2796bebe0408488c9de12b681d90e92ebb4db838
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.15.2
