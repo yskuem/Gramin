@@ -81,7 +81,7 @@ class QuizParts extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
                 child: Column(
                   children: [
                     if(isCorrect.value != null)
