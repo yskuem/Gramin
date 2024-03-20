@@ -41,7 +41,7 @@ class QuizParts extends HookConsumerWidget {
       return const Center(child: CupertinoActivityIndicator());
     }
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -76,7 +76,14 @@ class QuizParts extends HookConsumerWidget {
                       await _fetchMoreQuiz(ref);
 
                     },
-                    child: const Text('次へ'),
+                    child: const Text(
+                        '次へ',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                        ),
+                    ),
                   ),
                 ],
               ),
@@ -86,7 +93,16 @@ class QuizParts extends HookConsumerWidget {
               const SizedBox(height: 50,),
             if(isCorrect.value != null)
               _displayResult(isCorrect: isCorrect.value!),
-            Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.35),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+              )
+            ),
             const SizedBox(height: 50,),
             Visibility(
               visible: isCorrect.value == null,
@@ -98,9 +114,18 @@ class QuizParts extends HookConsumerWidget {
             ),
             Visibility(
               visible: isCorrect.value != null,
-              child: ExplanationPart(
-                quizIndex: currentQuizIndex,
-                selectButtonIndex: selectButtonIndex,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ExplanationPart(
+                    quizIndex: currentQuizIndex,
+                    selectButtonIndex: selectButtonIndex,
+                  ),
+                ),
               ),
             ),
           ],
@@ -164,17 +189,20 @@ class QuizParts extends HookConsumerWidget {
 
 
   Widget _displayResult({required bool isCorrect}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        isCorrect
-            ? const Icon(Icons.circle_outlined,color: Colors.red,size: 40,)
-            : const Icon(Icons.close_outlined,color: Colors.blue,size: 50,),
-        const SizedBox(width: 20,),
-        isCorrect
-            ? const Text('正解！',style: TextStyle(color: Colors.red,fontSize: 25),)
-            : const Text('不正解！',style: TextStyle(color: Colors.blue,fontSize: 25),),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          isCorrect
+              ? const Icon(Icons.circle_outlined,color: Colors.red,size: 40,)
+              : const Icon(Icons.close_outlined,color: Colors.blue,size: 50,),
+          const SizedBox(width: 20,),
+          isCorrect
+              ? const Text('正解！',style: TextStyle(color: Colors.red,fontSize: 28),)
+              : const Text('不正解！',style: TextStyle(color: Colors.blue,fontSize: 28),),
+        ],
+      ),
     );
   }
 }
