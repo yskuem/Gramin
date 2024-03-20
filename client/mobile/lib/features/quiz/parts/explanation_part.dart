@@ -54,7 +54,7 @@ class ExplanationPart extends HookConsumerWidget {
                   const SizedBox(height: 10,),
                   Container(
                       constraints: BoxConstraints(
-                        maxWidth: MediaQuery.sizeOf(context).width * 4 / 10,
+                        maxWidth: MediaQuery.sizeOf(context).width * 3 / 10,
                       ),
                       child: Text(contentList[i],style: quizContentTextStyle),
                   ),
