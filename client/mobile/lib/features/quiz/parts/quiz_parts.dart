@@ -1,5 +1,6 @@
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
@@ -107,6 +108,7 @@ class QuizParts extends HookConsumerWidget {
                     _answeredQuizUpdate(
                       ref: ref,
                       quiz: quizListData[currentQuizIndex.value],
+                      selectButtonIndex: selectButtonIndex.value,
                     ),
                     _usrStateUpdate(
                       ref: ref,
@@ -142,14 +144,17 @@ class QuizParts extends HookConsumerWidget {
   Future<void> _answeredQuizUpdate ({
     required WidgetRef ref,
     required Quiz quiz,
+    required int selectButtonIndex,
   }) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if(userId == null) {
       return;
     }
+    final newCountAnswers = quiz.countAnswers.mapIndexed(
+          (index, value) => index == selectButtonIndex ? value + 1 : value,
+    ).toList();
     final updateQuizData = quiz.copyWith(
-      // TODO(yy): ここでcountAnswersを更新する
-      //answeredUserIds: quiz.answeredUserIds.contains(userId) ? quiz.answeredUserIds : [...quiz.answeredUserIds,userId],
+      countAnswers: newCountAnswers,
     );
     await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
   }
