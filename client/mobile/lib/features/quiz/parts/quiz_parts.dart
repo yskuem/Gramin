@@ -57,24 +57,8 @@ class QuizParts extends HookConsumerWidget {
                       ),
                     ),
                     onPressed: () async {
-                      final quizState = ref.read(quizControllerProvider);
-                      if(quizState is AsyncLoading){
-                        return;
-                      }
-                      await Future.wait([
-                        _answeredQuizUpdate(
-                          ref: ref,
-                          quiz: quizListData[currentQuizIndex.value],
-                        ),
-                        _usrStateUpdate(
-                          ref: ref,
-                          quiz: quizListData[currentQuizIndex.value],
-                        ),
-                      ]);
                       currentQuizIndex.value++;
                       isCorrect.value = null;
-                      await _fetchMoreQuiz(ref);
-
                     },
                     child: const Text(
                         '次へ',
@@ -110,6 +94,23 @@ class QuizParts extends HookConsumerWidget {
                 quizIndex: currentQuizIndex,
                 isCorrect: isCorrect,
                 selectButtonIndex: selectButtonIndex,
+                updateUserQuizStatus: () async {
+                  final quizState = ref.read(quizControllerProvider);
+                  if(quizState is AsyncLoading){
+                    return;
+                  }
+                  await Future.wait([
+                    _answeredQuizUpdate(
+                      ref: ref,
+                      quiz: quizListData[currentQuizIndex.value],
+                    ),
+                    _usrStateUpdate(
+                      ref: ref,
+                      quiz: quizListData[currentQuizIndex.value],
+                    ),
+                  ]);
+                  await _fetchMoreQuiz(ref);
+                },
               ),
             ),
             Visibility(
