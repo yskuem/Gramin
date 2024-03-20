@@ -15,8 +15,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/neko.jpg
   AssetGenImage get neko => const AssetGenImage('assets/images/neko.jpg');
 
+  /// File path: assets/images/quiz_back_1.jpg
+  AssetGenImage get quizBack1 =>
+      const AssetGenImage('assets/images/quiz_back_1.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [neko];
+  List<AssetGenImage> get values => [neko, quizBack1];
 }
 
 class $AssetsSoundGen {

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../core/res/gen/assets.gen.dart';
 import '../../../core/utils/tab_tap_operation_provider.dart';
 import '../../github_users/pages/github_users_page.dart';
 import '../../home/pages/home_page.dart';
@@ -82,59 +83,71 @@ class MainPage extends HookConsumerWidget {
           await keyTab.currentState!.maybePop();
         }
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: IndexedStack(
-          index: selectedTabIndex,
-          children: List.generate(
-            widgets.length,
-            (index) => TabNavigator(
-              navigatorKey: widgets[index].$1,
-              page: widgets[index].$3,
+      child: Container(
+        height: MediaQuery.sizeOf(context).height,
+        width: MediaQuery.sizeOf(context).width,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(Assets.images.quizBack1.path),
+              fit: BoxFit.cover,
+            ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          resizeToAvoidBottomInset: false,
+          body: IndexedStack(
+            index: selectedTabIndex,
+            children: List.generate(
+              widgets.length,
+              (index) => TabNavigator(
+                navigatorKey: widgets[index].$1,
+                page: widgets[index].$3,
+              ),
             ),
           ),
-        ),
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            /// 同じタブが選択されたことを通知する
-            if (index == selectedTabIndex) {
-              final pageName = widgets[index].$2;
-              ref
-                  .read(tabTapOperationProviders(pageName))
-                  .call(TabTapOperationType.duplication);
-            }
+          bottomNavigationBar: NavigationBar(
+            backgroundColor: Colors.white.withOpacity(0.3),//TODO Themeに移行する
+            onDestinationSelected: (int index) {
+              /// 同じタブが選択されたことを通知する
+              if (index == selectedTabIndex) {
+                final pageName = widgets[index].$2;
+                ref
+                    .read(tabTapOperationProviders(pageName))
+                    .call(TabTapOperationType.duplication);
+              }
 
-            /// タブを切り替える
-            selectedTabIndexState.value = index;
-          },
-          selectedIndex: selectedTabIndex,
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'タブ1',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.people),
-              icon: Icon(Icons.people_outlined),
-              label: 'タブ2',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.edit),
-              icon: Icon(Icons.edit_outlined),
-              label: 'タブ3',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.settings),
-              icon: Icon(Icons.settings_outlined),
-              label: 'タブ4',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'タブ5',
-            ),
-          ],
+              /// タブを切り替える
+              selectedTabIndexState.value = index;
+            },
+            selectedIndex: selectedTabIndex,
+            destinations: const <Widget>[
+              NavigationDestination(
+                selectedIcon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
+                label: 'タブ1',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.people),
+                icon: Icon(Icons.people_outlined),
+                label: 'タブ2',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.edit),
+                icon: Icon(Icons.edit_outlined),
+                label: 'タブ3',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.settings),
+                icon: Icon(Icons.settings_outlined),
+                label: 'タブ4',
+              ),
+              NavigationDestination(
+                selectedIcon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
+                label: 'タブ5',
+              ),
+            ],
+          ),
         ),
       ),
     );

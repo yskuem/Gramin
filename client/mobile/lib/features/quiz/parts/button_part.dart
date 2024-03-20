@@ -46,7 +46,7 @@ class ButtonPart extends HookConsumerWidget {
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.blue,
+                          Colors.blue.withOpacity(0.8),
                         ),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
