@@ -72,11 +72,9 @@ class QuizParts extends HookConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 20,),
             if(isCorrect.value == null)
               const SizedBox(height: 50,),
-            if(isCorrect.value != null)
-              _displayResult(isCorrect: isCorrect.value!),
             DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.35),
@@ -84,10 +82,16 @@ class QuizParts extends HookConsumerWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15),
-                child: Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                child: Column(
+                  children: [
+                    if(isCorrect.value != null)
+                      _displayResult(isCorrect: isCorrect.value!),
+                    Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                  ],
+                ),
               )
             ),
-            const SizedBox(height: 50,),
+            const SizedBox(height: 30,),
             Visibility(
               visible: isCorrect.value == null,
               child: ButtonPart(
