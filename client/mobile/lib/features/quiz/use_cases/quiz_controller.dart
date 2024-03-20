@@ -80,7 +80,8 @@ class QuizController extends _$QuizController {
 
     final data = await repository.fetchMore();
     final previousState = await future;
-    final newQuizList = data.map((e) => e.entity).whereType<Quiz>().toList();
+    final previousQuizIdList = previousState.map((e) => e.id).toList();
+    final newQuizList = data.map((e) => e.entity).whereType<Quiz>().where((quiz) => !previousQuizIdList.contains(quiz.id)).toList();
 
     state = AsyncData([
       ...previousState,

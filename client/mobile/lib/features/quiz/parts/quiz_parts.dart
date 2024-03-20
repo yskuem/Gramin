@@ -1,5 +1,6 @@
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
@@ -57,24 +58,8 @@ class QuizParts extends HookConsumerWidget {
                       ),
                     ),
                     onPressed: () async {
-                      final quizState = ref.read(quizControllerProvider);
-                      if(quizState is AsyncLoading){
-                        return;
-                      }
-                      await Future.wait([
-                        _answeredQuizUpdate(
-                          ref: ref,
-                          quiz: quizListData[currentQuizIndex.value],
-                        ),
-                        _usrStateUpdate(
-                          ref: ref,
-                          quiz: quizListData[currentQuizIndex.value],
-                        ),
-                      ]);
                       currentQuizIndex.value++;
                       isCorrect.value = null;
-                      await _fetchMoreQuiz(ref);
-
                     },
                     child: const Text(
                         '次へ',
@@ -88,28 +73,50 @@ class QuizParts extends HookConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 20,),
             if(isCorrect.value == null)
               const SizedBox(height: 50,),
-            if(isCorrect.value != null)
-              _displayResult(isCorrect: isCorrect.value!),
             DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.35),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
+                child: Column(
+                  children: [
+                    if(isCorrect.value != null)
+                      _displayResult(isCorrect: isCorrect.value!),
+                    Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                  ],
+                ),
               )
             ),
-            const SizedBox(height: 50,),
+            const SizedBox(height: 30,),
             Visibility(
               visible: isCorrect.value == null,
               child: ButtonPart(
                 quizIndex: currentQuizIndex,
                 isCorrect: isCorrect,
                 selectButtonIndex: selectButtonIndex,
+                updateUserQuizStatus: () async {
+                  final quizState = ref.read(quizControllerProvider);
+                  if(quizState is AsyncLoading){
+                    return;
+                  }
+                  await Future.wait([
+                    _answeredQuizUpdate(
+                      ref: ref,
+                      quiz: quizListData[currentQuizIndex.value],
+                      selectButtonIndex: selectButtonIndex.value,
+                    ),
+                    _usrStateUpdate(
+                      ref: ref,
+                      quiz: quizListData[currentQuizIndex.value],
+                    ),
+                  ]);
+                  await _fetchMoreQuiz(ref);
+                },
               ),
             ),
             Visibility(
@@ -137,14 +144,17 @@ class QuizParts extends HookConsumerWidget {
   Future<void> _answeredQuizUpdate ({
     required WidgetRef ref,
     required Quiz quiz,
+    required int selectButtonIndex,
   }) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if(userId == null) {
       return;
     }
+    final newCountAnswers = quiz.countAnswers.mapIndexed(
+          (index, value) => index == selectButtonIndex ? value + 1 : value,
+    ).toList();
     final updateQuizData = quiz.copyWith(
-      // TODO(yy): ここでcountAnswersを更新する
-      //answeredUserIds: quiz.answeredUserIds.contains(userId) ? quiz.answeredUserIds : [...quiz.answeredUserIds,userId],
+      countAnswers: newCountAnswers,
     );
     await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
   }

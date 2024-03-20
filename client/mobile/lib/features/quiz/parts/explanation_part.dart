@@ -52,7 +52,12 @@ class ExplanationPart extends HookConsumerWidget {
                 children: [
                   Text(headLineList[i],style: quizHeadlineTextStyle,),
                   const SizedBox(height: 10,),
-                  Text(contentList[i],style: quizContentTextStyle,overflow: TextOverflow.ellipsis,),
+                  Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.sizeOf(context).width * 3 / 10,
+                      ),
+                      child: Text(contentList[i],style: quizContentTextStyle),
+                  ),
                   const SizedBox(height: 30,),
                 ],
               ),

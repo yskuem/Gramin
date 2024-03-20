@@ -12,11 +12,13 @@ class ButtonPart extends HookConsumerWidget {
     required this.quizIndex,
     required this.isCorrect,
     required this.selectButtonIndex,
+    required this.updateUserQuizStatus,
   });
 
   final ValueNotifier<bool?> isCorrect;
   final ValueNotifier<int> quizIndex;
   final ValueNotifier<int> selectButtonIndex;
+  final Future<void> Function() updateUserQuizStatus;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -42,7 +44,8 @@ class ButtonPart extends HookConsumerWidget {
                           selectIndex: rowIndex * 2 + buttonIndex,
                         );
                         isCorrect.value = isCorrectQuiz;
-                        //context.go('/');
+
+                        updateUserQuizStatus();
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
