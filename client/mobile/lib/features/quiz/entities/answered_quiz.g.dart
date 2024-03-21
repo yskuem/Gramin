@@ -8,7 +8,7 @@ part of 'answered_quiz.dart';
 
 _$AnsweredQuizImpl _$$AnsweredQuizImplFromJson(Map<String, dynamic> json) =>
     _$AnsweredQuizImpl(
-      quizId: json['quizId'] as String,
+      id: json['id'] as String,
       userSelectIndex: json['userSelectIndex'] as int,
       isCorrect: json['isCorrect'] as bool,
       createdAt: const DateTimeTimestampConverter()
@@ -19,7 +19,7 @@ _$AnsweredQuizImpl _$$AnsweredQuizImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AnsweredQuizImplToJson(_$AnsweredQuizImpl instance) =>
     <String, dynamic>{
-      'quizId': instance.quizId,
+      'id': instance.id,
       'userSelectIndex': instance.userSelectIndex,
       'isCorrect': instance.isCorrect,
       'createdAt':

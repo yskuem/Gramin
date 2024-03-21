@@ -15,7 +15,7 @@ part 'answered_quiz.g.dart';
 class AnsweredQuiz with _$AnsweredQuiz {
 
   const factory AnsweredQuiz({
-    required String quizId,
+    required String id,
     required int userSelectIndex,
     required bool isCorrect,
     @DateTimeTimestampConverter() DateTime? createdAt,
@@ -29,8 +29,8 @@ class AnsweredQuiz with _$AnsweredQuiz {
       '${AppUser.docPath(userId)}/answered_quiz';
   static CollectionReference<SnapType> colRef(String userId) =>
       Document.colRef(collectionPath(userId));
-  static String docPath(String userId, String quizId) =>
+  static String docPath({required String userId,required String quizId}) =>
       '${collectionPath(userId)}/$quizId';
-  static DocumentReference<SnapType> docRef(String userId, String quizId) =>
-      Document.docRefWithDocPath(docPath(userId, quizId));
+  static DocumentReference<SnapType> docRef({required String userId,required String quizId}) =>
+      Document.docRefWithDocPath(docPath(userId: userId, quizId: quizId));
 }
