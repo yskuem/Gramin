@@ -166,7 +166,7 @@ class _QuizCollectionPagingRepositoryProviderElement
 }
 
 String _$answeredQuizControllerHash() =>
-    r'ef34102ec9f386711b26f9618e1d5ee38dcd2f07';
+    r'df1bab387a30da806cd13be110b00347901cbad7';
 
 abstract class _$AnsweredQuizController
     extends BuildlessAutoDisposeAsyncNotifier<List<AnsweredQuiz>> {
