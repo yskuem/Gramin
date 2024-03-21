@@ -17,6 +17,7 @@ class AnsweredQuiz with _$AnsweredQuiz {
   const factory AnsweredQuiz({
     required String quizId,
     required int userSelectIndex,
+    required bool isCorrect,
     @DateTimeTimestampConverter() DateTime? createdAt,
     @DateTimeTimestampConverter() DateTime? updatedAt,
   }) = _AnsweredQuiz;

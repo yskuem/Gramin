@@ -22,6 +22,7 @@ AnsweredQuiz _$AnsweredQuizFromJson(Map<String, dynamic> json) {
 mixin _$AnsweredQuiz {
   String get quizId => throw _privateConstructorUsedError;
   int get userSelectIndex => throw _privateConstructorUsedError;
+  bool get isCorrect => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
@@ -42,6 +43,7 @@ abstract class $AnsweredQuizCopyWith<$Res> {
   $Res call(
       {String quizId,
       int userSelectIndex,
+      bool isCorrect,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt});
 }
@@ -61,6 +63,7 @@ class _$AnsweredQuizCopyWithImpl<$Res, $Val extends AnsweredQuiz>
   $Res call({
     Object? quizId = null,
     Object? userSelectIndex = null,
+    Object? isCorrect = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -73,6 +76,10 @@ class _$AnsweredQuizCopyWithImpl<$Res, $Val extends AnsweredQuiz>
           ? _value.userSelectIndex
           : userSelectIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isCorrect: null == isCorrect
+          ? _value.isCorrect
+          : isCorrect // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -96,6 +103,7 @@ abstract class _$$AnsweredQuizImplCopyWith<$Res>
   $Res call(
       {String quizId,
       int userSelectIndex,
+      bool isCorrect,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt});
 }
@@ -113,6 +121,7 @@ class __$$AnsweredQuizImplCopyWithImpl<$Res>
   $Res call({
     Object? quizId = null,
     Object? userSelectIndex = null,
+    Object? isCorrect = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -125,6 +134,10 @@ class __$$AnsweredQuizImplCopyWithImpl<$Res>
           ? _value.userSelectIndex
           : userSelectIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isCorrect: null == isCorrect
+          ? _value.isCorrect
+          : isCorrect // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -143,6 +156,7 @@ class _$AnsweredQuizImpl extends _AnsweredQuiz {
   const _$AnsweredQuizImpl(
       {required this.quizId,
       required this.userSelectIndex,
+      required this.isCorrect,
       @DateTimeTimestampConverter() this.createdAt,
       @DateTimeTimestampConverter() this.updatedAt})
       : super._();
@@ -155,6 +169,8 @@ class _$AnsweredQuizImpl extends _AnsweredQuiz {
   @override
   final int userSelectIndex;
   @override
+  final bool isCorrect;
+  @override
   @DateTimeTimestampConverter()
   final DateTime? createdAt;
   @override
@@ -163,7 +179,7 @@ class _$AnsweredQuizImpl extends _AnsweredQuiz {
 
   @override
   String toString() {
-    return 'AnsweredQuiz(quizId: $quizId, userSelectIndex: $userSelectIndex, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'AnsweredQuiz(quizId: $quizId, userSelectIndex: $userSelectIndex, isCorrect: $isCorrect, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -174,6 +190,8 @@ class _$AnsweredQuizImpl extends _AnsweredQuiz {
             (identical(other.quizId, quizId) || other.quizId == quizId) &&
             (identical(other.userSelectIndex, userSelectIndex) ||
                 other.userSelectIndex == userSelectIndex) &&
+            (identical(other.isCorrect, isCorrect) ||
+                other.isCorrect == isCorrect) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -182,8 +200,8 @@ class _$AnsweredQuizImpl extends _AnsweredQuiz {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, quizId, userSelectIndex, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType, quizId, userSelectIndex, isCorrect, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -203,6 +221,7 @@ abstract class _AnsweredQuiz extends AnsweredQuiz {
   const factory _AnsweredQuiz(
           {required final String quizId,
           required final int userSelectIndex,
+          required final bool isCorrect,
           @DateTimeTimestampConverter() final DateTime? createdAt,
           @DateTimeTimestampConverter() final DateTime? updatedAt}) =
       _$AnsweredQuizImpl;
@@ -215,6 +234,8 @@ abstract class _AnsweredQuiz extends AnsweredQuiz {
   String get quizId;
   @override
   int get userSelectIndex;
+  @override
+  bool get isCorrect;
   @override
   @DateTimeTimestampConverter()
   DateTime? get createdAt;
