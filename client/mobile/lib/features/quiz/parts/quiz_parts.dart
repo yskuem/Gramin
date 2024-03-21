@@ -168,7 +168,6 @@ class QuizParts extends HookConsumerWidget {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
-      answeredQuizIds: [...currentUser.answeredQuizIds,quiz.id],
       lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
     );
     await ref.read(appUserControllerProvider.notifier).onUpdate(updatedUser);
