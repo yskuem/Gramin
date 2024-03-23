@@ -23,6 +23,7 @@ mixin _$AppUser {
   String get authId => throw _privateConstructorUsedError;
   String get displayId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get iconUrl => throw _privateConstructorUsedError;
   int get correctCount => throw _privateConstructorUsedError;
   int get inCorrectCount => throw _privateConstructorUsedError;
   int get winCount => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $AppUserCopyWith<$Res> {
       {String authId,
       String displayId,
       String name,
+      String iconUrl,
       int correctCount,
       int inCorrectCount,
       int winCount,
@@ -75,6 +77,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? authId = null,
     Object? displayId = null,
     Object? name = null,
+    Object? iconUrl = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
     Object? winCount = null,
@@ -96,6 +99,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
       correctCount: null == correctCount
           ? _value.correctCount
@@ -144,6 +151,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       {String authId,
       String displayId,
       String name,
+      String iconUrl,
       int correctCount,
       int inCorrectCount,
       int winCount,
@@ -168,6 +176,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? authId = null,
     Object? displayId = null,
     Object? name = null,
+    Object? iconUrl = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
     Object? winCount = null,
@@ -189,6 +198,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
       correctCount: null == correctCount
           ? _value.correctCount
@@ -233,6 +246,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       {required this.authId,
       required this.displayId,
       required this.name,
+      this.iconUrl = '',
       this.correctCount = 0,
       this.inCorrectCount = 0,
       this.winCount = 0,
@@ -253,6 +267,9 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   final String displayId;
   @override
   final String name;
+  @override
+  @JsonKey()
+  final String iconUrl;
   @override
   @JsonKey()
   final int correctCount;
@@ -286,7 +303,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
   }
 
   @override
@@ -297,6 +314,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('authId', authId))
       ..add(DiagnosticsProperty('displayId', displayId))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('iconUrl', iconUrl))
       ..add(DiagnosticsProperty('correctCount', correctCount))
       ..add(DiagnosticsProperty('inCorrectCount', inCorrectCount))
       ..add(DiagnosticsProperty('winCount', winCount))
@@ -317,6 +335,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
             (identical(other.displayId, displayId) ||
                 other.displayId == displayId) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.correctCount, correctCount) ||
                 other.correctCount == correctCount) &&
             (identical(other.inCorrectCount, inCorrectCount) ||
@@ -343,6 +362,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       authId,
       displayId,
       name,
+      iconUrl,
       correctCount,
       inCorrectCount,
       winCount,
@@ -371,6 +391,7 @@ abstract class _AppUser extends AppUser {
       {required final String authId,
       required final String displayId,
       required final String name,
+      final String iconUrl,
       final int correctCount,
       final int inCorrectCount,
       final int winCount,
@@ -390,6 +411,8 @@ abstract class _AppUser extends AppUser {
   String get displayId;
   @override
   String get name;
+  @override
+  String get iconUrl;
   @override
   int get correctCount;
   @override
