@@ -29,7 +29,12 @@ class ProfilePart extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(appUser.value?.name ?? '',style: const TextStyle(fontSize: 20),),
-                        Text(appUser.value?.displayId ?? '',style: const TextStyle(fontSize: 15),),
+                        Text(
+                          '@${appUser.value?.displayId}',
+                          style: const TextStyle(
+                              fontSize: 15,color: Colors.blueGrey,
+                          ),
+                        ),
                       ],
                     ),
                   ],
