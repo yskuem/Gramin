@@ -120,7 +120,6 @@ class QuizParts extends HookConsumerWidget {
               visible: isCorrect.value != null,
               child: TransparentCard(
                 opacity: 0.6,
-                borderRadius: 15,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: ExplanationPart(
