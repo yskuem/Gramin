@@ -16,7 +16,7 @@ class QuizScorePart extends HookConsumerWidget {
     final inCorrectCount = appUser.value?.inCorrectCount ?? 0;
     return TransparentCard(
       child: SizedBox(
-        width: MediaQuery.sizeOf(context).width * 0.8,
+        width: MediaQuery.sizeOf(context).width * 0.9,
         height: MediaQuery.sizeOf(context).height * 0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

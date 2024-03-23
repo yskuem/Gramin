@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
+import 'package:flutter_app_template/features/user_profile/parts/profile_part.dart';
 import 'package:flutter_app_template/features/user_profile/parts/quiz_score_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,7 +24,11 @@ class UserProfilePage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 70,
+                  height: 60,
+                ),
+                ProfilePart(),
+                SizedBox(
+                  height: 30,
                 ),
                 QuizScorePart(),
               ],
