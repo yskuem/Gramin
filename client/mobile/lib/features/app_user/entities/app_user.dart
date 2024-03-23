@@ -15,6 +15,7 @@ class AppUser with _$AppUser {
     required String name,
     @Default('') String iconUrl,//TODO: デフォルトの画像URLを追加
     @Default('') String description,
+    @Default(0) int exPoint,//合計経験値
     @Default(0) int correctCount,
     @Default(0) int inCorrectCount,
     @Default(0) int winCount,

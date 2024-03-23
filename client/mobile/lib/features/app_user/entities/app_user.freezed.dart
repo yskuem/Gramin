@@ -26,6 +26,7 @@ mixin _$AppUser {
   String get iconUrl =>
       throw _privateConstructorUsedError; //TODO: デフォルトの画像URLを追加
   String get description => throw _privateConstructorUsedError;
+  int get exPoint => throw _privateConstructorUsedError; //合計経験値
   int get correctCount => throw _privateConstructorUsedError;
   int get inCorrectCount => throw _privateConstructorUsedError;
   int get winCount => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $AppUserCopyWith<$Res> {
       String name,
       String iconUrl,
       String description,
+      int exPoint,
       int correctCount,
       int inCorrectCount,
       int winCount,
@@ -82,6 +84,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? name = null,
     Object? iconUrl = null,
     Object? description = null,
+    Object? exPoint = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
     Object? winCount = null,
@@ -112,6 +115,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      exPoint: null == exPoint
+          ? _value.exPoint
+          : exPoint // ignore: cast_nullable_to_non_nullable
+              as int,
       correctCount: null == correctCount
           ? _value.correctCount
           : correctCount // ignore: cast_nullable_to_non_nullable
@@ -161,6 +168,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String name,
       String iconUrl,
       String description,
+      int exPoint,
       int correctCount,
       int inCorrectCount,
       int winCount,
@@ -187,6 +195,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? name = null,
     Object? iconUrl = null,
     Object? description = null,
+    Object? exPoint = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
     Object? winCount = null,
@@ -217,6 +226,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      exPoint: null == exPoint
+          ? _value.exPoint
+          : exPoint // ignore: cast_nullable_to_non_nullable
+              as int,
       correctCount: null == correctCount
           ? _value.correctCount
           : correctCount // ignore: cast_nullable_to_non_nullable
@@ -262,6 +275,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       required this.name,
       this.iconUrl = '',
       this.description = '',
+      this.exPoint = 0,
       this.correctCount = 0,
       this.inCorrectCount = 0,
       this.winCount = 0,
@@ -289,6 +303,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final String description;
+  @override
+  @JsonKey()
+  final int exPoint;
+//合計経験値
   @override
   @JsonKey()
   final int correctCount;
@@ -322,7 +340,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, exPoint: $exPoint, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
   }
 
   @override
@@ -335,6 +353,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('iconUrl', iconUrl))
       ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('exPoint', exPoint))
       ..add(DiagnosticsProperty('correctCount', correctCount))
       ..add(DiagnosticsProperty('inCorrectCount', inCorrectCount))
       ..add(DiagnosticsProperty('winCount', winCount))
@@ -358,6 +377,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.exPoint, exPoint) || other.exPoint == exPoint) &&
             (identical(other.correctCount, correctCount) ||
                 other.correctCount == correctCount) &&
             (identical(other.inCorrectCount, inCorrectCount) ||
@@ -386,6 +406,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       name,
       iconUrl,
       description,
+      exPoint,
       correctCount,
       inCorrectCount,
       winCount,
@@ -416,6 +437,7 @@ abstract class _AppUser extends AppUser {
       required final String name,
       final String iconUrl,
       final String description,
+      final int exPoint,
       final int correctCount,
       final int inCorrectCount,
       final int winCount,
@@ -440,6 +462,8 @@ abstract class _AppUser extends AppUser {
   @override //TODO: デフォルトの画像URLを追加
   String get description;
   @override
+  int get exPoint;
+  @override //合計経験値
   int get correctCount;
   @override
   int get inCorrectCount;
