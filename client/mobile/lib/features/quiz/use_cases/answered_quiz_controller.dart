@@ -64,7 +64,19 @@ class AnsweredQuizController extends _$AnsweredQuizController {
     );
   }
 
-  //TODO(''): add fetchMore method
-
-
+   Future<List<AnsweredQuiz>> fetchMore() async {
+      if(_collectionPagingRepository == null) {
+        throw AppException.irregular();
+      }
+     final documentList = await _collectionPagingRepository!.fetchMore();
+     final answeredQuizList = documentList.map((document) => document.entity)
+         .whereType<AnsweredQuiz>()
+         .toList();
+     final previousState = await future;
+     state = AsyncData([
+       ...previousState,
+       ...answeredQuizList,
+     ]);
+     return answeredQuizList;
+   }
 }
