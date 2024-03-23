@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/aggregation/pages/firestore_aggregation_page.dart';
+import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
+import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -52,6 +54,16 @@ final routerProvider = Provider((ref) {
           );
         },
         routes: [
+          GoRoute(
+            name: QuizPage.pageName,
+            path: QuizPage.pageName,
+            builder: (_, __) => const QuizPage(),
+          ),
+          GoRoute(
+            name: UserProfilePage.pageName,
+            path: UserProfilePage.pageName,
+            builder: (_, __) => const UserProfilePage(),
+          ),
           /// ローカルカウンター
           GoRoute(
             path: LocalCounterPage.pageName,

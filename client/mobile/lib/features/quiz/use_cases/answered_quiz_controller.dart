@@ -80,3 +80,4 @@ class AnsweredQuizController extends _$AnsweredQuizController {
      return answeredQuizList;
    }
 }
+

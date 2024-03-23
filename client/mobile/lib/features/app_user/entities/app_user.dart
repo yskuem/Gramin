@@ -13,6 +13,8 @@ class AppUser with _$AppUser {
     required String authId,
     required String displayId,
     required String name,
+    @Default('') String iconUrl,//TODO: デフォルトの画像URLを追加
+    @Default('') String description,
     @Default(0) int correctCount,
     @Default(0) int inCorrectCount,
     @Default(0) int winCount,
