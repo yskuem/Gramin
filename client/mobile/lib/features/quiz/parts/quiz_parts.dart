@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
+import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
@@ -76,11 +77,7 @@ class QuizParts extends HookConsumerWidget {
             const SizedBox(height: 20,),
             if(isCorrect.value == null)
               const SizedBox(height: 50,),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.35),
-                borderRadius: BorderRadius.circular(15),
-              ),
+            TransparentCard(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
                 child: Column(
@@ -90,7 +87,7 @@ class QuizParts extends HookConsumerWidget {
                     Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
                   ],
                 ),
-              )
+              ),
             ),
             const SizedBox(height: 30,),
             Visibility(
@@ -121,11 +118,9 @@ class QuizParts extends HookConsumerWidget {
             ),
             Visibility(
               visible: isCorrect.value != null,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(15),
-                ),
+              child: TransparentCard(
+                opacity: 0.6,
+                borderRadius: 15,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: ExplanationPart(
@@ -215,6 +210,8 @@ class QuizParts extends HookConsumerWidget {
     );
   }
 }
+
+
 
 
 
