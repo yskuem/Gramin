@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
+import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,10 +8,6 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../core/res/gen/assets.gen.dart';
 import '../../../core/utils/tab_tap_operation_provider.dart';
-import '../../github_users/pages/github_users_page.dart';
-import '../../home/pages/home_page.dart';
-import '../../memo/pages/memo_page.dart';
-import '../../setting/pages/setting_page.dart';
 import 'widgets/tab_navigator.dart';
 
 class MainPage extends HookConsumerWidget {
@@ -47,24 +44,29 @@ class MainPage extends HookConsumerWidget {
         ),
         (
           GlobalKey<NavigatorState>(),
-          HomePage.pageName,
-          const HomePage(),
+          UserProfilePage.pageName,
+          const UserProfilePage(),
         ),
-        (
-          GlobalKey<NavigatorState>(),
-          GithubUsersPage.pageName,
-          const GithubUsersPage()
-        ),
-        (
-          GlobalKey<NavigatorState>(),
-          MemoPage.pageName,
-          const MemoPage(),
-        ),
-        (
-          GlobalKey<NavigatorState>(),
-          SettingPage.pageName,
-          const SettingPage(),
-        ),
+        // (
+        //   GlobalKey<NavigatorState>(),
+        //   HomePage.pageName,
+        //   const HomePage(),
+        // ),
+        // (
+        //   GlobalKey<NavigatorState>(),
+        //   GithubUsersPage.pageName,
+        //   const GithubUsersPage()
+        // ),
+        // (
+        //   GlobalKey<NavigatorState>(),
+        //   MemoPage.pageName,
+        //   const MemoPage(),
+        // ),
+        // (
+        //   GlobalKey<NavigatorState>(),
+        //   SettingPage.pageName,
+        //   const SettingPage(),
+        // ),
       ],
     );
     final widgets = widgetsState.value;
@@ -122,29 +124,14 @@ class MainPage extends HookConsumerWidget {
             selectedIndex: selectedTabIndex,
             destinations: const <Widget>[
               NavigationDestination(
-                selectedIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
-                label: 'タブ1',
+                selectedIcon: Icon(Icons.quiz),
+                icon: Icon(Icons.quiz_outlined),
+                label: 'クイズ',
               ),
               NavigationDestination(
                 selectedIcon: Icon(Icons.people),
                 icon: Icon(Icons.people_outlined),
-                label: 'タブ2',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.edit),
-                icon: Icon(Icons.edit_outlined),
-                label: 'タブ3',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.settings),
-                icon: Icon(Icons.settings_outlined),
-                label: 'タブ4',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
-                label: 'タブ5',
+                label: 'プロフィール',
               ),
             ],
           ),
