@@ -31,14 +31,14 @@ class ProfilePart extends HookConsumerWidget {
                         Text(appUser.value?.name ?? '',style: const TextStyle(fontSize: 20),),
                         Text(appUser.value?.displayId ?? '',style: const TextStyle(fontSize: 15),),
                       ],
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20,),
                 Text(appUser.value?.description ?? '',style: const TextStyle(fontSize: 15),),
               ],
             ),
-          )
+          ),
       ),
     );
   }
