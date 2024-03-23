@@ -11,22 +11,10 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       authId: json['authId'] as String,
       displayId: json['displayId'] as String,
       name: json['name'] as String,
-      answeredQuizIds: (json['answeredQuizIds'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      correctQuizIds: (json['correctQuizIds'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      inCorrectQuizIds: (json['inCorrectQuizIds'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      commentQuizIds: (json['commentQuizIds'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      correctCount: json['correctCount'] as int? ?? 0,
+      inCorrectCount: json['inCorrectCount'] as int? ?? 0,
+      winCount: json['winCount'] as int? ?? 0,
+      loseCount: json['loseCount'] as int? ?? 0,
       favoriteQuizIds: (json['favoriteQuizIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -44,10 +32,10 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'authId': instance.authId,
       'displayId': instance.displayId,
       'name': instance.name,
-      'answeredQuizIds': instance.answeredQuizIds,
-      'correctQuizIds': instance.correctQuizIds,
-      'inCorrectQuizIds': instance.inCorrectQuizIds,
-      'commentQuizIds': instance.commentQuizIds,
+      'correctCount': instance.correctCount,
+      'inCorrectCount': instance.inCorrectCount,
+      'winCount': instance.winCount,
+      'loseCount': instance.loseCount,
       'favoriteQuizIds': instance.favoriteQuizIds,
       'createdAt':
           const DateTimeTimestampConverter().toJson(instance.createdAt),

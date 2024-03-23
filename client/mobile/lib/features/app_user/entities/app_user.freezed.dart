@@ -23,10 +23,10 @@ mixin _$AppUser {
   String get authId => throw _privateConstructorUsedError;
   String get displayId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<String> get answeredQuizIds => throw _privateConstructorUsedError;
-  List<String> get correctQuizIds => throw _privateConstructorUsedError;
-  List<String> get inCorrectQuizIds => throw _privateConstructorUsedError;
-  List<String> get commentQuizIds => throw _privateConstructorUsedError;
+  int get correctCount => throw _privateConstructorUsedError;
+  int get inCorrectCount => throw _privateConstructorUsedError;
+  int get winCount => throw _privateConstructorUsedError;
+  int get loseCount => throw _privateConstructorUsedError;
   List<String> get favoriteQuizIds => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -49,10 +49,10 @@ abstract class $AppUserCopyWith<$Res> {
       {String authId,
       String displayId,
       String name,
-      List<String> answeredQuizIds,
-      List<String> correctQuizIds,
-      List<String> inCorrectQuizIds,
-      List<String> commentQuizIds,
+      int correctCount,
+      int inCorrectCount,
+      int winCount,
+      int loseCount,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
@@ -75,10 +75,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? authId = null,
     Object? displayId = null,
     Object? name = null,
-    Object? answeredQuizIds = null,
-    Object? correctQuizIds = null,
-    Object? inCorrectQuizIds = null,
-    Object? commentQuizIds = null,
+    Object? correctCount = null,
+    Object? inCorrectCount = null,
+    Object? winCount = null,
+    Object? loseCount = null,
     Object? favoriteQuizIds = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -97,22 +97,22 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      answeredQuizIds: null == answeredQuizIds
-          ? _value.answeredQuizIds
-          : answeredQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      correctQuizIds: null == correctQuizIds
-          ? _value.correctQuizIds
-          : correctQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      inCorrectQuizIds: null == inCorrectQuizIds
-          ? _value.inCorrectQuizIds
-          : inCorrectQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      commentQuizIds: null == commentQuizIds
-          ? _value.commentQuizIds
-          : commentQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      inCorrectCount: null == inCorrectCount
+          ? _value.inCorrectCount
+          : inCorrectCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      winCount: null == winCount
+          ? _value.winCount
+          : winCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      loseCount: null == loseCount
+          ? _value.loseCount
+          : loseCount // ignore: cast_nullable_to_non_nullable
+              as int,
       favoriteQuizIds: null == favoriteQuizIds
           ? _value.favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
@@ -144,10 +144,10 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       {String authId,
       String displayId,
       String name,
-      List<String> answeredQuizIds,
-      List<String> correctQuizIds,
-      List<String> inCorrectQuizIds,
-      List<String> commentQuizIds,
+      int correctCount,
+      int inCorrectCount,
+      int winCount,
+      int loseCount,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
@@ -168,10 +168,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? authId = null,
     Object? displayId = null,
     Object? name = null,
-    Object? answeredQuizIds = null,
-    Object? correctQuizIds = null,
-    Object? inCorrectQuizIds = null,
-    Object? commentQuizIds = null,
+    Object? correctCount = null,
+    Object? inCorrectCount = null,
+    Object? winCount = null,
+    Object? loseCount = null,
     Object? favoriteQuizIds = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -190,22 +190,22 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      answeredQuizIds: null == answeredQuizIds
-          ? _value._answeredQuizIds
-          : answeredQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      correctQuizIds: null == correctQuizIds
-          ? _value._correctQuizIds
-          : correctQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      inCorrectQuizIds: null == inCorrectQuizIds
-          ? _value._inCorrectQuizIds
-          : inCorrectQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      commentQuizIds: null == commentQuizIds
-          ? _value._commentQuizIds
-          : commentQuizIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      inCorrectCount: null == inCorrectCount
+          ? _value.inCorrectCount
+          : inCorrectCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      winCount: null == winCount
+          ? _value.winCount
+          : winCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      loseCount: null == loseCount
+          ? _value.loseCount
+          : loseCount // ignore: cast_nullable_to_non_nullable
+              as int,
       favoriteQuizIds: null == favoriteQuizIds
           ? _value._favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
@@ -233,19 +233,15 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       {required this.authId,
       required this.displayId,
       required this.name,
-      final List<String> answeredQuizIds = const [],
-      final List<String> correctQuizIds = const [],
-      final List<String> inCorrectQuizIds = const [],
-      final List<String> commentQuizIds = const [],
+      this.correctCount = 0,
+      this.inCorrectCount = 0,
+      this.winCount = 0,
+      this.loseCount = 0,
       final List<String> favoriteQuizIds = const [],
       @DateTimeTimestampConverter() this.createdAt,
       @DateTimeTimestampConverter() this.updatedAt,
       @DateTimeTimestampConverter() this.lastAnsweredQuizCreatedAt})
-      : _answeredQuizIds = answeredQuizIds,
-        _correctQuizIds = correctQuizIds,
-        _inCorrectQuizIds = inCorrectQuizIds,
-        _commentQuizIds = commentQuizIds,
-        _favoriteQuizIds = favoriteQuizIds,
+      : _favoriteQuizIds = favoriteQuizIds,
         super._();
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -257,43 +253,18 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   final String displayId;
   @override
   final String name;
-  final List<String> _answeredQuizIds;
   @override
   @JsonKey()
-  List<String> get answeredQuizIds {
-    if (_answeredQuizIds is EqualUnmodifiableListView) return _answeredQuizIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_answeredQuizIds);
-  }
-
-  final List<String> _correctQuizIds;
+  final int correctCount;
   @override
   @JsonKey()
-  List<String> get correctQuizIds {
-    if (_correctQuizIds is EqualUnmodifiableListView) return _correctQuizIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_correctQuizIds);
-  }
-
-  final List<String> _inCorrectQuizIds;
+  final int inCorrectCount;
   @override
   @JsonKey()
-  List<String> get inCorrectQuizIds {
-    if (_inCorrectQuizIds is EqualUnmodifiableListView)
-      return _inCorrectQuizIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_inCorrectQuizIds);
-  }
-
-  final List<String> _commentQuizIds;
+  final int winCount;
   @override
   @JsonKey()
-  List<String> get commentQuizIds {
-    if (_commentQuizIds is EqualUnmodifiableListView) return _commentQuizIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_commentQuizIds);
-  }
-
+  final int loseCount;
   final List<String> _favoriteQuizIds;
   @override
   @JsonKey()
@@ -315,7 +286,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, answeredQuizIds: $answeredQuizIds, correctQuizIds: $correctQuizIds, inCorrectQuizIds: $inCorrectQuizIds, commentQuizIds: $commentQuizIds, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
   }
 
   @override
@@ -326,10 +297,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('authId', authId))
       ..add(DiagnosticsProperty('displayId', displayId))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('answeredQuizIds', answeredQuizIds))
-      ..add(DiagnosticsProperty('correctQuizIds', correctQuizIds))
-      ..add(DiagnosticsProperty('inCorrectQuizIds', inCorrectQuizIds))
-      ..add(DiagnosticsProperty('commentQuizIds', commentQuizIds))
+      ..add(DiagnosticsProperty('correctCount', correctCount))
+      ..add(DiagnosticsProperty('inCorrectCount', inCorrectCount))
+      ..add(DiagnosticsProperty('winCount', winCount))
+      ..add(DiagnosticsProperty('loseCount', loseCount))
       ..add(DiagnosticsProperty('favoriteQuizIds', favoriteQuizIds))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
@@ -346,14 +317,14 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
             (identical(other.displayId, displayId) ||
                 other.displayId == displayId) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._answeredQuizIds, _answeredQuizIds) &&
-            const DeepCollectionEquality()
-                .equals(other._correctQuizIds, _correctQuizIds) &&
-            const DeepCollectionEquality()
-                .equals(other._inCorrectQuizIds, _inCorrectQuizIds) &&
-            const DeepCollectionEquality()
-                .equals(other._commentQuizIds, _commentQuizIds) &&
+            (identical(other.correctCount, correctCount) ||
+                other.correctCount == correctCount) &&
+            (identical(other.inCorrectCount, inCorrectCount) ||
+                other.inCorrectCount == inCorrectCount) &&
+            (identical(other.winCount, winCount) ||
+                other.winCount == winCount) &&
+            (identical(other.loseCount, loseCount) ||
+                other.loseCount == loseCount) &&
             const DeepCollectionEquality()
                 .equals(other._favoriteQuizIds, _favoriteQuizIds) &&
             (identical(other.createdAt, createdAt) ||
@@ -372,10 +343,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       authId,
       displayId,
       name,
-      const DeepCollectionEquality().hash(_answeredQuizIds),
-      const DeepCollectionEquality().hash(_correctQuizIds),
-      const DeepCollectionEquality().hash(_inCorrectQuizIds),
-      const DeepCollectionEquality().hash(_commentQuizIds),
+      correctCount,
+      inCorrectCount,
+      winCount,
+      loseCount,
       const DeepCollectionEquality().hash(_favoriteQuizIds),
       createdAt,
       updatedAt,
@@ -400,10 +371,10 @@ abstract class _AppUser extends AppUser {
       {required final String authId,
       required final String displayId,
       required final String name,
-      final List<String> answeredQuizIds,
-      final List<String> correctQuizIds,
-      final List<String> inCorrectQuizIds,
-      final List<String> commentQuizIds,
+      final int correctCount,
+      final int inCorrectCount,
+      final int winCount,
+      final int loseCount,
       final List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() final DateTime? createdAt,
       @DateTimeTimestampConverter() final DateTime? updatedAt,
@@ -420,13 +391,13 @@ abstract class _AppUser extends AppUser {
   @override
   String get name;
   @override
-  List<String> get answeredQuizIds;
+  int get correctCount;
   @override
-  List<String> get correctQuizIds;
+  int get inCorrectCount;
   @override
-  List<String> get inCorrectQuizIds;
+  int get winCount;
   @override
-  List<String> get commentQuizIds;
+  int get loseCount;
   @override
   List<String> get favoriteQuizIds;
   @override

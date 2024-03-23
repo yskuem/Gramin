@@ -29,11 +29,6 @@ class Quiz with _$Quiz {
   static CollectionReference<SnapType> get colRef =>
       Document.colRef(collectionPath);
 
-  static Query<Map<String, dynamic>> unansweredQuizListRef(String userId) =>
-    FirebaseFirestore.instance.collection(collectionPath).where('answeredUserIds', whereNotIn: [userId]);
-
-
-
   static String docPath(String quizId) => '$collectionPath/$quizId';
 
   static DocumentReference<SnapType> docRef(String id) =>
