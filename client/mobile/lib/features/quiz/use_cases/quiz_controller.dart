@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
@@ -132,5 +133,44 @@ class QuizController extends _$QuizController {
       Quiz.docPath(quiz.id),
       data: data,
     );
+  }
+
+  Future<void> answeredQuizUpdate ({
+    required Quiz quiz,
+    required int selectButtonIndex,
+  }) async {
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    if(userId == null) {
+      return;
+    }
+    final newCountAnswers = quiz.countAnswers.mapIndexed(
+          (index, value) => index == selectButtonIndex ? value + 1 : value,
+    ).toList();
+    final updateQuizData = quiz.copyWith(
+      countAnswers: newCountAnswers,
+    );
+    await onUpdate(updateQuizData);
+  }
+
+
+  Future<void> fetchMoreQuiz() async {
+    final quizList = state.value;
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    final currentUser = await ref.read(appUserControllerProvider.future);
+    final lastAnsweredQuizCreatedAt = currentUser?.lastAnsweredQuizCreatedAt;
+    if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
+      throw AppException.irregular();
+    }
+    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt?.isAfter(lastAnsweredQuizCreatedAt) ?? false).toList();
+    debugPrint('残りの問題数 ${unansweredQuiz.length}');
+    if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {//残りの問題数が5問以下かどうか
+      return;
+    }
+    final newList = await ref.read(quizControllerProvider.notifier).onFetchMore();
+    debugPrint('fireStoreから${newList.length}問追加');
+    if(newList.length < pagingLimitCount) {// firestoreから取得できる問題が10問以下かどうか
+      debugPrint('新規問題作成');
+      await ref.read(quizControllerProvider.notifier).onCreate(isFirstCreate: false);
+    }
   }
 }
