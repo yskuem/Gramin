@@ -31,6 +31,10 @@ mixin _$AppUser {
   int get inCorrectCount => throw _privateConstructorUsedError;
   int get winCount => throw _privateConstructorUsedError;
   int get loseCount => throw _privateConstructorUsedError;
+  int get maxConsecutiveWins => throw _privateConstructorUsedError; //最大連勝数
+  int get consecutiveWins => throw _privateConstructorUsedError; //現在の連勝数
+  int get maxConsecutiveCorrects => throw _privateConstructorUsedError; //最大の連勝数
+  int get consecutiveCorrects => throw _privateConstructorUsedError; //現在の連勝数
   List<String> get favoriteQuizIds => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -60,6 +64,10 @@ abstract class $AppUserCopyWith<$Res> {
       int inCorrectCount,
       int winCount,
       int loseCount,
+      int maxConsecutiveWins,
+      int consecutiveWins,
+      int maxConsecutiveCorrects,
+      int consecutiveCorrects,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
@@ -89,6 +97,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? inCorrectCount = null,
     Object? winCount = null,
     Object? loseCount = null,
+    Object? maxConsecutiveWins = null,
+    Object? consecutiveWins = null,
+    Object? maxConsecutiveCorrects = null,
+    Object? consecutiveCorrects = null,
     Object? favoriteQuizIds = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -135,6 +147,22 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.loseCount
           : loseCount // ignore: cast_nullable_to_non_nullable
               as int,
+      maxConsecutiveWins: null == maxConsecutiveWins
+          ? _value.maxConsecutiveWins
+          : maxConsecutiveWins // ignore: cast_nullable_to_non_nullable
+              as int,
+      consecutiveWins: null == consecutiveWins
+          ? _value.consecutiveWins
+          : consecutiveWins // ignore: cast_nullable_to_non_nullable
+              as int,
+      maxConsecutiveCorrects: null == maxConsecutiveCorrects
+          ? _value.maxConsecutiveCorrects
+          : maxConsecutiveCorrects // ignore: cast_nullable_to_non_nullable
+              as int,
+      consecutiveCorrects: null == consecutiveCorrects
+          ? _value.consecutiveCorrects
+          : consecutiveCorrects // ignore: cast_nullable_to_non_nullable
+              as int,
       favoriteQuizIds: null == favoriteQuizIds
           ? _value.favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
@@ -173,6 +201,10 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       int inCorrectCount,
       int winCount,
       int loseCount,
+      int maxConsecutiveWins,
+      int consecutiveWins,
+      int maxConsecutiveCorrects,
+      int consecutiveCorrects,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime? createdAt,
       @DateTimeTimestampConverter() DateTime? updatedAt,
@@ -200,6 +232,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? inCorrectCount = null,
     Object? winCount = null,
     Object? loseCount = null,
+    Object? maxConsecutiveWins = null,
+    Object? consecutiveWins = null,
+    Object? maxConsecutiveCorrects = null,
+    Object? consecutiveCorrects = null,
     Object? favoriteQuizIds = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -246,6 +282,22 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.loseCount
           : loseCount // ignore: cast_nullable_to_non_nullable
               as int,
+      maxConsecutiveWins: null == maxConsecutiveWins
+          ? _value.maxConsecutiveWins
+          : maxConsecutiveWins // ignore: cast_nullable_to_non_nullable
+              as int,
+      consecutiveWins: null == consecutiveWins
+          ? _value.consecutiveWins
+          : consecutiveWins // ignore: cast_nullable_to_non_nullable
+              as int,
+      maxConsecutiveCorrects: null == maxConsecutiveCorrects
+          ? _value.maxConsecutiveCorrects
+          : maxConsecutiveCorrects // ignore: cast_nullable_to_non_nullable
+              as int,
+      consecutiveCorrects: null == consecutiveCorrects
+          ? _value.consecutiveCorrects
+          : consecutiveCorrects // ignore: cast_nullable_to_non_nullable
+              as int,
       favoriteQuizIds: null == favoriteQuizIds
           ? _value._favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
@@ -280,6 +332,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       this.inCorrectCount = 0,
       this.winCount = 0,
       this.loseCount = 0,
+      this.maxConsecutiveWins = 0,
+      this.consecutiveWins = 0,
+      this.maxConsecutiveCorrects = 0,
+      this.consecutiveCorrects = 0,
       final List<String> favoriteQuizIds = const [],
       @DateTimeTimestampConverter() this.createdAt,
       @DateTimeTimestampConverter() this.updatedAt,
@@ -319,7 +375,24 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final int loseCount;
+  @override
+  @JsonKey()
+  final int maxConsecutiveWins;
+//最大連勝数
+  @override
+  @JsonKey()
+  final int consecutiveWins;
+//現在の連勝数
+  @override
+  @JsonKey()
+  final int maxConsecutiveCorrects;
+//最大の連勝数
+  @override
+  @JsonKey()
+  final int consecutiveCorrects;
+//現在の連勝数
   final List<String> _favoriteQuizIds;
+//現在の連勝数
   @override
   @JsonKey()
   List<String> get favoriteQuizIds {
@@ -340,7 +413,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, exPoint: $exPoint, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, exPoint: $exPoint, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, maxConsecutiveWins: $maxConsecutiveWins, consecutiveWins: $consecutiveWins, maxConsecutiveCorrects: $maxConsecutiveCorrects, consecutiveCorrects: $consecutiveCorrects, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
   }
 
   @override
@@ -358,6 +431,11 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('inCorrectCount', inCorrectCount))
       ..add(DiagnosticsProperty('winCount', winCount))
       ..add(DiagnosticsProperty('loseCount', loseCount))
+      ..add(DiagnosticsProperty('maxConsecutiveWins', maxConsecutiveWins))
+      ..add(DiagnosticsProperty('consecutiveWins', consecutiveWins))
+      ..add(
+          DiagnosticsProperty('maxConsecutiveCorrects', maxConsecutiveCorrects))
+      ..add(DiagnosticsProperty('consecutiveCorrects', consecutiveCorrects))
       ..add(DiagnosticsProperty('favoriteQuizIds', favoriteQuizIds))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
@@ -386,6 +464,14 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
                 other.winCount == winCount) &&
             (identical(other.loseCount, loseCount) ||
                 other.loseCount == loseCount) &&
+            (identical(other.maxConsecutiveWins, maxConsecutiveWins) ||
+                other.maxConsecutiveWins == maxConsecutiveWins) &&
+            (identical(other.consecutiveWins, consecutiveWins) ||
+                other.consecutiveWins == consecutiveWins) &&
+            (identical(other.maxConsecutiveCorrects, maxConsecutiveCorrects) ||
+                other.maxConsecutiveCorrects == maxConsecutiveCorrects) &&
+            (identical(other.consecutiveCorrects, consecutiveCorrects) ||
+                other.consecutiveCorrects == consecutiveCorrects) &&
             const DeepCollectionEquality()
                 .equals(other._favoriteQuizIds, _favoriteQuizIds) &&
             (identical(other.createdAt, createdAt) ||
@@ -411,6 +497,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       inCorrectCount,
       winCount,
       loseCount,
+      maxConsecutiveWins,
+      consecutiveWins,
+      maxConsecutiveCorrects,
+      consecutiveCorrects,
       const DeepCollectionEquality().hash(_favoriteQuizIds),
       createdAt,
       updatedAt,
@@ -442,6 +532,10 @@ abstract class _AppUser extends AppUser {
       final int inCorrectCount,
       final int winCount,
       final int loseCount,
+      final int maxConsecutiveWins,
+      final int consecutiveWins,
+      final int maxConsecutiveCorrects,
+      final int consecutiveCorrects,
       final List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() final DateTime? createdAt,
       @DateTimeTimestampConverter() final DateTime? updatedAt,
@@ -472,6 +566,14 @@ abstract class _AppUser extends AppUser {
   @override
   int get loseCount;
   @override
+  int get maxConsecutiveWins;
+  @override //最大連勝数
+  int get consecutiveWins;
+  @override //現在の連勝数
+  int get maxConsecutiveCorrects;
+  @override //最大の連勝数
+  int get consecutiveCorrects;
+  @override //現在の連勝数
   List<String> get favoriteQuizIds;
   @override
   @DateTimeTimestampConverter()

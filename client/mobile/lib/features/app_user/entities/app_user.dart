@@ -20,6 +20,10 @@ class AppUser with _$AppUser {
     @Default(0) int inCorrectCount,
     @Default(0) int winCount,
     @Default(0) int loseCount,
+    @Default(0) int maxConsecutiveWins,//最大連勝数
+    @Default(0) int consecutiveWins,//現在の連勝数
+    @Default(0) int maxConsecutiveCorrects,//最大の連勝数
+    @Default(0) int consecutiveCorrects,//現在の連勝数
     @Default([]) List<String> favoriteQuizIds,
     @DateTimeTimestampConverter() DateTime? createdAt,
     @DateTimeTimestampConverter() DateTime? updatedAt,

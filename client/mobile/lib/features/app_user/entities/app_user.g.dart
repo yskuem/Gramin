@@ -18,6 +18,10 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       inCorrectCount: json['inCorrectCount'] as int? ?? 0,
       winCount: json['winCount'] as int? ?? 0,
       loseCount: json['loseCount'] as int? ?? 0,
+      maxConsecutiveWins: json['maxConsecutiveWins'] as int? ?? 0,
+      consecutiveWins: json['consecutiveWins'] as int? ?? 0,
+      maxConsecutiveCorrects: json['maxConsecutiveCorrects'] as int? ?? 0,
+      consecutiveCorrects: json['consecutiveCorrects'] as int? ?? 0,
       favoriteQuizIds: (json['favoriteQuizIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -42,6 +46,10 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'inCorrectCount': instance.inCorrectCount,
       'winCount': instance.winCount,
       'loseCount': instance.loseCount,
+      'maxConsecutiveWins': instance.maxConsecutiveWins,
+      'consecutiveWins': instance.consecutiveWins,
+      'maxConsecutiveCorrects': instance.maxConsecutiveCorrects,
+      'consecutiveCorrects': instance.consecutiveCorrects,
       'favoriteQuizIds': instance.favoriteQuizIds,
       'createdAt':
           const DateTimeTimestampConverter().toJson(instance.createdAt),
