@@ -325,7 +325,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       {required this.authId,
       required this.displayId,
       required this.name,
-      this.iconUrl = '',
+      this.iconUrl = defaultImageUrl,
       this.description = '',
       this.exPoint = 0,
       this.correctCount = 0,

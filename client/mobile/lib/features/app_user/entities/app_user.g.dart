@@ -11,7 +11,7 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       authId: json['authId'] as String,
       displayId: json['displayId'] as String,
       name: json['name'] as String,
-      iconUrl: json['iconUrl'] as String? ?? '',
+      iconUrl: json['iconUrl'] as String? ?? defaultImageUrl,
       description: json['description'] as String? ?? '',
       exPoint: json['exPoint'] as int? ?? 0,
       correctCount: json['correctCount'] as int? ?? 0,
