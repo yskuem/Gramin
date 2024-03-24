@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -66,23 +65,35 @@ class AppUserController extends _$AppUserController {
 
   Future<void> userStateUpdate ({
     required Quiz quiz,
-    required ValueNotifier<bool?> isCorrect,
+    required bool? isCorrect,
   }) async {
-    final isCorrectValue = isCorrect.value;
     final currentUser = await future;
-    if(currentUser == null || isCorrectValue == null) {
+    if(currentUser == null || isCorrect == null) {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
       lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
-      correctCount: isCorrectValue ? currentUser.correctCount + 1 : currentUser.correctCount,
-      inCorrectCount: isCorrectValue ? currentUser.inCorrectCount : currentUser.inCorrectCount + 1,
-      consecutiveCorrects: isCorrectValue ? currentUser.consecutiveCorrects + 1 : 0,
-      maxConsecutiveCorrects: currentUser.consecutiveCorrects + 1 > currentUser.maxConsecutiveCorrects
+      correctCount: isCorrect ? currentUser.correctCount + 1 : currentUser.correctCount,
+      inCorrectCount: isCorrect ? currentUser.inCorrectCount : currentUser.inCorrectCount + 1,
+      consecutiveCorrects: isCorrect ? currentUser.consecutiveCorrects + 1 : 0,
+      maxConsecutiveCorrects: currentUser.consecutiveCorrects + 1 > currentUser.maxConsecutiveCorrects && isCorrect
           ? currentUser.consecutiveCorrects + 1
           : currentUser.maxConsecutiveCorrects,
+      exPoint: calcUserExp(isCorrect: isCorrect, appUser: currentUser),
     );
     await onUpdate(updatedUser);
+  }
+
+  int calcUserExp({
+    required bool isCorrect,
+    required AppUser appUser,
+  }) {
+    final currentExp = appUser.exPoint;
+    final correctPoint = isCorrect ? 2 : -2;
+    final consecutivePoint = appUser.consecutiveCorrects + 1 > appUser.maxConsecutiveCorrects && isCorrect
+        ? 2
+        : 0;
+    return currentExp + correctPoint + consecutivePoint;
   }
 }
 

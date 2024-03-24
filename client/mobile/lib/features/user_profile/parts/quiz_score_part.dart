@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/widgets/card/transparent_card.dart';
 import '../../app_user/use_case/app_user_controller.dart';
+import 'constant.dart';
 
 
 class QuizScorePart extends HookConsumerWidget {
@@ -26,14 +27,14 @@ class QuizScorePart extends HookConsumerWidget {
               children: [
                 Text(
                   '正解数',
-                  style: _headLineTextStyle.copyWith(
+                  style: headLineTextStyle.copyWith(
                     color: Colors.red,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   '$correctCount',
-                  style: _contentTextStyle.copyWith(
+                  style: contentTextStyle.copyWith(
                     color: Colors.red,
                   ),
                 ),
@@ -44,14 +45,14 @@ class QuizScorePart extends HookConsumerWidget {
               children: [
                 Text(
                   '不正解数',
-                  style: _headLineTextStyle.copyWith(
+                  style: headLineTextStyle.copyWith(
                     color: Colors.blue,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   '$inCorrectCount',
-                  style: _contentTextStyle.copyWith(
+                  style: contentTextStyle.copyWith(
                     color: Colors.blue,
                   ),
                 ),
@@ -62,13 +63,4 @@ class QuizScorePart extends HookConsumerWidget {
       ),
     );
   }
-
-  static TextStyle get _headLineTextStyle => const TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w500,
-  );
-  static TextStyle get _contentTextStyle => const TextStyle(
-    fontSize: 35,
-    fontWeight: FontWeight.w500,
-  );
 }
