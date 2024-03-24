@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/user_profile/parts/profile_part.dart';
 import 'package:flutter_app_template/features/user_profile/parts/quiz_score_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../app_wrapper/pages/main_page.dart';
 
 class UserProfilePage extends HookConsumerWidget {

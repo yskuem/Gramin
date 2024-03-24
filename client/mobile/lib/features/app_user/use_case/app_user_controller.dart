@@ -89,9 +89,9 @@ class AppUserController extends _$AppUserController {
     required AppUser appUser,
   }) {
     final currentExp = appUser.exPoint;
-    final correctPoint = isCorrect ? 5 : -5;
+    final correctPoint = isCorrect ? 2 : -2;
     final consecutivePoint = appUser.consecutiveCorrects + 1 > appUser.maxConsecutiveCorrects && isCorrect
-        ? 5
+        ? 2
         : 0;
     return currentExp + correctPoint + consecutivePoint;
   }
