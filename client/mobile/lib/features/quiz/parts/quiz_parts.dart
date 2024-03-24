@@ -103,7 +103,7 @@ class QuizParts extends HookConsumerWidget {
                     ),
                     ref.read(appUserControllerProvider.notifier).userStateUpdate(
                       quiz: quizListData[currentQuizIndex.value],
-                      isCorrect: isCorrect,
+                      isCorrect: isCorrect.value,
                     ),
                   ]);
                   await ref.read(quizControllerProvider.notifier).fetchMoreQuiz();

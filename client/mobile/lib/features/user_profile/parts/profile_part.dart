@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -46,5 +48,11 @@ class ProfilePart extends HookConsumerWidget {
           ),
       ),
     );
+  }
+
+  int calcUserLevel({required int userExp}) {
+    final sqrtNumber = sqrt(userExp);
+    final level = sqrtNumber.floor();
+    return level;
   }
 }
