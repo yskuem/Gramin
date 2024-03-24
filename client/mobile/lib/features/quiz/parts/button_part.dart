@@ -12,12 +12,16 @@ class ButtonPart extends HookConsumerWidget {
     required this.quizIndex,
     required this.isCorrect,
     required this.selectButtonIndex,
+    required this.quizListData,
+    required this.currentQuizIndex,
     required this.updateUserQuizStatus,
   });
 
   final ValueNotifier<bool?> isCorrect;
   final ValueNotifier<int> quizIndex;
   final ValueNotifier<int> selectButtonIndex;
+  final ValueNotifier<int> currentQuizIndex;
+  final List<Quiz> quizListData;
   final Future<void> Function() updateUserQuizStatus;
 
   @override
@@ -38,14 +42,18 @@ class ButtonPart extends HookConsumerWidget {
                     height: MediaQuery.sizeOf(context).height / 8,
                     width: MediaQuery.sizeOf(context).width / 2.5,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         final isCorrectQuiz = _isAnswerCorrect(
                           quizData: quizData,
                           selectIndex: rowIndex * 2 + buttonIndex,
                         );
                         isCorrect.value = isCorrectQuiz;
 
-                        updateUserQuizStatus();
+                        final quizState = ref.read(quizControllerProvider);
+                        if(quizState is AsyncLoading){
+                          return;
+                        }
+                        await updateUserQuizStatus();
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(

@@ -165,7 +165,7 @@ class _QuizCollectionPagingRepositoryProviderElement
       (origin as QuizCollectionPagingRepositoryProvider).query;
 }
 
-String _$quizControllerHash() => r'8deff2107c7bcde38d2c3b44e7474afa8a25ba22';
+String _$quizControllerHash() => r'41f133512aa692258536334fbfb6b3b6c9c9563b';
 
 /// See also [QuizController].
 @ProviderFor(QuizController)

@@ -1,16 +1,13 @@
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../core/exceptions/app_exception.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../entities/quiz.dart';
 import 'explanation_part.dart';
@@ -96,23 +93,20 @@ class QuizParts extends HookConsumerWidget {
                 quizIndex: currentQuizIndex,
                 isCorrect: isCorrect,
                 selectButtonIndex: selectButtonIndex,
+                quizListData: quizListData,
+                currentQuizIndex: currentQuizIndex,
                 updateUserQuizStatus: () async {
-                  final quizState = ref.read(quizControllerProvider);
-                  if(quizState is AsyncLoading){
-                    return;
-                  }
                   await Future.wait([
-                    _answeredQuizUpdate(
-                      ref: ref,
+                    ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
                       quiz: quizListData[currentQuizIndex.value],
                       selectButtonIndex: selectButtonIndex.value,
                     ),
-                    _usrStateUpdate(
-                      ref: ref,
+                    ref.read(appUserControllerProvider.notifier).userStateUpdate(
                       quiz: quizListData[currentQuizIndex.value],
+                      isCorrect: isCorrect,
                     ),
                   ]);
-                  await _fetchMoreQuiz(ref);
+                  await ref.read(quizControllerProvider.notifier).fetchMoreQuiz();
                 },
               ),
             ),
@@ -135,60 +129,10 @@ class QuizParts extends HookConsumerWidget {
     );
   }
 
-  Future<void> _answeredQuizUpdate ({
-    required WidgetRef ref,
-    required Quiz quiz,
-    required int selectButtonIndex,
-  }) async {
-    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    if(userId == null) {
-      return;
-    }
-    final newCountAnswers = quiz.countAnswers.mapIndexed(
-          (index, value) => index == selectButtonIndex ? value + 1 : value,
-    ).toList();
-    final updateQuizData = quiz.copyWith(
-      countAnswers: newCountAnswers,
-    );
-    await ref.read(quizControllerProvider.notifier).onUpdate(updateQuizData);
-  }
-
-  Future<void> _usrStateUpdate ({
-    required WidgetRef ref,
-    required Quiz quiz,
-  }) async {
-    final currentUser = await ref.read(appUserControllerProvider.future);
-    if(currentUser == null) {
-      throw AppException.irregular();
-    }
-    final updatedUser = currentUser.copyWith(
-      lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
-    );
-    await ref.read(appUserControllerProvider.notifier).onUpdate(updatedUser);
-  }
 
 
 
-  Future<void> _fetchMoreQuiz(WidgetRef ref) async {
-    final quizList = ref.read(quizControllerProvider).asData?.value;
-    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    final currentUser = await ref.read(appUserControllerProvider.future);
-    final lastAnsweredQuizCreatedAt = currentUser?.lastAnsweredQuizCreatedAt;
-    if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
-      throw AppException.irregular();
-    }
-    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt?.isAfter(lastAnsweredQuizCreatedAt) ?? false).toList();
-    debugPrint('残りの問題数 ${unansweredQuiz.length}');
-    if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {//残りの問題数が5問以下かどうか
-      return;
-    }
-    final newList = await ref.read(quizControllerProvider.notifier).onFetchMore();
-    debugPrint('fireStoreから${newList.length}問追加');
-    if(newList.length < pagingLimitCount) {// firestoreから取得できる問題が10問以下かどうか
-      debugPrint('新規問題作成');
-      await ref.read(quizControllerProvider.notifier).onCreate(isFirstCreate: false);
-    }
-  }
+
 
 
   Widget _displayResult({required bool isCorrect}) {
