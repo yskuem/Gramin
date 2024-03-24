@@ -110,6 +110,7 @@ class QuizParts extends HookConsumerWidget {
                     _usrStateUpdate(
                       ref: ref,
                       quiz: quizListData[currentQuizIndex.value],
+                      isCorrect: isCorrect,
                     ),
                   ]);
                   await _fetchMoreQuiz(ref);
@@ -156,13 +157,21 @@ class QuizParts extends HookConsumerWidget {
   Future<void> _usrStateUpdate ({
     required WidgetRef ref,
     required Quiz quiz,
+    required ValueNotifier<bool?> isCorrect,
   }) async {
     final currentUser = await ref.read(appUserControllerProvider.future);
-    if(currentUser == null) {
+    final isCorrectValue = isCorrect.value;
+    if(currentUser == null || isCorrectValue == null) {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
       lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
+      winCount: isCorrectValue ? currentUser.winCount + 1 : currentUser.winCount,
+      loseCount: isCorrectValue ? currentUser.loseCount : currentUser.loseCount + 1,
+      consecutiveCorrects: isCorrectValue ? currentUser.consecutiveCorrects + 1 : 0,
+      maxConsecutiveCorrects: currentUser.consecutiveCorrects + 1 > currentUser.maxConsecutiveCorrects
+          ? currentUser.consecutiveCorrects + 1
+          : currentUser.maxConsecutiveCorrects,
     );
     await ref.read(appUserControllerProvider.notifier).onUpdate(updatedUser);
   }
