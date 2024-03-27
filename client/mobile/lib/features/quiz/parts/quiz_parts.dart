@@ -97,23 +97,26 @@ class QuizParts extends HookConsumerWidget {
                 quizListData: quizListData,
                 currentQuizIndex: currentQuizIndex,
                 updateUserQuizStatus: () async {
+
+                  // ユーザーのステータスを更新
+                  final userNewState = await ref.read(appUserControllerProvider.notifier).userStateUpdate(
+                    quiz: quizListData[currentQuizIndex.value],
+                    isCorrect: isCorrect.value,
+                  );
+
+                  // クイズのステータスを更新
                   await Future.wait([
+                    ref.read(quizControllerProvider.notifier).fetchMoreQuiz(),
                     ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
                       quiz: quizListData[currentQuizIndex.value],
                       selectButtonIndex: selectButtonIndex.value,
                     ),
-                    ref.read(appUserControllerProvider.notifier).userStateUpdate(
-                      quiz: quizListData[currentQuizIndex.value],
-                      isCorrect: isCorrect.value,
-                    ),
                   ]);
-                  await ref.read(quizControllerProvider.notifier).fetchMoreQuiz();
-                  final isLoginUserInRanking = await ref.read(rankingControllerProvider.notifier).isTargetUserInRanking(
-                      userId: ref.read(appUserControllerProvider).value?.authId ?? '',
+
+                  // ランキングのステータスを更新
+                  await ref.read(rankingControllerProvider.notifier).updateRankingUser(
+                    user: userNewState,
                   );
-                  if(isLoginUserInRanking) {
-                    final newValue = ref.refresh(rankingControllerProvider);
-                  }
                 },
               ),
             ),

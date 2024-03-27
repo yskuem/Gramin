@@ -45,10 +45,17 @@ class RankingController extends _$RankingController {
   }
 
 
-  Future<bool> isTargetUserInRanking ({required String userId}) async {
-    final state = await future;
-    final userIds = state.map((user) => user.authId).toList();
-    return userIds.contains(userId);
+  Future<void> updateRankingUser ({required AppUser user}) async{
+    final currentList = await future;
+    final newList = currentList.map((rankingUser) {
+      if(rankingUser.authId == user.authId){
+        return user;
+      } else {
+        return rankingUser;
+      }
+    }).toList();
+    final sortUpdateList = newList..sort((a,b) => b.exPoint.compareTo(a.exPoint));
+    state = AsyncData(sortUpdateList);
   }
 }
 
