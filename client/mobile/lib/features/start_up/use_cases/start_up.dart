@@ -26,11 +26,8 @@ class StartUpStateController extends _$StartUpStateController {
 
     if (loginType == null) {
       return StartUpResultType.noLogin;
-      /// ログインしていなければ匿名認証でログインする
-      await ref.watch(signInWithAnonymouslyProvider)();
     }
     ref.read(appUserControllerProvider);
-    //await ref.read(appUserControllerProvider.notifier).onFetch();
 
     // TODO(yy): 強制バージョンアップを実装する場合はここで確認して StartUpResultType.forcedVersionUpgrade を返却する
 
