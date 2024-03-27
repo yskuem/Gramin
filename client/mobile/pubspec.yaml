@@ -142,6 +142,7 @@ dev_dependencies:
 
   # Other
   flutter_launcher_icons:
+  change_app_package_name: ^1.1.0
 
 flutter_gen:
   output: lib/core/res/gen/
