@@ -166,7 +166,7 @@ class _RankingUserCollectionPagingRepositoryProviderElement
       (origin as RankingUserCollectionPagingRepositoryProvider).query;
 }
 
-String _$rankingControllerHash() => r'7ea261d21d8b064eff3243f0c6347e9ff0bf4ae2';
+String _$rankingControllerHash() => r'99b5d043c107afa2386f4a68d073968be7cba704';
 
 /// See also [RankingController].
 @ProviderFor(RankingController)

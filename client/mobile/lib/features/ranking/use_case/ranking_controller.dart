@@ -29,7 +29,7 @@ class RankingController extends _$RankingController {
   @override
   Future<List<AppUser>> build() async {
     final repository = ref.watch(
-      RankingUserCollectionPagingRepositoryProvider(
+      rankingUserCollectionPagingRepositoryProvider(
         CollectionParam<AppUser>(
           query: AppUser.colRef().orderBy('exPoint',descending: true),
           initialLimit: initialLimitCount,
