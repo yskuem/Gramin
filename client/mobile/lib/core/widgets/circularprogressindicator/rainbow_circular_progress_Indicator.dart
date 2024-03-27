@@ -60,7 +60,8 @@ class RainbowCircularProgressPainter extends CustomPainter {
 
   RainbowCircularProgressPainter({
     required this.progress,
-    required this.strokeWidth});
+    required this.strokeWidth,
+  });
   final double progress;
   final double strokeWidth;
 
@@ -103,3 +104,4 @@ class RainbowCircularProgressPainter extends CustomPainter {
   bool shouldRepaint(RainbowCircularProgressPainter oldDelegate) =>
       oldDelegate.progress != progress;
 }
+
