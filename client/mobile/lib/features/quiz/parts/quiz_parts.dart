@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
+import 'package:flutter_app_template/features/quiz/use_cases/answered_quiz_controller.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
 import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -97,19 +98,27 @@ class QuizParts extends HookConsumerWidget {
                 quizListData: quizListData,
                 currentQuizIndex: currentQuizIndex,
                 updateUserQuizStatus: () async {
-
                   // ユーザーのステータスを更新
                   final userNewState = await ref.read(appUserControllerProvider.notifier).userStateUpdate(
                     quiz: quizListData[currentQuizIndex.value],
                     isCorrect: isCorrect.value,
                   );
-
-                  // クイズのステータスを更新
                   await Future.wait([
+
+                    // クイズを取得
                     ref.read(quizControllerProvider.notifier).fetchMoreQuiz(),
+
+                    // クイズのステータスを更新
                     ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
                       quiz: quizListData[currentQuizIndex.value],
                       selectButtonIndex: selectButtonIndex.value,
+                    ),
+
+                    // 回答済みクイズ記録を保存
+                    ref.read(answeredQuizControllerProvider.notifier).save(
+                      quizId: quizListData[currentQuizIndex.value].id,
+                      userSelectIndex: selectButtonIndex.value,
+                      isCorrect: isCorrect.value,
                     ),
                   ]);
 
