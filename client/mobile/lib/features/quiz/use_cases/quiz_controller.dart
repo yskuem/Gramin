@@ -32,7 +32,7 @@ class QuizController extends _$QuizController {
   CollectionPagingRepository<Quiz>? _collectionPagingRepository;
   @override
   Future<List<Quiz>> build() async {
-    final quizList = await onFetch(isFirstFetch: true);
+    final quizList = await onFetch();
     if(quizList.isNotEmpty) {
       return quizList;
     }
@@ -41,7 +41,7 @@ class QuizController extends _$QuizController {
     return newList;
   }
 
-  Future<List<Quiz>> onFetch({required bool isFirstFetch}) async {
+  Future<List<Quiz>> onFetch() async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     final currentUser = await ref.read(appUserControllerProvider.future);
     if (userId == null) {
@@ -64,9 +64,7 @@ class QuizController extends _$QuizController {
     _collectionPagingRepository = repository;
     final documentList = await repository.fetch();
     final quizList = documentList.map((document) => document.entity).whereType<Quiz>().toList();
-    final previousState = isFirstFetch ? <Quiz>[] : await future;
     state = AsyncData([
-      ...previousState,
       ...quizList,
     ]);
     return quizList;
