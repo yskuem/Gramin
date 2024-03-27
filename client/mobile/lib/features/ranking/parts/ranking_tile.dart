@@ -1,14 +1,8 @@
-
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/ranking/parts/display_ranking_user_level.dart';
-import 'package:flutter_app_template/features/user_profile/parts/display_current_user_level.dart';
 import 'package:flutter_app_template/features/ranking/parts/rank_text.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../use_case/ranking_controller.dart';
 
 

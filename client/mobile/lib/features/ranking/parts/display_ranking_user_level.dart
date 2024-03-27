@@ -1,9 +1,5 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/texts/gradient_text.dart';
-import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
 import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/utils/app_clolors.dart';

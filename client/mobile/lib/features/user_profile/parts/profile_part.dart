@@ -12,7 +12,6 @@ class ProfilePart extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appUser = ref.watch(appUserControllerProvider).value;
-    final level = appUser?.calcUserLevel ?? 0;
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.9,
       child: TransparentCard(
