@@ -7,7 +7,7 @@ part of 'start_up.dart';
 // **************************************************************************
 
 String _$startUpStateControllerHash() =>
-    r'a69ee436d7e1ac68674223c55b77c9416b829ad1';
+    r'c639ca733db01c904bb13cd8b163255d6c9b74b4';
 
 /// See also [StartUpStateController].
 @ProviderFor(StartUpStateController)

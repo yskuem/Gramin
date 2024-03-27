@@ -6,6 +6,7 @@ import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
+import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_user/use_case/app_user_controller.dart';
@@ -96,17 +97,26 @@ class QuizParts extends HookConsumerWidget {
                 quizListData: quizListData,
                 currentQuizIndex: currentQuizIndex,
                 updateUserQuizStatus: () async {
+
+                  // ユーザーのステータスを更新
+                  final userNewState = await ref.read(appUserControllerProvider.notifier).userStateUpdate(
+                    quiz: quizListData[currentQuizIndex.value],
+                    isCorrect: isCorrect.value,
+                  );
+
+                  // クイズのステータスを更新
                   await Future.wait([
+                    ref.read(quizControllerProvider.notifier).fetchMoreQuiz(),
                     ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
                       quiz: quizListData[currentQuizIndex.value],
                       selectButtonIndex: selectButtonIndex.value,
                     ),
-                    ref.read(appUserControllerProvider.notifier).userStateUpdate(
-                      quiz: quizListData[currentQuizIndex.value],
-                      isCorrect: isCorrect.value,
-                    ),
                   ]);
-                  await ref.read(quizControllerProvider.notifier).fetchMoreQuiz();
+
+                  // ランキングのステータスを更新
+                  await ref.read(rankingControllerProvider.notifier).updateRankingUser(
+                    user: userNewState,
+                  );
                 },
               ),
             ),

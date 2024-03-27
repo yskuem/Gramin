@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -39,4 +41,12 @@ class AppUser with _$AppUser {
   static String docPath(String appUserAuthid) => '$collectionPath/$appUserAuthid';
   static DocumentReference<SnapType> docRef(String appUserAuthId) =>
       Document.docRefWithDocPath(docPath(appUserAuthId));
+  int get calcUserLevel {
+    if(exPoint <= 0) {
+      return 0;
+    }
+    final sqrtNumber = sqrt(exPoint);
+    final level = sqrtNumber.floor();
+    return level;
+  }
 }
