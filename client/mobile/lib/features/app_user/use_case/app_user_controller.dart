@@ -63,7 +63,7 @@ class AppUserController extends _$AppUserController {
   }
 
 
-  Future<void> userStateUpdate ({
+  Future<AppUser> userStateUpdate ({
     required Quiz quiz,
     required bool? isCorrect,
   }) async {
@@ -82,6 +82,7 @@ class AppUserController extends _$AppUserController {
       exPoint: calcUserExp(isCorrect: isCorrect, appUser: currentUser),
     );
     await onUpdate(updatedUser);
+    return updatedUser;
   }
 
   int calcUserExp({

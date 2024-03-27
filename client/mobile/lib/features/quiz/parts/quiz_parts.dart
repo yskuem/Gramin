@@ -6,6 +6,7 @@ import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
+import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_user/use_case/app_user_controller.dart';
@@ -107,6 +108,12 @@ class QuizParts extends HookConsumerWidget {
                     ),
                   ]);
                   await ref.read(quizControllerProvider.notifier).fetchMoreQuiz();
+                  final isLoginUserInRanking = await ref.read(rankingControllerProvider.notifier).isTargetUserInRanking(
+                      userId: ref.read(appUserControllerProvider).value?.authId ?? '',
+                  );
+                  if(isLoginUserInRanking) {
+                    final newValue = ref.refresh(rankingControllerProvider);
+                  }
                 },
               ),
             ),
