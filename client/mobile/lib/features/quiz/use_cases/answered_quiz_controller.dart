@@ -11,8 +11,8 @@ import '../constants/constants.dart';
 part 'answered_quiz_controller.g.dart';
 
 @Riverpod(keepAlive: true)
-CollectionPagingRepository<AnsweredQuiz> quizCollectionPagingRepository(
-    QuizCollectionPagingRepositoryRef ref,
+CollectionPagingRepository<AnsweredQuiz> answeredQuizCollectionPagingRepository(
+    AnsweredQuizCollectionPagingRepositoryRef ref,
     CollectionParam<AnsweredQuiz> query,
     ) {
   return CollectionPagingRepository<AnsweredQuiz>(
@@ -30,13 +30,13 @@ class AnsweredQuizController extends _$AnsweredQuizController {
   CollectionPagingRepository<AnsweredQuiz>? _collectionPagingRepository;
 
   @override
-  Future<List<AnsweredQuiz>> build(String userId) async {
+  Future<List<AnsweredQuiz>> build() async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if(userId == null) {
       throw AppException(title: 'ログインしてください');
     }
     final repository = ref.watch(
-      quizCollectionPagingRepositoryProvider(
+      answeredQuizCollectionPagingRepositoryProvider(
         CollectionParam<AnsweredQuiz>(
           query: AnsweredQuiz.colRef(userId).orderBy('createdAt',descending: true),
           pagingLimit: pagingLimitCount,
@@ -52,11 +52,20 @@ class AnsweredQuizController extends _$AnsweredQuizController {
   }
 
 
-  Future<void> save(AnsweredQuiz answeredQuiz) async {
+  Future<void> save({
+    required String quizId,
+    required int userSelectIndex,
+    required bool? isCorrect,
+  }) async {
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-    if(userId == null) {
-      throw AppException(title: 'ログインしてください');
+    if(userId == null || isCorrect == null) {
+      throw AppException(title: 'エラーが発生しました');
     }
+    final answeredQuiz = AnsweredQuiz(
+      id: quizId,
+      userSelectIndex: userSelectIndex,
+      isCorrect: isCorrect,
+    );
     final data = ref.read(upLoadConverterProvider).toCreateDoc(data: answeredQuiz.toJson());
     await ref.read(documentRepositoryProvider).save(
       AnsweredQuiz.docPath(userId: userId, quizId: answeredQuiz.id),
