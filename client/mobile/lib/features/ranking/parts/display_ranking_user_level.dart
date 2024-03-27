@@ -23,7 +23,7 @@ class DisplayRankingUserLevel extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const GradientText(
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 16),
             text: 'Level: ',
             gradient: LinearGradient(
               colors: [
@@ -35,7 +35,7 @@ class DisplayRankingUserLevel extends HookConsumerWidget {
           GradientText(
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 22,
+              fontSize: 16,
             ),
             text: '$level',
             gradient: const LinearGradient(

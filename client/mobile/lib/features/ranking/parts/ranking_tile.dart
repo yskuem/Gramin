@@ -23,25 +23,35 @@ class RankingTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final rankingUsers = ref.watch(rankingControllerProvider);
+    final user = ref.watch(rankingControllerProvider).value?[index];
     return SizedBox(
       height: height,
       width: width,
       child: TransparentCard(
           child: Row(
             children: [
-              const Spacer(flex: 2),
+              const Spacer(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _rankText(),
                   DisplayRankingUserLevel(
-                      userId: rankingUsers.value?[index].authId ?? '',
-                  )
+                      userId: user?.authId ?? '',
+                  ),
                 ],
               ),
+              const Spacer(flex: 2,),
+              CircleAvatar(
+                radius: 25,
+                foregroundImage: NetworkImage(user?.iconUrl ?? ''),
+              ),
               const Spacer(),
-              Text(rankingUsers.value?[index].name ?? ''),
+              Text(
+                user?.name ?? '',
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
               const Spacer(flex: 8,),
             ],
           ),
