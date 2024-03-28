@@ -34,6 +34,15 @@ if (project.hasProperty('dart-defines')) {
             }
 }
 
+//admob
+def loadProperties(filename) {
+    def props = new Properties()
+    file(filename).withInputStream {
+        props.load(it)
+    }
+    return props
+}
+
 // Firebaseの設定ファイルを環境によってコピーする
 task selectGoogleServicesJson(type: Copy) {
     from "src/${dartEnvironmentVariables.FLAVOR}/google-services.json"
@@ -114,9 +123,17 @@ android {
         release {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //admob
+            def props = loadProperties("$rootDir/app/gradle.properties")
+            manifestPlaceholders = [admob_app_id: props.admobAppIdRelease]
         }
         debug {
             signingConfig signingConfigs.debug
+
+            //admob
+            def props = loadProperties("$rootDir/app/gradle.properties")
+            manifestPlaceholders = [admob_app_id: props.admobAppIdDebug]
         }
     }
 }

@@ -60,3 +60,4 @@ mason-lock.json
 coverage/
 /ios/Runner.xcodeproj/project.pbxproj
 /lib/features/advertisement/constant/admob_ids.dart
+/android/app/gradle.properties
