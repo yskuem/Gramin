@@ -116,6 +116,7 @@ dependencies:
   quiver:
   html:
   analyzer: ^6.4.1
+  google_mobile_ads: ^5.0.0
 
 dev_dependencies:
   # Test

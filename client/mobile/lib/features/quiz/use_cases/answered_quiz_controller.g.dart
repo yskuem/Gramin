@@ -168,7 +168,7 @@ class _AnsweredQuizCollectionPagingRepositoryProviderElement
 }
 
 String _$answeredQuizControllerHash() =>
-    r'548a38c8b763350f3d01b4841095bf107620c1da';
+    r'25996074b3b3870b599458e8ca23ecf381389e17';
 
 /// See also [AnsweredQuizController].
 @ProviderFor(AnsweredQuizController)
