@@ -166,21 +166,22 @@ class _RankingUserCollectionPagingRepositoryProviderElement
       (origin as RankingUserCollectionPagingRepositoryProvider).query;
 }
 
-String _$rankingControllerHash() => r'99b5d043c107afa2386f4a68d073968be7cba704';
+String _$rankingUserControllerHash() =>
+    r'cfa976c49084a3c2d2cb19dee5bd92e6591797a5';
 
-/// See also [RankingController].
-@ProviderFor(RankingController)
-final rankingControllerProvider =
-    AutoDisposeAsyncNotifierProvider<RankingController, List<AppUser>>.internal(
-  RankingController.new,
-  name: r'rankingControllerProvider',
+/// See also [RankingUserController].
+@ProviderFor(RankingUserController)
+final rankingUserControllerProvider = AutoDisposeAsyncNotifierProvider<
+    RankingUserController, List<AppUser>>.internal(
+  RankingUserController.new,
+  name: r'rankingUserControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$rankingControllerHash,
+      : _$rankingUserControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RankingController = AutoDisposeAsyncNotifier<List<AppUser>>;
+typedef _$RankingUserController = AutoDisposeAsyncNotifier<List<AppUser>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

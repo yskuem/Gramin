@@ -23,7 +23,7 @@ class RankingTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final user = ref.watch(rankingControllerProvider).value?[index];
+    final user = ref.watch(rankingUserControllerProvider).value?[index];
     return SizedBox(
       height: height,
       width: width,

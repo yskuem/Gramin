@@ -22,7 +22,7 @@ CollectionPagingRepository<AppUser> rankingUserCollectionPagingRepository(
 
 
 @riverpod
-class RankingController extends _$RankingController {
+class RankingUserController extends _$RankingUserController {
 
   CollectionPagingRepository<AppUser>? _collectionPagingRepository;
 

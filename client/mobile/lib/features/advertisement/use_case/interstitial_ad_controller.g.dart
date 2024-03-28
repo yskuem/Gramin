@@ -7,7 +7,7 @@ part of 'interstitial_ad_controller.dart';
 // **************************************************************************
 
 String _$interstitialAdControllerHash() =>
-    r'b08f878619c5f7cebb1e60bfd5e9fd0a47c4ae12';
+    r'7d92edab25c008400cff0aebf8a79a4e9a775b90';
 
 /// See also [InterstitialAdController].
 @ProviderFor(InterstitialAdController)

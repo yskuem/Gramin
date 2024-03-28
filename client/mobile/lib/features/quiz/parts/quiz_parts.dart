@@ -121,7 +121,7 @@ class QuizParts extends HookConsumerWidget {
                       ]);
 
                       // ランキングのステータスを更新
-                      await ref.read(rankingControllerProvider.notifier).updateRankingUser(
+                      await ref.read(rankingUserControllerProvider.notifier).updateRankingUser(
                         user: userNewState,
                       );
                     },

@@ -16,7 +16,7 @@ class RankingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final rankingUserList = ref.watch(rankingControllerProvider).value;
+    final rankingUserList = ref.watch(rankingUserControllerProvider).value;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,

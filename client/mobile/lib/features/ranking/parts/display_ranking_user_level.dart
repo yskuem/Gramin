@@ -14,7 +14,7 @@ class DisplayRankingUserLevel extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userList = ref.watch(rankingControllerProvider).value;
+    final userList = ref.watch(rankingUserControllerProvider).value;
     final user = userList?.firstWhere((element) => element.authId == userId);
     final level = user?.calcUserLevel ?? 0;
     final levelColor = AppColors.getColorFromScore(level);
