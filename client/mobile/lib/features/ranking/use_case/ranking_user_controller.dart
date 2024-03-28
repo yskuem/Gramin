@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/repositories/firestore/collection_paging_repository.dart';
 import '../../quiz/constants/constants.dart';
-part 'ranking_controller.g.dart';
+part 'ranking_user_controller.g.dart';
 
 
 @Riverpod(keepAlive: true)
