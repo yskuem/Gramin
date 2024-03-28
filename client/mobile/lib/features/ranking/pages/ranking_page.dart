@@ -6,7 +6,7 @@ import 'package:flutter_app_template/features/ranking/parts/ranking_tile.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app_wrapper/pages/main_page.dart';
-import '../use_case/ranking_controller.dart';
+import '../use_case/ranking_user_controller.dart';
 
 class RankingPage extends HookConsumerWidget {
   const RankingPage({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/ranking/parts/display_ranking_user_level.dart';
 import 'package:flutter_app_template/features/ranking/parts/rank_text.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../use_case/ranking_controller.dart';
+import '../use_case/ranking_user_controller.dart';
 
 
 
