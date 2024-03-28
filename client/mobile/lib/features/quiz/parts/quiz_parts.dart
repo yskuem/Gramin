@@ -2,7 +2,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/advertisement/parts/banner_ad.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dar
 import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../advertisement/use_case/interstitial_ad_controller.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../entities/quiz.dart';
 import 'explanation_part.dart';
@@ -26,19 +26,10 @@ class QuizParts extends HookConsumerWidget {
     final currentQuizIndex = useState<int>(0);
     final selectButtonIndex = useState<int>(0);
     final isCorrect = useState<bool?>(null);
-    final audioPlayer = AudioPlayer();
-    useEffect(() {
-      final value = isCorrect.value;
-      if(value == null) {
-        return;
-      }
-      if(value) {
-        audioPlayer.play(AssetSource('sound/correct.mp3'));
-      } else {
-        audioPlayer.play(AssetSource('sound/incorrect.mp3'));
-      }
-      return;
-    }, [isCorrect.value],);
+    final interstitialAd = ref.watch(interstitialAdControllerProvider);
+
+    _soundEffect(isCorrect);
+    _loadAdEffect(ref, currentQuizIndex);
 
     if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
       return const Center(child: CupertinoActivityIndicator());
@@ -64,6 +55,9 @@ class QuizParts extends HookConsumerWidget {
                         onPressed: () async {
                           currentQuizIndex.value++;
                           isCorrect.value = null;
+                          if(currentQuizIndex.value % 3 == 0) {
+                            await interstitialAd.value?.show();
+                          }
                         },
                         child: const Text(
                           '次へ',
@@ -180,6 +174,36 @@ class QuizParts extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _soundEffect(ValueNotifier<bool?> isCorrect) {
+    final audioPlayer = AudioPlayer();
+    useEffect(() {
+      final value = isCorrect.value;
+      if(value == null) {
+        return;
+      }
+      if(value) {
+        audioPlayer.play(AssetSource('sound/correct.mp3'));
+      } else {
+        audioPlayer.play(AssetSource('sound/incorrect.mp3'));
+      }
+      return;
+    }, [isCorrect.value],);
+  }
+
+  void _loadAdEffect (
+    WidgetRef ref,
+    ValueNotifier<int> currentQuizIndex,
+  ) {
+    final interstitialAd = ref.watch(interstitialAdControllerProvider);
+    useEffect(() {
+      if(interstitialAd.value != null && currentQuizIndex.value == 0) {
+        return;
+      }
+      ref.read(interstitialAdControllerProvider.notifier).load();
+      return;
+    }, [currentQuizIndex.value],);
   }
 }
 
