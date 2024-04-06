@@ -23,7 +23,9 @@ class RankingPage extends HookConsumerWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Text('ランキングページ'),
+              const SizedBox(
+                height: 20,
+              ),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

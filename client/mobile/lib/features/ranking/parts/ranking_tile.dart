@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/core/utils/rank_text.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
-import 'package:flutter_app_template/features/ranking/parts/rank_text.dart';
 import 'package:flutter_app_template/features/user_profile/parts/display_user_level_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../use_case/ranking_user_controller.dart';
@@ -34,7 +34,7 @@ class RankingTile extends HookConsumerWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _rankText(),
+                  RankTextStyles.rankText(index + 1),
                   DisplayUserLevelPart(
                       userId: user?.authId ?? '',
                   ),
@@ -58,33 +58,7 @@ class RankingTile extends HookConsumerWidget {
       ),
     );
   }
-
-  Widget _rankText() {
-    final rank = index + 1;
-    if(rank == 1) {
-      return RankText(
-        rank: rank,
-        colors: [Colors.amber[700]!, Colors.amber[400]!],
-      );
-    }
-    if(rank == 2) {
-      return RankText(
-        rank: rank,
-        colors: [Colors.grey[600]!, Colors.grey[400]!],
-      );
-    }
-    if(rank == 3) {
-      return RankText(
-        rank: rank,
-        colors: [Colors.brown[600]!, Colors.brown[400]!],
-      );
-    }
-    return Text(
-      '$rank',
-      style: const TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
 }
+
+
+
