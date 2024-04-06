@@ -17,15 +17,15 @@ Future<AppUser?> provideTargetUser(//userIdからどのユーザかを特定す�
       required String userId,
     }
     ) async {
-  final currentUserId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+  final currentUserId = ref.watch(firebaseAuthRepositoryProvider).loggedInUserId;
   if(currentUserId == null) {
     throw AppException(title: 'ログインしてください');
   }
   if(currentUserId == userId) {
-    final user = await ref.read(appUserControllerProvider.future);
+    final user = await ref.watch(appUserControllerProvider.future);
     return user;
   }
-  final rankinUser = await ref.read(rankingUserControllerProvider.future);
+  final rankinUser = await ref.watch(rankingUserControllerProvider.future);
   final targetUser = rankinUser.firstWhere((element) => element.authId == userId);
   return targetUser;
 }
