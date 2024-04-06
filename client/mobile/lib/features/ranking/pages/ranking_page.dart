@@ -6,7 +6,7 @@ import 'package:flutter_app_template/features/ranking/parts/ranking_tile.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app_wrapper/pages/main_page.dart';
-import '../use_case/ranking_controller.dart';
+import '../use_case/ranking_user_controller.dart';
 
 class RankingPage extends HookConsumerWidget {
   const RankingPage({super.key});
@@ -16,14 +16,16 @@ class RankingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final rankingUserList = ref.watch(rankingControllerProvider).value;
+    final rankingUserList = ref.watch(rankingUserControllerProvider).value;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Text('ランキングページ'),
+              const SizedBox(
+                height: 20,
+              ),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

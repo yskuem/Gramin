@@ -8,7 +8,7 @@ import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/answered_quiz_controller.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dart';
-import 'package:flutter_app_template/features/ranking/use_case/ranking_controller.dart';
+import 'package:flutter_app_template/features/ranking/use_case/ranking_user_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../advertisement/use_case/interstitial_ad_controller.dart';
@@ -121,7 +121,7 @@ class QuizParts extends HookConsumerWidget {
                       ]);
 
                       // ランキングのステータスを更新
-                      await ref.read(rankingControllerProvider.notifier).updateRankingUser(
+                      await ref.read(rankingUserControllerProvider.notifier).updateRankingUser(
                         user: userNewState,
                       );
                     },

@@ -2,18 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/texts/gradient_text.dart';
-import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
+import 'package:flutter_app_template/features/app_user/use_case/provide_target_user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/utils/app_clolors.dart';
 
-class DisplayCurrentUserLevel extends HookConsumerWidget {
-  const DisplayCurrentUserLevel({
+class DisplayUserLevelPart extends HookConsumerWidget {
+  const DisplayUserLevelPart({
     super.key,
+    required this.userId,
   });
+
+  final String userId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(appUserControllerProvider).value;
+    final user = ref.watch(provideTargetUserProvider(userId: userId)).value;
     final level = user?.calcUserLevel ?? 0;
     final levelColor = AppColors.getColorFromScore(level);
     if(level > 90) {

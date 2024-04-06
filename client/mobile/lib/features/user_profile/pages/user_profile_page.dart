@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/user_profile/parts/profile_part.dart';
-import 'package:flutter_app_template/features/user_profile/parts/quiz_score_part.dart';
+import 'package:flutter_app_template/features/user_profile/parts/user_result_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../app_user/use_case/app_user_controller.dart';
 import '../../app_wrapper/pages/main_page.dart';
 
 class UserProfilePage extends HookConsumerWidget {
@@ -13,7 +14,8 @@ class UserProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    return const SafeArea(
+    final userId = ref.watch(appUserControllerProvider).value?.authId;
+    return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
@@ -21,14 +23,14 @@ class UserProfilePage extends HookConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
-                ProfilePart(),
-                SizedBox(
+                const ProfilePart(),
+                const SizedBox(
                   height: 30,
                 ),
-                QuizScorePart(),
+                UserResultPart(userId: userId ?? ''),
               ],
             ),
           ),

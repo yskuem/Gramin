@@ -54,26 +54,6 @@ class MainPage extends HookConsumerWidget {
         RankingPage.pageName,
         const RankingPage(),
         ),
-        // (
-        //   GlobalKey<NavigatorState>(),
-        //   HomePage.pageName,
-        //   const HomePage(),
-        // ),
-        // (
-        //   GlobalKey<NavigatorState>(),
-        //   GithubUsersPage.pageName,
-        //   const GithubUsersPage()
-        // ),
-        // (
-        //   GlobalKey<NavigatorState>(),
-        //   MemoPage.pageName,
-        //   const MemoPage(),
-        // ),
-        // (
-        //   GlobalKey<NavigatorState>(),
-        //   SettingPage.pageName,
-        //   const SettingPage(),
-        // ),
       ],
     );
     final widgets = widgetsState.value;
