@@ -7,7 +7,9 @@ import '../../../core/exceptions/app_exception.dart';
 import '../../../core/repositories/firebase_auth/firebase_auth_repository.dart';
 import '../../app_user/entities/app_user.dart';
 import '../../app_user/use_case/app_user_controller.dart';
-part 'current_user_ranking_controller.g.dart';
+part 'user_ranking_controller.g.dart';
+
+
 
 @Riverpod(keepAlive: true)
 Future<int> fetchAllUserCount(FetchAllUserCountRef ref) async {

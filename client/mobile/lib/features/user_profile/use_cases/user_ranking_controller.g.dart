@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'current_user_ranking_controller.dart';
+part of 'user_ranking_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator

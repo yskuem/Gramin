@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
-import 'package:flutter_app_template/features/user_profile/parts/display_current_user_level.dart';
+import 'package:flutter_app_template/features/user_profile/parts/display_user_level_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app_user/use_case/app_user_controller.dart';
@@ -40,7 +40,9 @@ class ProfilePart extends HookConsumerWidget {
                       ],
                     ),
                     const Spacer(),
-                    const DisplayCurrentUserLevel(),
+                    DisplayUserLevelPart(
+                      userId: appUser?.authId ?? '',
+                    ),
                     const Spacer(),
                   ],
                 ),

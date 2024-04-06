@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
-import 'package:flutter_app_template/features/ranking/parts/display_ranking_user_level.dart';
 import 'package:flutter_app_template/features/ranking/parts/rank_text.dart';
+import 'package:flutter_app_template/features/user_profile/parts/display_user_level_part.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../use_case/ranking_user_controller.dart';
 
@@ -35,7 +35,7 @@ class RankingTile extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _rankText(),
-                  DisplayRankingUserLevel(
+                  DisplayUserLevelPart(
                       userId: user?.authId ?? '',
                   ),
                 ],
