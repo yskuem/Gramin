@@ -8,7 +8,7 @@ import '../../../core/repositories/firestore/document.dart';
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
-const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/gramin-dev.appspot.com/o/DALL%C2%B7E%202024-03-24%2014.48.58%20-%20Design%20a%20delicate%20and%20cute%20anime%20girl%20icon%2C%20emphasizing%20a%20more%20subtle%20and%20pale%20pink%20color%20scheme.%20The%20character%20should%20embody%20traditional%20Japanese%20ani.webp?alt=media&token=c7e6b1ad-8c3a-4f21-8ca7-838d24284c6b';
+const defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/gramin-dev.appspot.com/o/OIG4%20(2).jpeg?alt=media&token=e1e57410-e3e0-4698-9ae1-6aa005a02586';
 
 @freezed
 class AppUser with _$AppUser {
