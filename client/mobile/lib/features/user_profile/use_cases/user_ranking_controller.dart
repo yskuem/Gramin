@@ -1,13 +1,9 @@
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_template/features/app_user/use_case/provide_target_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import '../../../core/exceptions/app_exception.dart';
-import '../../../core/repositories/firebase_auth/firebase_auth_repository.dart';
 import '../../app_user/entities/app_user.dart';
-import '../../app_user/use_case/app_user_controller.dart';
 part 'user_ranking_controller.g.dart';
 
 
