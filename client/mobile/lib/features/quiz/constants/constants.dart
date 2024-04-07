@@ -8,7 +8,7 @@ const quizHeadlineTextStyle = TextStyle(
 
 
 const quizContentTextStyle = TextStyle(
-  fontSize: 18,
+  fontSize: 20,
 );
 
 
