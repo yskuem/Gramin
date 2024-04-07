@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_template/features/app_user/use_case/provide_target_user.dart';
+import 'package:flutter_app_template/features/ranking/use_case/ranking_user_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/exceptions/app_exception.dart';
 import '../../app_user/entities/app_user.dart';
@@ -25,7 +26,8 @@ Future<int> fetchUserRanking(
       required String userId,
     }
 ) async {
-  final currentUser = await ref.watch(provideTargetUserProvider(userId: userId).future);
+  ref.watch(rankingUserControllerProvider);
+  final currentUser = await ref.read(provideTargetUserProvider(userId: userId).future);
   if (currentUser == null) {
     throw AppException(title: 'ログインしてください');
   }
