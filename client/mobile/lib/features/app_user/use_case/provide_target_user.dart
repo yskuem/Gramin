@@ -17,6 +17,9 @@ Future<AppUser?> provideTargetUser(//userIdからどのユーザかを特定す�
       required String userId,
     }
     ) async {
+  ref
+    ..watch(rankingUserControllerProvider)
+    ..watch(appUserControllerProvider);
   final currentUserId = ref.watch(firebaseAuthRepositoryProvider).loggedInUserId;
   if(currentUserId == null) {
     throw AppException(title: 'ログインしてください');

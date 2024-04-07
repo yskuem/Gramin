@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app_template/features/app_user/use_case/provide_target_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/exceptions/app_exception.dart';
@@ -22,12 +23,14 @@ Future<int> fetchAllUserCount(FetchAllUserCountRef ref) async {
 
 
 @riverpod
-Future<int> fetchCurrentUserRanking(
-    FetchCurrentUserRankingRef ref,
+Future<int> fetchUserRanking(
+    FetchUserRankingRef ref,
+    {
+      required String userId,
+    }
 ) async {
-  final currentUser = await ref.read(appUserControllerProvider.future);
-  final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-  if (userId == null || currentUser == null) {
+  final currentUser = await ref.watch(provideTargetUserProvider(userId: userId).future);
+  if (currentUser == null) {
     throw AppException(title: 'ログインしてください');
   }
   final snap = await FirebaseFirestore.instance
