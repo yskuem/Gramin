@@ -2,6 +2,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/advertisement/parts/banner_ad.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
@@ -27,6 +28,7 @@ class QuizParts extends HookConsumerWidget {
     final selectButtonIndex = useState<int>(0);
     final isCorrect = useState<bool?>(null);
     final interstitialAd = ref.watch(interstitialAdControllerProvider);
+    final currentUser = ref.watch(appUserControllerProvider).value;
 
     _soundEffect(isCorrect);
     _loadAdEffect(ref, currentQuizIndex);
@@ -81,7 +83,17 @@ class QuizParts extends HookConsumerWidget {
                       children: [
                         if(isCorrect.value != null)
                           _displayResult(isCorrect: isCorrect.value!),
-                        Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                        Column(
+                          children: [
+                            if(currentUser != null && isCorrect.value == null && currentUser.consecutiveCorrects > 0)
+                              _displayConsecutiveCorrects(
+                                consecutiveCorrects: currentUser.consecutiveCorrects,
+                                context: context,
+                                ref: ref,
+                              ),
+                            Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -152,8 +164,40 @@ class QuizParts extends HookConsumerWidget {
     );
   }
 
-
-
+  //連続正解数表示
+  Widget _displayConsecutiveCorrects({
+    required int consecutiveCorrects,
+    required BuildContext context,
+    required WidgetRef ref,
+  }) {
+    final currentUser = ref.watch(appUserControllerProvider).value;
+    return Column(
+      children: [
+        RichText(
+          text: TextSpan(
+            // デフォルトのスタイルを設定します
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              const TextSpan(text: '現在 '),
+              TextSpan(
+                text: '${currentUser!.consecutiveCorrects}',
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                    fontSize: 22,
+                ),
+              ),
+              const TextSpan(text: ' 連続正解中！'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 30,),
+      ],
+    );
+  }
 
 
 
