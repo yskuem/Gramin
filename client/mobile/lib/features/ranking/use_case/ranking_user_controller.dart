@@ -45,6 +45,19 @@ class RankingUserController extends _$RankingUserController {
   }
 
 
+  Future<bool> fetchMoreRankingUser () async {
+    final currentList = await future;
+    final repository = _collectionPagingRepository;
+    if(repository == null) {
+      return true;
+    }
+    final documentList = await repository.fetchMore();
+    final userList = documentList.map((document) => document.entity).whereType<AppUser>().toList();
+    state = AsyncData([...currentList,...userList]);
+    return userList.isEmpty;
+  }
+
+
   Future<void> updateRankingUser ({required AppUser user}) async{
     final currentList = await future;
     final newList = currentList.map((rankingUser) {
