@@ -167,7 +167,7 @@ class _RankingUserCollectionPagingRepositoryProviderElement
 }
 
 String _$rankingUserControllerHash() =>
-    r'cfa976c49084a3c2d2cb19dee5bd92e6591797a5';
+    r'5f01063ad93fb663cb30ac04fc100769fe2f8098';
 
 /// See also [RankingUserController].
 @ProviderFor(RankingUserController)

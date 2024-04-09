@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/features/features.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
 import 'package:flutter_app_template/features/ranking/pages/ranking_page.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
@@ -9,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../core/res/gen/assets.gen.dart';
 import '../../../core/utils/tab_tap_operation_provider.dart';
+import '../../start_up/use_cases/update_check.dart';
 import 'widgets/tab_navigator.dart';
 
 class MainPage extends HookConsumerWidget {
@@ -35,6 +37,17 @@ class MainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isUpdateNeeded = ref.watch(isUpdateNeededProvider);
+    useEffect(() {
+      //アップデートを検知し、スタート画面に戻る
+      Future.microtask(() async {
+        if(isUpdateNeeded.value == true) {
+          StartUpPage.go(context);
+        }
+      });
+      return null;
+    }, [isUpdateNeeded.value],);
+
     final widgetsState =
         useState<List<(GlobalKey<NavigatorState>, String, Widget)>>(
       [

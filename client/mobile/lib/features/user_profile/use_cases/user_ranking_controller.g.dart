@@ -21,7 +21,7 @@ final fetchAllUserCountProvider = FutureProvider<int>.internal(
 );
 
 typedef FetchAllUserCountRef = FutureProviderRef<int>;
-String _$fetchUserRankingHash() => r'4a257f4596bf4d4afbb6e0a66deec3686f1763ae';
+String _$fetchUserRankingHash() => r'c8c6afb45c6eb5ebfdc166ba2f7d3ec5286766ad';
 
 /// Copied from Dart SDK
 class _SystemHash {

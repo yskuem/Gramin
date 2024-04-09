@@ -28,6 +28,7 @@ Future<void> main() async {
   late final Directory tempDirectory;
   Logger.configure();
 
+
   await (
     /// Firebase
     Firebase.initializeApp(),

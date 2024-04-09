@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/start_up/pages/register_name_page.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
@@ -13,6 +14,7 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/logger.dart';
 import '../../../core/widgets/texts/error_text.dart';
 import '../use_cases/start_up.dart';
+import '../use_cases/update_check.dart';
 
 class StartUpPage extends HookConsumerWidget {
   const StartUpPage({super.key});
@@ -23,6 +25,10 @@ class StartUpPage extends HookConsumerWidget {
   /// go_routerの画面遷移
   static void pushReplacement(BuildContext context) {
     context.pushReplacement(pagePath);
+  }
+
+  static void go(BuildContext context) {
+    context.go(pagePath);
   }
 
   /// 従来の画面遷移
@@ -41,6 +47,16 @@ class StartUpPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(startUpStateControllerProvider);
+    final isUpdateNeeded = ref.watch(isUpdateNeededProvider);
+
+    useEffect(() {
+      Future.microtask(() async {
+        if(isUpdateNeeded.value == false) {
+          MainPage.go(context);
+        }
+      });
+      return null;
+    }, [isUpdateNeeded.value],);
 
     useEffectOnce(() {
       Future.microtask(() async {
@@ -52,7 +68,6 @@ class StartUpPage extends HookConsumerWidget {
         if(result == StartUpResultType.noLogin) {
           return;
         }
-        MainPage.go(context);
       });
       return null;
     });

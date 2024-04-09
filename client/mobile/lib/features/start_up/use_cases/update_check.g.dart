@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'start_up.dart';
+part of 'update_check.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$startUpStateControllerHash() =>
-    r'540d26df7d467296f5ef1851ae947209ec6bd2c6';
+String _$isUpdateNeededHash() => r'8886a2f9c1f13e85cbbfd60db049c2ab466b520d';
 
-/// See also [StartUpStateController].
-@ProviderFor(StartUpStateController)
-final startUpStateControllerProvider = AutoDisposeAsyncNotifierProvider<
-    StartUpStateController, StartUpResultType>.internal(
-  StartUpStateController.new,
-  name: r'startUpStateControllerProvider',
+/// See also [isUpdateNeeded].
+@ProviderFor(isUpdateNeeded)
+final isUpdateNeededProvider = StreamProvider<bool>.internal(
+  isUpdateNeeded,
+  name: r'isUpdateNeededProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$startUpStateControllerHash,
+      : _$isUpdateNeededHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$StartUpStateController = AutoDisposeAsyncNotifier<StartUpResultType>;
+typedef IsUpdateNeededRef = StreamProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
