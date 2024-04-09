@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
       scrollBehavior: const HaveScrollBarBehavior(),
 
       theme: getAppTheme(),
-      darkTheme: getAppThemeDark(),
+      //darkTheme: getAppThemeDark(),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
