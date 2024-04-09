@@ -1,5 +1,6 @@
 
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
+import 'package:flutter_app_template/features/start_up/use_cases/update_check.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/repositories/firebase_auth/firebase_auth_repository.dart';
 import '../../../core/use_cases/authentication/fetch_logged_in_type.dart';
@@ -28,6 +29,12 @@ class StartUpStateController extends _$StartUpStateController {
       return StartUpResultType.noLogin;
     }
     ref.read(appUserControllerProvider);
+
+    final isUpdateNeeded = await ref.watch(isUpdateNeededProvider.future);
+
+    if (isUpdateNeeded) {
+      return StartUpResultType.forcedVersionUpgrade;
+    }
 
     // TODO(yy): 強制バージョンアップを実装する場合はここで確認して StartUpResultType.forcedVersionUpgrade を返却する
 
