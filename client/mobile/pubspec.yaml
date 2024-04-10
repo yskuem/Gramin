@@ -64,7 +64,6 @@ dependencies:
   flutter_image_compress:
   extended_image:
   flutter_svg:
-
   # Picker
   numberpicker:
 
@@ -118,6 +117,7 @@ dependencies:
   analyzer: ^6.4.1
   google_mobile_ads: ^5.0.0
   version: ^3.0.2
+  path: ^1.9.0
 
 dev_dependencies:
   # Test

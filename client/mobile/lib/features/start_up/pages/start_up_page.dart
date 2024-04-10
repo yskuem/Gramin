@@ -9,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../features/app_wrapper/pages/main_page.dart';
-import '../../../core/custom_hooks/use_effect_once.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/logger.dart';
 import '../../../core/widgets/texts/error_text.dart';
@@ -51,26 +50,16 @@ class StartUpPage extends HookConsumerWidget {
 
     useEffect(() {
       Future.microtask(() async {
+        final result = await ref.read(startUpStateControllerProvider.future);
+        if(result == StartUpResultType.noLogin) {
+          return;
+        }
         if(isUpdateNeeded.value == false) {
           MainPage.go(context);
         }
       });
       return null;
     }, [isUpdateNeeded.value],);
-
-    useEffectOnce(() {
-      Future.microtask(() async {
-        final result = await ref.read(startUpStateControllerProvider.future);
-        if (result == StartUpResultType.forcedVersionUpgrade) {
-          // TODO(shohei): 強制バージョンアップのダイアログ出したりする
-          return;
-        }
-        if(result == StartUpResultType.noLogin) {
-          return;
-        }
-      });
-      return null;
-    });
 
     return Scaffold(
       body: Center(

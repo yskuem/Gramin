@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/core/utils/image_operations.dart';
 import 'package:flutter_app_template/core/widgets/text_form_field/custom_text_form_field.dart';
 import 'package:flutter_app_template/features/start_up/use_cases/start_up.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,6 +19,7 @@ class RegisterNamePage extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final textKey = useFormFieldStateKey();
     final errorTextNotifier = useState<String?>(null);
+    final fileImage = useState<File?>(null);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
@@ -25,13 +29,32 @@ class RegisterNamePage extends HookConsumerWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Spacer(flex: 3,),
+                const Text('※ ニックネームとプロフィール画像は'),
+                const Text('ランキングで公開されます。後から変更可能です。'),
+                const SizedBox(height: 50,),
+                GestureDetector(
+                  onTap: () async {
+                    final pickFile = await ImageOperations.pickImage();
+                    fileImage.value = pickFile;
+                  },
+                  child: CircleAvatar(
+                    backgroundImage: fileImage.value != null ? FileImage(fileImage.value!) : null,
+                    //イメージがnullのときはなし
+                    radius: 40,
+                    child: const Icon(Icons.camera_alt_outlined,color: Colors.white,size: 40,),
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                const Text('アイコン選択'),
+                const Spacer(flex: 2,),
                 CustomTextFormField(
                     maxLength: 10,
                     labelName: 'ユーザーネーム',
                     errorTextNotifier: errorTextNotifier,
                     textKey: textKey,
                 ),
-                const SizedBox(height: 50,),
+                const Spacer(),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 7/10,
                   height: MediaQuery.sizeOf(context).height * 1/15,
@@ -41,8 +64,11 @@ class RegisterNamePage extends HookConsumerWidget {
                           return;
                         }
                         showIndicator(context);
+                        //TODO: 画像圧縮&アップロード
+
                         await ref.read(startUpStateControllerProvider.notifier).singInApp(
                             userName: textKey.currentState?.value ?? '',
+                          //TODO:アイコンURL追加
                         );
                         final type = await ref.read(startUpStateControllerProvider.future);
                         dismissIndicator(context);
@@ -59,6 +85,7 @@ class RegisterNamePage extends HookConsumerWidget {
                       ),
                   ),
                 ),
+                const Spacer(flex: 3,),
               ],
             ),
           ),
