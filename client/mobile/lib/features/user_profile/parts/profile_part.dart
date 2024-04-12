@@ -17,9 +17,19 @@ class ProfilePart extends HookConsumerWidget {
       child: TransparentCard(
           opacity: 0.6,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: (){},
+                      child: const Text('プロフィール編集',style: TextStyle(fontSize: 17),),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5,),
                 Row(
                   children: [
                     CircleAvatar(
@@ -40,8 +50,12 @@ class ProfilePart extends HookConsumerWidget {
                       ],
                     ),
                     const Spacer(),
-                    DisplayUserLevelPart(
-                      userId: appUser?.authId ?? '',
+                    Column(
+                      children: [
+                        DisplayUserLevelPart(
+                          userId: appUser?.authId ?? '',
+                        ),
+                      ],
                     ),
                     const Spacer(),
                   ],
