@@ -1,9 +1,12 @@
 
+import 'dart:io';
+
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
 import 'package:flutter_app_template/features/start_up/use_cases/update_check.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/repositories/firebase_auth/firebase_auth_repository.dart';
 import '../../../core/use_cases/authentication/fetch_logged_in_type.dart';
+import '../../../core/utils/image_operations.dart';
 import '../../../core/utils/logger.dart';
 import '../../../core/utils/random_user_id_generator.dart';
 import '../../app_user/entities/app_user.dart';
@@ -41,21 +44,31 @@ class StartUpStateController extends _$StartUpStateController {
     return StartUpResultType.loginSuccess;
   }
 
-  Future<void> singInApp ({required String userName}) async {
+  Future<void> singInApp ({
+    required String userName,
+    required File? iconImage,
+  }) async {
     state = await AsyncValue.guard(() async {
       await ref.read(signInWithAnonymouslyProvider)();
-      final useId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
-      if(useId == null){
+      final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+      if(userId == null){
         throw AppException.irregular();
+      }
+
+      String? iconUrl;
+      if(iconImage != null) {
+        final upLoadImage = await ImageOperations.compressImage(iconImage, 10);
+        iconUrl = await ImageOperations.upLoadImage(userId, upLoadImage);
       }
       await ref.read(appUserControllerProvider.notifier).onCreate(
         AppUser(
-          authId: useId,
+          authId: userId,
           displayId: RandomUserIdGenerator.generateUserId(10),
           name: userName,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
           lastAnsweredQuizCreatedAt: DateTime(2022, 12, 31),
+          iconUrl: iconUrl ?? defaultImageUrl,
         ),
       );
       return StartUpResultType.loginSuccess;
