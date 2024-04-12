@@ -64,11 +64,10 @@ class RegisterNamePage extends HookConsumerWidget {
                           return;
                         }
                         showIndicator(context);
-                        //TODO: 画像圧縮&アップロード
 
                         await ref.read(startUpStateControllerProvider.notifier).singInApp(
                             userName: textKey.currentState?.value ?? '',
-                          //TODO:アイコンURL追加
+                            iconImage: fileImage.value,
                         );
                         final type = await ref.read(startUpStateControllerProvider.future);
                         dismissIndicator(context);
