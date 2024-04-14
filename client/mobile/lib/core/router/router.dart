@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/features.dart';
+import '../../features/user_profile/pages/edit_user_profile_page.dart';
 import '../utils/logger.dart';
 import '../utils/navigator_key_provider.dart';
 import 'transition_observer.dart';
@@ -64,6 +65,13 @@ final routerProvider = Provider((ref) {
             name: UserProfilePage.pageName,
             path: UserProfilePage.pageName,
             builder: (_, __) => const UserProfilePage(),
+            routes: [
+              GoRoute(
+                name: EditUserProfilePage.pageName,
+                path: EditUserProfilePage.pageName,
+                builder: (_, __) => const EditUserProfilePage(),
+              ),
+            ],
           ),
           GoRoute(
             name: RankingPage.pageName,

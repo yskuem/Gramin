@@ -64,6 +64,7 @@ dependencies:
   flutter_image_compress:
   extended_image:
   flutter_svg:
+  cached_network_image: ^3.3.1
   # Picker
   numberpicker:
 

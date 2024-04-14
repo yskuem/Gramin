@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/user_profile/parts/display_user_level_part.dart';
@@ -17,24 +18,18 @@ class ProfilePart extends HookConsumerWidget {
       child: TransparentCard(
           opacity: 0.6,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: (){},
-                      child: const Text('プロフィール編集',style: TextStyle(fontSize: 17),),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5,),
+                const SizedBox(height: 15,),
                 Row(
                   children: [
                     CircleAvatar(
                         radius: 30,
-                        foregroundImage: NetworkImage(appUser?.iconUrl ?? ''),
+                        foregroundImage: CachedNetworkImageProvider(
+                          appUser?.iconUrl ?? '',
+                        ) as ImageProvider,
                     ),
                     const SizedBox(width: 10,),
                     Column(
@@ -49,7 +44,7 @@ class ProfilePart extends HookConsumerWidget {
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    const Spacer(flex: 5,),
                     Column(
                       children: [
                         DisplayUserLevelPart(

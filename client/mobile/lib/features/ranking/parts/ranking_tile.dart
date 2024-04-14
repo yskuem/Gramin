@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/utils/rank_text.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
@@ -43,7 +44,9 @@ class RankingTile extends HookConsumerWidget {
               const Spacer(flex: 2,),
               CircleAvatar(
                 radius: 25,
-                foregroundImage: NetworkImage(user?.iconUrl ?? ''),
+                foregroundImage: CachedNetworkImageProvider(
+                  user?.iconUrl ?? '',
+                ) as ImageProvider,
               ),
               const Spacer(),
               Text(

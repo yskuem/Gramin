@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/utils/image_operations.dart';
 import 'package:flutter_app_template/core/widgets/text_form_field/custom_text_form_field.dart';
 import 'package:flutter_app_template/features/start_up/use_cases/start_up.dart';
+import 'package:flutter_app_template/features/user_profile/constant/constant.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +19,6 @@ class RegisterNamePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final textKey = useFormFieldStateKey();
-    final errorTextNotifier = useState<String?>(null);
     final fileImage = useState<File?>(null);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -49,10 +49,15 @@ class RegisterNamePage extends HookConsumerWidget {
                 const Text('アイコン選択'),
                 const Spacer(flex: 2,),
                 CustomTextFormField(
-                    maxLength: 10,
-                    labelName: 'ユーザーネーム',
-                    errorTextNotifier: errorTextNotifier,
+                    labelName: userNameKey,
+                    maxLength: userNameMaxLength,
                     textKey: textKey,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ユーザーネームを入力してください';
+                      }
+                      return null;
+                    },
                 ),
                 const Spacer(),
                 SizedBox(
