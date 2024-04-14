@@ -30,7 +30,7 @@ class UserResultPart extends HookConsumerWidget {
               const QuizScorePart(),
               MaxConsecutiveCountPart(userId: userId),
             ],
-          )
+          ),
       ),
     );
   }

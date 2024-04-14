@@ -11,7 +11,7 @@ part 'update_check.g.dart';
 @Riverpod(keepAlive: true)
 Stream<bool> isUpdateNeeded(IsUpdateNeededRef ref) async* {
   final updateNeededController = StreamController<bool>();
-  final remoteConfig = FirebaseRemoteConfig.instance;;
+  final remoteConfig = FirebaseRemoteConfig.instance;
   final appPackageInfo = await PackageInfo.fromPlatform();
   final currentVersion = Version.parse(appPackageInfo.version).toString();
   await remoteConfig.fetchAndActivate();

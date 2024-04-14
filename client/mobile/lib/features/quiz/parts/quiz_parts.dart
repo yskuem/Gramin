@@ -2,7 +2,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/advertisement/parts/banner_ad.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';

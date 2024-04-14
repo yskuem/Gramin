@@ -43,7 +43,7 @@ class UserRankingPart extends HookConsumerWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
