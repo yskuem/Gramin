@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/aggregation/pages/firestore_aggregation_page.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
 import 'package:flutter_app_template/features/ranking/pages/ranking_page.dart';
+import 'package:flutter_app_template/features/start_up/pages/register_name_page.dart';
+import 'package:flutter_app_template/features/tutorial/pages/tutorial.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,6 +36,27 @@ final routerProvider = Provider((ref) {
           );
         },
       ),
+      GoRoute(
+        path: TutorialPage.pagePath,
+        name: TutorialPage.pageName,
+        pageBuilder: (_, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const TutorialPage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RegisterNamePage.pagePath,
+        name: RegisterNamePage.pageName,
+        pageBuilder: (_, state) {
+          return NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const RegisterNamePage(),
+          );
+        },
+      ),
+
 
       /// WebView
       GoRoute(
