@@ -160,6 +160,17 @@ flutter:
     - assets/images/
     - assets/sound/
 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/tutorial_pic1.jpeg"
+  min_sdk_android: 24
+  remove_alpha_ios: true
+  adaptive_icon_background: "assets/images/icon_back.png"
+  adaptive_icon_foreground: "assets/images/icon_fore.png"
+
+
+
   # カスタムフォントを利用する場合はここを設定する
   # fonts:
   #   - family: Schyler
