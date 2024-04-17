@@ -12,6 +12,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/icon_back_image.png
+  AssetGenImage get iconBackImage =>
+      const AssetGenImage('assets/images/icon_back_image.png');
+
+  /// File path: assets/images/icon_fore_image.png
+  AssetGenImage get iconForeImage =>
+      const AssetGenImage('assets/images/icon_fore_image.png');
+
   /// File path: assets/images/neko.jpg
   AssetGenImage get neko => const AssetGenImage('assets/images/neko.jpg');
 
@@ -32,8 +40,15 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/tutorial_pic3.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [neko, quizBack1, tutorialPic1, tutorialPic2, tutorialPic3];
+  List<AssetGenImage> get values => [
+        iconBackImage,
+        iconForeImage,
+        neko,
+        quizBack1,
+        tutorialPic1,
+        tutorialPic2,
+        tutorialPic3
+      ];
 }
 
 class $AssetsSoundGen {

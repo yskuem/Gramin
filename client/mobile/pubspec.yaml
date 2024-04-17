@@ -120,6 +120,7 @@ dependencies:
   version: ^3.0.2
   path: ^1.9.0
   flutter_overboard: ^3.1.3
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   # Test
@@ -145,7 +146,6 @@ dev_dependencies:
   riverpod_generator:
 
   # Other
-  flutter_launcher_icons:
   change_app_package_name: ^1.1.0
 
 flutter_gen:
@@ -159,6 +159,17 @@ flutter:
   assets:
     - assets/images/
     - assets/sound/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/tutorial_pic1.jpeg"
+  min_sdk_android: 24
+  remove_alpha_ios: true
+  adaptive_icon_background: "assets/images/icon_back_image.png"
+  adaptive_icon_foreground: "assets/images/icon_fore_image.png"
+
+
 
   # カスタムフォントを利用する場合はここを設定する
   # fonts:
