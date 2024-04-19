@@ -31,3 +31,5 @@ Stream<bool> isUpdateNeeded(IsUpdateNeededRef ref) async* {
   // StreamControllerのストリームを返す
   yield* updateNeededController.stream;
 }
+
+
