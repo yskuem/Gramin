@@ -63,7 +63,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 // END: FlutterFire Configuration
 
 android {
-    namespace "com.rayuapps.gramin"
+    namespace "app.yskuem.gramin"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -81,7 +81,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.rayuapps.gramin"
+        applicationId "app.yskuem.gramin"
         // flavor設定
         if (dartEnvironmentVariables.FLAVOR != 'prod') {
             applicationIdSuffix ".${dartEnvironmentVariables.FLAVOR}"
