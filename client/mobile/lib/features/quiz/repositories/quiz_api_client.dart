@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_template/features/endpoints/use_case/endpoint_controller.dart';
 import 'package:flutter_app_template/features/quiz/entities/quiz.dart';
 import 'package:retrofit/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +21,7 @@ QuizApiClient quizApiClient(QuizApiClientRef ref) {
           authHeaderInterceptor,
         ],
       ),
-    baseUrl: 'https://quiz-app-lzoo5udtua-dt.a.run.app',
+    baseUrl: EndPointController.getGenerateQuizEndPoint(),
   );
 }
 
