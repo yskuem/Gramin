@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/utils/image_operations.dart';
 import 'package:flutter_app_template/core/widgets/text_form_field/custom_text_form_field.dart';
+import 'package:flutter_app_template/features/features.dart';
 import 'package:flutter_app_template/features/start_up/use_cases/start_up.dart';
 import 'package:flutter_app_template/features/user_profile/constant/constant.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/custom_hooks/use_form_field_state_key.dart';
+import '../../../core/exceptions/app_exception.dart';
 import '../../../core/widgets/show_indicator.dart';
 import '../../app_wrapper/pages/main_page.dart';
 
@@ -88,6 +90,10 @@ class RegisterNamePage extends HookConsumerWidget {
                       dismissIndicator(context);
                       if(type == StartUpResultType.loginSuccess) {
                         MainPage.go(context);
+                      } else if (type == StartUpResultType.forcedVersionUpgrade) {
+                        StartUpPage.go(context);
+                      } else {
+                        throw AppException.irregular();
                       }
                     },
                     child: const Text(
