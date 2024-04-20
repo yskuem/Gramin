@@ -13,7 +13,7 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      title: 'テンプレアプリ', // TODO(shohei): アプリ名を設定
+      title: 'Gramin', // TODO(shohei): アプリ名を設定
 
       /// スクロールバーをデフォルトで付与したい場合は設定する
       scrollBehavior: const HaveScrollBarBehavior(),
