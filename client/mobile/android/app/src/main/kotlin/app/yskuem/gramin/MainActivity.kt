@@ -1,4 +1,4 @@
-package com.rayuapps.gramin
+package app.yskuem.gramin
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
