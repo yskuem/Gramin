@@ -17,9 +17,9 @@ _$QuizImpl _$$QuizImplFromJson(Map<String, dynamic> json) => _$QuizImpl(
       explanation: json['explanation'] as String,
       category: json['category'] as String,
       createdAt: const DateTimeTimestampConverter()
-          .fromJson(json['createdAt'] as Timestamp?),
+          .fromJson(json['createdAt'] as Timestamp),
       updatedAt: const DateTimeTimestampConverter()
-          .fromJson(json['updatedAt'] as Timestamp?),
+          .fromJson(json['updatedAt'] as Timestamp),
       commentIds: (json['commentIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??

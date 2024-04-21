@@ -80,7 +80,7 @@ class _QuizApiClient implements QuizApiClient {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$quizApiClientHash() => r'e79de5618bed9baeedeabed9d74330506f7fe38f';
+String _$quizApiClientHash() => r'3c9339d211103c312813e3be763f301122222c75';
 
 /// See also [quizApiClient].
 @ProviderFor(quizApiClient)

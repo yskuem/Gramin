@@ -28,9 +28,9 @@ class AppUser with _$AppUser {
     @Default(0) int maxConsecutiveCorrects,//最大の連勝数
     @Default(0) int consecutiveCorrects,//現在の連勝数
     @Default([]) List<String> favoriteQuizIds,
-    @DateTimeTimestampConverter() DateTime? createdAt,
-    @DateTimeTimestampConverter() DateTime? updatedAt,
-    @DateTimeTimestampConverter() DateTime? lastAnsweredQuizCreatedAt,
+    @DateTimeTimestampConverter() required DateTime createdAt,
+    @DateTimeTimestampConverter() required DateTime updatedAt,
+    @DateTimeTimestampConverter() required DateTime lastAnsweredQuizCreatedAt,
   }) = _AppUser;
   const AppUser._();
   factory AppUser.fromJson(Map<String, dynamic> json) =>

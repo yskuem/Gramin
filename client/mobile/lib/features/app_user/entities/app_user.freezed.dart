@@ -37,11 +37,11 @@ mixin _$AppUser {
   int get consecutiveCorrects => throw _privateConstructorUsedError; //現在の連勝数
   List<String> get favoriteQuizIds => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime? get lastAnsweredQuizCreatedAt => throw _privateConstructorUsedError;
+  DateTime get lastAnsweredQuizCreatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,9 +69,9 @@ abstract class $AppUserCopyWith<$Res> {
       int maxConsecutiveCorrects,
       int consecutiveCorrects,
       List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() DateTime? createdAt,
-      @DateTimeTimestampConverter() DateTime? updatedAt,
-      @DateTimeTimestampConverter() DateTime? lastAnsweredQuizCreatedAt});
+      @DateTimeTimestampConverter() DateTime createdAt,
+      @DateTimeTimestampConverter() DateTime updatedAt,
+      @DateTimeTimestampConverter() DateTime lastAnsweredQuizCreatedAt});
 }
 
 /// @nodoc
@@ -102,9 +102,9 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? maxConsecutiveCorrects = null,
     Object? consecutiveCorrects = null,
     Object? favoriteQuizIds = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-    Object? lastAnsweredQuizCreatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? lastAnsweredQuizCreatedAt = null,
   }) {
     return _then(_value.copyWith(
       authId: null == authId
@@ -167,18 +167,18 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastAnsweredQuizCreatedAt: freezed == lastAnsweredQuizCreatedAt
+              as DateTime,
+      lastAnsweredQuizCreatedAt: null == lastAnsweredQuizCreatedAt
           ? _value.lastAnsweredQuizCreatedAt
           : lastAnsweredQuizCreatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -206,9 +206,9 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       int maxConsecutiveCorrects,
       int consecutiveCorrects,
       List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() DateTime? createdAt,
-      @DateTimeTimestampConverter() DateTime? updatedAt,
-      @DateTimeTimestampConverter() DateTime? lastAnsweredQuizCreatedAt});
+      @DateTimeTimestampConverter() DateTime createdAt,
+      @DateTimeTimestampConverter() DateTime updatedAt,
+      @DateTimeTimestampConverter() DateTime lastAnsweredQuizCreatedAt});
 }
 
 /// @nodoc
@@ -237,9 +237,9 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? maxConsecutiveCorrects = null,
     Object? consecutiveCorrects = null,
     Object? favoriteQuizIds = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-    Object? lastAnsweredQuizCreatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+    Object? lastAnsweredQuizCreatedAt = null,
   }) {
     return _then(_$AppUserImpl(
       authId: null == authId
@@ -302,18 +302,18 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value._favoriteQuizIds
           : favoriteQuizIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastAnsweredQuizCreatedAt: freezed == lastAnsweredQuizCreatedAt
+              as DateTime,
+      lastAnsweredQuizCreatedAt: null == lastAnsweredQuizCreatedAt
           ? _value.lastAnsweredQuizCreatedAt
           : lastAnsweredQuizCreatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -337,9 +337,9 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       this.maxConsecutiveCorrects = 0,
       this.consecutiveCorrects = 0,
       final List<String> favoriteQuizIds = const [],
-      @DateTimeTimestampConverter() this.createdAt,
-      @DateTimeTimestampConverter() this.updatedAt,
-      @DateTimeTimestampConverter() this.lastAnsweredQuizCreatedAt})
+      @DateTimeTimestampConverter() required this.createdAt,
+      @DateTimeTimestampConverter() required this.updatedAt,
+      @DateTimeTimestampConverter() required this.lastAnsweredQuizCreatedAt})
       : _favoriteQuizIds = favoriteQuizIds,
         super._();
 
@@ -403,13 +403,13 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
   @override
   @DateTimeTimestampConverter()
-  final DateTime? createdAt;
+  final DateTime createdAt;
   @override
   @DateTimeTimestampConverter()
-  final DateTime? updatedAt;
+  final DateTime updatedAt;
   @override
   @DateTimeTimestampConverter()
-  final DateTime? lastAnsweredQuizCreatedAt;
+  final DateTime lastAnsweredQuizCreatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -537,10 +537,10 @@ abstract class _AppUser extends AppUser {
       final int maxConsecutiveCorrects,
       final int consecutiveCorrects,
       final List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() final DateTime? createdAt,
-      @DateTimeTimestampConverter() final DateTime? updatedAt,
+      @DateTimeTimestampConverter() required final DateTime createdAt,
+      @DateTimeTimestampConverter() required final DateTime updatedAt,
       @DateTimeTimestampConverter()
-      final DateTime? lastAnsweredQuizCreatedAt}) = _$AppUserImpl;
+      required final DateTime lastAnsweredQuizCreatedAt}) = _$AppUserImpl;
   _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -577,13 +577,13 @@ abstract class _AppUser extends AppUser {
   List<String> get favoriteQuizIds;
   @override
   @DateTimeTimestampConverter()
-  DateTime? get createdAt;
+  DateTime get createdAt;
   @override
   @DateTimeTimestampConverter()
-  DateTime? get updatedAt;
+  DateTime get updatedAt;
   @override
   @DateTimeTimestampConverter()
-  DateTime? get lastAnsweredQuizCreatedAt;
+  DateTime get lastAnsweredQuizCreatedAt;
   @override
   @JsonKey(ignore: true)
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>

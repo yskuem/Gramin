@@ -1,5 +1,4 @@
 
-import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -42,7 +41,10 @@ class AppUserController extends _$AppUserController {
     state = await AsyncValue.guard(() async {
       await ref.read(documentRepositoryProvider).save(
         AppUser.docPath(newUser.authId),
-        data: ref.read(upLoadConverterProvider).toCreateDoc(data: newUser.toJson()),
+        data: newUser.copyWith(
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ).toJson()
       );
       return newUser;
     });
@@ -53,10 +55,9 @@ class AppUserController extends _$AppUserController {
     state = await AsyncValue.guard(() async {
       await ref.read(documentRepositoryProvider).update(
           AppUser.docPath(updateUser.authId),
-          data: ref.read(upLoadConverterProvider).toUpdateDoc(
-              data: updateUser.toJson(),
-              createdAt: updateUser.createdAt,
-          ),
+          data: updateUser.copyWith(
+            updatedAt: DateTime.now(),
+          ).toJson(),
       );
       return updateUser;
     });
@@ -72,7 +73,7 @@ class AppUserController extends _$AppUserController {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
-      lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
+      lastAnsweredQuizCreatedAt: quiz.createdAt,
       correctCount: isCorrect ? currentUser.correctCount + 1 : currentUser.correctCount,
       inCorrectCount: isCorrect ? currentUser.inCorrectCount : currentUser.inCorrectCount + 1,
       consecutiveCorrects: isCorrect ? currentUser.consecutiveCorrects + 1 : 0,

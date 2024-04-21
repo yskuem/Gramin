@@ -13,12 +13,12 @@ _$DeveloperImpl _$$DeveloperImplFromJson(Map<String, dynamic> json) =>
       image: json['image'] == null
           ? null
           : StorageFile.fromJson(json['image'] as Map<String, dynamic>),
-      birthdate: const DateTimeTimestampConverter()
-          .fromJson(json['birthdate'] as Timestamp?),
-      createdAt: const DateTimeTimestampConverter()
-          .fromJson(json['createdAt'] as Timestamp?),
-      updatedAt: const DateTimeTimestampConverter()
-          .fromJson(json['updatedAt'] as Timestamp?),
+      birthdate: _$JsonConverterFromJson<Timestamp, DateTime>(
+          json['birthdate'], const DateTimeTimestampConverter().fromJson),
+      createdAt: _$JsonConverterFromJson<Timestamp, DateTime>(
+          json['createdAt'], const DateTimeTimestampConverter().fromJson),
+      updatedAt: _$JsonConverterFromJson<Timestamp, DateTime>(
+          json['updatedAt'], const DateTimeTimestampConverter().fromJson),
     );
 
 Map<String, dynamic> _$$DeveloperImplToJson(_$DeveloperImpl instance) =>
@@ -26,10 +26,22 @@ Map<String, dynamic> _$$DeveloperImplToJson(_$DeveloperImpl instance) =>
       'developerId': instance.developerId,
       'name': instance.name,
       'image': instance.image?.toJson(),
-      'birthdate':
-          const DateTimeTimestampConverter().toJson(instance.birthdate),
-      'createdAt':
-          const DateTimeTimestampConverter().toJson(instance.createdAt),
-      'updatedAt':
-          const DateTimeTimestampConverter().toJson(instance.updatedAt),
+      'birthdate': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.birthdate, const DateTimeTimestampConverter().toJson),
+      'createdAt': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.createdAt, const DateTimeTimestampConverter().toJson),
+      'updatedAt': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.updatedAt, const DateTimeTimestampConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/core/repositories/firestore/document_repository.dart';
@@ -102,13 +101,11 @@ class QuizController extends _$QuizController {
   Future<void> onUpdate (Quiz quiz) async {
 
     state = await AsyncValue.guard(() async {
-      final data = ref.read(upLoadConverterProvider).toUpdateDoc(
-          data: quiz.toJson(), 
-          createdAt: quiz.createdAt,
-      );
       await ref.read(documentRepositoryProvider).update(
         Quiz.docPath(quiz.id),
-        data: data,
+        data: quiz.copyWith(
+          updatedAt: DateTime.now(),
+        ).toJson(),
       );
       final previousData = await future;
       final newList = previousData.map((data) {
@@ -126,10 +123,12 @@ class QuizController extends _$QuizController {
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
     }
-    final data = ref.read(upLoadConverterProvider).toCreateDoc(data: quiz.toJson());
     await ref.read(documentRepositoryProvider).save(
       Quiz.docPath(quiz.id),
-      data: data,
+      data: quiz.copyWith(
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ).toJson(),
     );
   }
 
@@ -159,7 +158,7 @@ class QuizController extends _$QuizController {
     if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
       throw AppException.irregular();
     }
-    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt?.isAfter(lastAnsweredQuizCreatedAt) ?? false).toList();
+    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt.isAfter(lastAnsweredQuizCreatedAt)).toList();
     debugPrint('残りの問題数 ${unansweredQuiz.length}');
     if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {//残りの問題数が5問以下かどうか
       return;

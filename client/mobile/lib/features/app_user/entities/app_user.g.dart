@@ -27,11 +27,11 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       createdAt: const DateTimeTimestampConverter()
-          .fromJson(json['createdAt'] as Timestamp?),
+          .fromJson(json['createdAt'] as Timestamp),
       updatedAt: const DateTimeTimestampConverter()
-          .fromJson(json['updatedAt'] as Timestamp?),
+          .fromJson(json['updatedAt'] as Timestamp),
       lastAnsweredQuizCreatedAt: const DateTimeTimestampConverter()
-          .fromJson(json['lastAnsweredQuizCreatedAt'] as Timestamp?),
+          .fromJson(json['lastAnsweredQuizCreatedAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>

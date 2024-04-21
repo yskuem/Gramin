@@ -1,5 +1,4 @@
 
-import 'package:flutter_app_template/core/converters/up_load_converter.dart';
 import 'package:flutter_app_template/features/quiz/entities/answered_quiz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -66,10 +65,12 @@ class AnsweredQuizController extends _$AnsweredQuizController {
       userSelectIndex: userSelectIndex,
       isCorrect: isCorrect,
     );
-    final data = ref.read(upLoadConverterProvider).toCreateDoc(data: answeredQuiz.toJson());
     await ref.read(documentRepositoryProvider).save(
       AnsweredQuiz.docPath(userId: userId, quizId: answeredQuiz.id),
-      data: data,
+      data: answeredQuiz.copyWith(
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ).toJson(),
     );
   }
 
