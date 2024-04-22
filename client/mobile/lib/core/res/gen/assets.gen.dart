@@ -41,8 +41,6 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        quizBack1,
-        tutorialPic1,
         iconBackImage,
         iconForeImage,
         neko,
