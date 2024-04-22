@@ -14,7 +14,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/custom_hooks/use_form_field_state_key.dart';
 import '../../../core/exceptions/app_exception.dart';
 import '../../../core/widgets/show_indicator.dart';
-import '../../app_wrapper/pages/main_page.dart';
 
 class RegisterNamePage extends HookConsumerWidget {
   const RegisterNamePage({super.key});

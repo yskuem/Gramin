@@ -5,6 +5,7 @@ import 'package:flutter_app_template/features/user_profile/parts/user_result_par
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../../app_wrapper/pages/main_page.dart';
+import '../parts/drawer_menu.dart';
 import 'edit_user_profile_page.dart';
 
 class UserProfilePage extends HookConsumerWidget {
@@ -19,18 +20,16 @@ class UserProfilePage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10,top: 10),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
                         onPressed: (){
@@ -41,8 +40,23 @@ class UserProfilePage extends HookConsumerWidget {
                     ],
                   ),
                 ),
+              ),
+            ],
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
+        drawer: const Drawer(
+          backgroundColor: Colors.transparent,
+          child: DrawerMenu(),
+        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 const ProfilePart(),
                 const SizedBox(

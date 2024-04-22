@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/error/widgets/error_message.dart';
 import 'package:flutter_app_template/features/quiz/parts/quiz_parts.dart';
@@ -37,7 +36,7 @@ class QuizPage extends HookConsumerWidget {
             },
           ),
           loading: () => const Center(
-            child: CupertinoActivityIndicator(),
+            child: CircularProgressIndicator(),
           ),
         ),
       ),
