@@ -1,6 +1,7 @@
 
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -15,13 +16,13 @@ Stream<bool> isUpdateNeeded(IsUpdateNeededRef ref) async* {
   final appPackageInfo = await PackageInfo.fromPlatform();
   final currentVersion = Version.parse(appPackageInfo.version).toString();
   await remoteConfig.fetchAndActivate();
-  final latestVersion = remoteConfig.getString('latest_app_version');
+  final latestVersion = _getAppVersion(remoteConfig);
   final isUpdateNeeded = !(currentVersion == latestVersion);
   updateNeededController.add(isUpdateNeeded);
 
   remoteConfig.onConfigUpdated.listen((_) async {
     await remoteConfig.fetchAndActivate();
-    final latestVersion = remoteConfig.getString('latest_app_version');
+    final latestVersion = _getAppVersion(remoteConfig);
     final isUpdateNeeded = !(currentVersion == latestVersion);
     // 更新が必要かどうかの値をストリームに追加
     updateNeededController.add(isUpdateNeeded);
@@ -30,6 +31,16 @@ Stream<bool> isUpdateNeeded(IsUpdateNeededRef ref) async* {
 
   // StreamControllerのストリームを返す
   yield* updateNeededController.stream;
+}
+
+
+String _getAppVersion (FirebaseRemoteConfig remoteConfig) {
+
+  if(Platform.isIOS) {
+    return remoteConfig.getString('ios_latest_app_version');
+  } else {
+    return remoteConfig.getString('android_latest_app_version');
+  }
 }
 
 
