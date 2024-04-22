@@ -19,18 +19,16 @@ class UserProfilePage extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10,top: 10),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
                         onPressed: (){
@@ -41,9 +39,38 @@ class UserProfilePage extends HookConsumerWidget {
                     ],
                   ),
                 ),
+              ),
+            ],
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
+        drawer: const Drawer(),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       TextButton(
+                //         onPressed: (){
+                //           EditUserProfilePage.push(context);
+                //         },
+                //         child: const Text('プロフィール編集',style: TextStyle(fontSize: 17,color: Colors.black),),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 15,
+                // ),
                 const ProfilePart(),
                 const SizedBox(
                   height: 30,
