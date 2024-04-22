@@ -8,11 +8,11 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>写真はアプリ内で利用します。</string>
+	<string>写真はユーザープロフィールに利用します。プロフィール画像はランキングで他のユーザーに表示されます。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>写真はアプリ内で利用します。</string>
+	<string>写真はユーザープロフィールに利用します。プロフィール画像はランキングで他のユーザーに表示されます。</string>
 	<key>NSCameraUsageDescription</key>
-	<string>写真はアプリ内で利用します。</string>
+	<string>写真はユーザープロフィールに利用します。プロフィール画像はランキングで他のユーザーに表示されます。</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ja_JP</string>
 	<key>CFBundleDisplayName</key>
