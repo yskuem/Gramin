@@ -5,6 +5,7 @@ import 'package:flutter_app_template/features/user_profile/parts/user_result_par
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../../app_wrapper/pages/main_page.dart';
+import '../parts/drawer_menu.dart';
 import 'edit_user_profile_page.dart';
 
 class UserProfilePage extends HookConsumerWidget {
@@ -45,7 +46,10 @@ class UserProfilePage extends HookConsumerWidget {
             backgroundColor: Colors.transparent,
           ),
         ),
-        drawer: const Drawer(),
+        drawer: const Drawer(
+          backgroundColor: Colors.transparent,
+          child: DrawerMenu(),
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -54,23 +58,6 @@ class UserProfilePage extends HookConsumerWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 25),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       TextButton(
-                //         onPressed: (){
-                //           EditUserProfilePage.push(context);
-                //         },
-                //         child: const Text('プロフィール編集',style: TextStyle(fontSize: 17,color: Colors.black),),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
                 const ProfilePart(),
                 const SizedBox(
                   height: 30,

@@ -63,6 +63,14 @@ class AppUserController extends _$AppUserController {
     });
   }
 
+  Future<void> onDelete() async {
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    if (userId == null) {
+      throw AppException(title: 'ログインしてください');
+    }
+    await ref.read(documentRepositoryProvider).remove(AppUser.docPath(userId));
+  }
+
 
   Future<AppUser> userStateUpdate ({
     required Quiz quiz,
