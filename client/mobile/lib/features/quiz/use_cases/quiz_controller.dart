@@ -63,6 +63,9 @@ class QuizController extends _$QuizController {
     _collectionPagingRepository = repository;
     final documentList = await repository.fetch();
     final quizList = documentList.map((document) => document.entity).whereType<Quiz>().toList();
+    // //前回の回答日時より新しいクイズを取得するため最初は除く
+    // final firstQuizId = quizList[0].id;
+    // final list = quizList.where((quiz) => quiz.id != firstQuizId).toList();
     state = AsyncData([
       ...quizList,
     ]);
@@ -158,7 +161,9 @@ class QuizController extends _$QuizController {
     if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
       throw AppException.irregular();
     }
-    final unansweredQuiz = quizList.where((quiz) => quiz.createdAt.isAfter(lastAnsweredQuizCreatedAt)).toList();
+    final unansweredQuiz = quizList.where((quiz) =>
+        quiz.createdAt?.isAfter(lastAnsweredQuizCreatedAt) ?? false,
+    ).toList();
     debugPrint('残りの問題数 ${unansweredQuiz.length}');
     if(unansweredQuiz.length >= fetchMoreIfBelowThreshold) {//残りの問題数が5問以下かどうか
       return;

@@ -25,7 +25,10 @@ class QuizApiRepository {
   Future<Quiz> createQuiz() async {
     try {
       final result = await _client.createQuiz('');
-      return result;
+      return result.copyWith(
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
     } on DioException catch (e) {
       final response = e.response;
       logger.shout(

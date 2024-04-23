@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
 import 'package:flutter_app_template/core/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
+import 'package:flutter_app_template/features/quiz/use_cases/answered_quiz_controller.dart';
 import 'package:flutter_app_template/features/tutorial/pages/tutorial.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:go_router/go_router.dart';
@@ -61,6 +62,7 @@ class DrawerMenu extends HookConsumerWidget {
                                 throw AppException(title: 'エラーが発生しました');
                               }
                               await ref.read(appUserControllerProvider.notifier).onDelete();
+                              await ref.read(answeredQuizControllerProvider.notifier).onDelete();
                               await ref.read(firebaseAuthRepositoryProvider).userDelete(
                                 ref.read(firebaseAuthRepositoryProvider).authUser!,
                               );

@@ -81,7 +81,7 @@ class AppUserController extends _$AppUserController {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
-      lastAnsweredQuizCreatedAt: quiz.createdAt,
+      lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
       correctCount: isCorrect ? currentUser.correctCount + 1 : currentUser.correctCount,
       inCorrectCount: isCorrect ? currentUser.inCorrectCount : currentUser.inCorrectCount + 1,
       consecutiveCorrects: isCorrect ? currentUser.consecutiveCorrects + 1 : 0,

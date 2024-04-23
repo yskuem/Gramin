@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app_template/features/quiz/entities/answered_quiz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -89,5 +90,18 @@ class AnsweredQuizController extends _$AnsweredQuizController {
      ]);
      return answeredQuizList;
    }
+
+
+  Future<void> onDelete() async {
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
+    if (userId == null) {
+      throw AppException(title: 'ログインしてください');
+    }
+    await FirebaseFirestore.instance.collection(AnsweredQuiz.collectionPath(userId)).get().then((snapshot) {
+      for (final doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
+  }
 }
 

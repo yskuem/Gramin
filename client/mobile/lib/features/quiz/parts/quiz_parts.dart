@@ -11,6 +11,7 @@ import 'package:flutter_app_template/features/quiz/use_cases/quiz_controller.dar
 import 'package:flutter_app_template/features/ranking/use_case/ranking_user_controller.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../core/widgets/buttons/quiz_loading_animation.dart';
 import '../../advertisement/use_case/interstitial_ad_controller.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../entities/quiz.dart';
@@ -33,7 +34,7 @@ class QuizParts extends HookConsumerWidget {
     _loadAdEffect(ref, currentQuizIndex);
 
     if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
-      return const Center(child: CupertinoActivityIndicator());
+      return const Center(child: QuizLoadingIndicator());
     }
     return Stack(
       children: [
