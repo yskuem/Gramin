@@ -18,6 +18,7 @@ class AppUser with _$AppUser {
     required String name,
     @Default(defaultImageUrl) String iconUrl,//TODO: デフォルトの画像URLを追加
     @Default('') String description,
+    @Default('') String lastAnsweredQuizId,
     @Default(0) int exPoint,//合計経験値
     @Default(0) int correctCount,
     @Default(0) int inCorrectCount,
@@ -30,7 +31,6 @@ class AppUser with _$AppUser {
     @Default([]) List<String> favoriteQuizIds,
     @DateTimeTimestampConverter() required DateTime createdAt,
     @DateTimeTimestampConverter() required DateTime updatedAt,
-    @DateTimeTimestampConverter() required DateTime lastAnsweredQuizCreatedAt,
   }) = _AppUser;
   const AppUser._();
   factory AppUser.fromJson(Map<String, dynamic> json) =>

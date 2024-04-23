@@ -33,6 +33,7 @@ class AppUserController extends _$AppUserController {
     );
     final appUser = doc.entity;
     state = AsyncData(appUser);
+    print(appUser);
     return appUser;
   }
 
@@ -81,7 +82,7 @@ class AppUserController extends _$AppUserController {
       throw AppException.irregular();
     }
     final updatedUser = currentUser.copyWith(
-      lastAnsweredQuizCreatedAt: quiz.createdAt ?? currentUser.lastAnsweredQuizCreatedAt,
+      lastAnsweredQuizId: quiz.id,
       correctCount: isCorrect ? currentUser.correctCount + 1 : currentUser.correctCount,
       inCorrectCount: isCorrect ? currentUser.inCorrectCount : currentUser.inCorrectCount + 1,
       consecutiveCorrects: isCorrect ? currentUser.consecutiveCorrects + 1 : 0,

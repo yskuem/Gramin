@@ -26,6 +26,7 @@ mixin _$AppUser {
   String get iconUrl =>
       throw _privateConstructorUsedError; //TODO: デフォルトの画像URLを追加
   String get description => throw _privateConstructorUsedError;
+  String get lastAnsweredQuizId => throw _privateConstructorUsedError;
   int get exPoint => throw _privateConstructorUsedError; //合計経験値
   int get correctCount => throw _privateConstructorUsedError;
   int get inCorrectCount => throw _privateConstructorUsedError;
@@ -40,8 +41,6 @@ mixin _$AppUser {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  @DateTimeTimestampConverter()
-  DateTime get lastAnsweredQuizCreatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,6 +58,7 @@ abstract class $AppUserCopyWith<$Res> {
       String name,
       String iconUrl,
       String description,
+      String lastAnsweredQuizId,
       int exPoint,
       int correctCount,
       int inCorrectCount,
@@ -70,8 +70,7 @@ abstract class $AppUserCopyWith<$Res> {
       int consecutiveCorrects,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updatedAt,
-      @DateTimeTimestampConverter() DateTime lastAnsweredQuizCreatedAt});
+      @DateTimeTimestampConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -92,6 +91,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? name = null,
     Object? iconUrl = null,
     Object? description = null,
+    Object? lastAnsweredQuizId = null,
     Object? exPoint = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
@@ -104,7 +104,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? favoriteQuizIds = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? lastAnsweredQuizCreatedAt = null,
   }) {
     return _then(_value.copyWith(
       authId: null == authId
@@ -126,6 +125,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastAnsweredQuizId: null == lastAnsweredQuizId
+          ? _value.lastAnsweredQuizId
+          : lastAnsweredQuizId // ignore: cast_nullable_to_non_nullable
               as String,
       exPoint: null == exPoint
           ? _value.exPoint
@@ -175,10 +178,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      lastAnsweredQuizCreatedAt: null == lastAnsweredQuizCreatedAt
-          ? _value.lastAnsweredQuizCreatedAt
-          : lastAnsweredQuizCreatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
@@ -196,6 +195,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String name,
       String iconUrl,
       String description,
+      String lastAnsweredQuizId,
       int exPoint,
       int correctCount,
       int inCorrectCount,
@@ -207,8 +207,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       int consecutiveCorrects,
       List<String> favoriteQuizIds,
       @DateTimeTimestampConverter() DateTime createdAt,
-      @DateTimeTimestampConverter() DateTime updatedAt,
-      @DateTimeTimestampConverter() DateTime lastAnsweredQuizCreatedAt});
+      @DateTimeTimestampConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -227,6 +226,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? name = null,
     Object? iconUrl = null,
     Object? description = null,
+    Object? lastAnsweredQuizId = null,
     Object? exPoint = null,
     Object? correctCount = null,
     Object? inCorrectCount = null,
@@ -239,7 +239,6 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? favoriteQuizIds = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? lastAnsweredQuizCreatedAt = null,
   }) {
     return _then(_$AppUserImpl(
       authId: null == authId
@@ -261,6 +260,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastAnsweredQuizId: null == lastAnsweredQuizId
+          ? _value.lastAnsweredQuizId
+          : lastAnsweredQuizId // ignore: cast_nullable_to_non_nullable
               as String,
       exPoint: null == exPoint
           ? _value.exPoint
@@ -310,10 +313,6 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      lastAnsweredQuizCreatedAt: null == lastAnsweredQuizCreatedAt
-          ? _value.lastAnsweredQuizCreatedAt
-          : lastAnsweredQuizCreatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -327,6 +326,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       required this.name,
       this.iconUrl = defaultImageUrl,
       this.description = '',
+      this.lastAnsweredQuizId = '',
       this.exPoint = 0,
       this.correctCount = 0,
       this.inCorrectCount = 0,
@@ -338,8 +338,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       this.consecutiveCorrects = 0,
       final List<String> favoriteQuizIds = const [],
       @DateTimeTimestampConverter() required this.createdAt,
-      @DateTimeTimestampConverter() required this.updatedAt,
-      @DateTimeTimestampConverter() required this.lastAnsweredQuizCreatedAt})
+      @DateTimeTimestampConverter() required this.updatedAt})
       : _favoriteQuizIds = favoriteQuizIds,
         super._();
 
@@ -359,6 +358,9 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final String description;
+  @override
+  @JsonKey()
+  final String lastAnsweredQuizId;
   @override
   @JsonKey()
   final int exPoint;
@@ -407,13 +409,10 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   @override
   @DateTimeTimestampConverter()
   final DateTime updatedAt;
-  @override
-  @DateTimeTimestampConverter()
-  final DateTime lastAnsweredQuizCreatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, exPoint: $exPoint, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, maxConsecutiveWins: $maxConsecutiveWins, consecutiveWins: $consecutiveWins, maxConsecutiveCorrects: $maxConsecutiveCorrects, consecutiveCorrects: $consecutiveCorrects, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt, lastAnsweredQuizCreatedAt: $lastAnsweredQuizCreatedAt)';
+    return 'AppUser(authId: $authId, displayId: $displayId, name: $name, iconUrl: $iconUrl, description: $description, lastAnsweredQuizId: $lastAnsweredQuizId, exPoint: $exPoint, correctCount: $correctCount, inCorrectCount: $inCorrectCount, winCount: $winCount, loseCount: $loseCount, maxConsecutiveWins: $maxConsecutiveWins, consecutiveWins: $consecutiveWins, maxConsecutiveCorrects: $maxConsecutiveCorrects, consecutiveCorrects: $consecutiveCorrects, favoriteQuizIds: $favoriteQuizIds, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -426,6 +425,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('iconUrl', iconUrl))
       ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('lastAnsweredQuizId', lastAnsweredQuizId))
       ..add(DiagnosticsProperty('exPoint', exPoint))
       ..add(DiagnosticsProperty('correctCount', correctCount))
       ..add(DiagnosticsProperty('inCorrectCount', inCorrectCount))
@@ -438,9 +438,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('consecutiveCorrects', consecutiveCorrects))
       ..add(DiagnosticsProperty('favoriteQuizIds', favoriteQuizIds))
       ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('updatedAt', updatedAt))
-      ..add(DiagnosticsProperty(
-          'lastAnsweredQuizCreatedAt', lastAnsweredQuizCreatedAt));
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -455,6 +453,8 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.lastAnsweredQuizId, lastAnsweredQuizId) ||
+                other.lastAnsweredQuizId == lastAnsweredQuizId) &&
             (identical(other.exPoint, exPoint) || other.exPoint == exPoint) &&
             (identical(other.correctCount, correctCount) ||
                 other.correctCount == correctCount) &&
@@ -477,10 +477,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.lastAnsweredQuizCreatedAt,
-                    lastAnsweredQuizCreatedAt) ||
-                other.lastAnsweredQuizCreatedAt == lastAnsweredQuizCreatedAt));
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -492,6 +489,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       name,
       iconUrl,
       description,
+      lastAnsweredQuizId,
       exPoint,
       correctCount,
       inCorrectCount,
@@ -503,8 +501,7 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
       consecutiveCorrects,
       const DeepCollectionEquality().hash(_favoriteQuizIds),
       createdAt,
-      updatedAt,
-      lastAnsweredQuizCreatedAt);
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -522,25 +519,25 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
 
 abstract class _AppUser extends AppUser {
   factory _AppUser(
-      {required final String authId,
-      required final String displayId,
-      required final String name,
-      final String iconUrl,
-      final String description,
-      final int exPoint,
-      final int correctCount,
-      final int inCorrectCount,
-      final int winCount,
-      final int loseCount,
-      final int maxConsecutiveWins,
-      final int consecutiveWins,
-      final int maxConsecutiveCorrects,
-      final int consecutiveCorrects,
-      final List<String> favoriteQuizIds,
-      @DateTimeTimestampConverter() required final DateTime createdAt,
-      @DateTimeTimestampConverter() required final DateTime updatedAt,
-      @DateTimeTimestampConverter()
-      required final DateTime lastAnsweredQuizCreatedAt}) = _$AppUserImpl;
+          {required final String authId,
+          required final String displayId,
+          required final String name,
+          final String iconUrl,
+          final String description,
+          final String lastAnsweredQuizId,
+          final int exPoint,
+          final int correctCount,
+          final int inCorrectCount,
+          final int winCount,
+          final int loseCount,
+          final int maxConsecutiveWins,
+          final int consecutiveWins,
+          final int maxConsecutiveCorrects,
+          final int consecutiveCorrects,
+          final List<String> favoriteQuizIds,
+          @DateTimeTimestampConverter() required final DateTime createdAt,
+          @DateTimeTimestampConverter() required final DateTime updatedAt}) =
+      _$AppUserImpl;
   _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -555,6 +552,8 @@ abstract class _AppUser extends AppUser {
   String get iconUrl;
   @override //TODO: デフォルトの画像URLを追加
   String get description;
+  @override
+  String get lastAnsweredQuizId;
   @override
   int get exPoint;
   @override //合計経験値
@@ -581,9 +580,6 @@ abstract class _AppUser extends AppUser {
   @override
   @DateTimeTimestampConverter()
   DateTime get updatedAt;
-  @override
-  @DateTimeTimestampConverter()
-  DateTime get lastAnsweredQuizCreatedAt;
   @override
   @JsonKey(ignore: true)
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>

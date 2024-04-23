@@ -67,7 +67,6 @@ class StartUpStateController extends _$StartUpStateController {
           name: userName,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
-          lastAnsweredQuizCreatedAt: DateTime(2022, 12, 31),
           iconUrl: iconUrl ?? defaultImageUrl,
         ),
       );

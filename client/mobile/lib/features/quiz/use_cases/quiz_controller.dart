@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_template/core/exceptions/app_exception.dart';
@@ -53,7 +54,7 @@ class QuizController extends _$QuizController {
     final repository = ref.watch(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
-          query: Quiz.colRef.orderBy('createdAt',descending: false).startAfter([currentUser.lastAnsweredQuizCreatedAt]),//TODO(''): 未回答のクイズを取得する
+          query: Quiz.colRef.orderBy('createdAt',descending: false),
           initialLimit: initialLimitCount,
           pagingLimit: pagingLimitCount,
           decode: Quiz.fromJson,
@@ -61,15 +62,31 @@ class QuizController extends _$QuizController {
       ),
     );
     _collectionPagingRepository = repository;
-    final documentList = await repository.fetch();
+
+    final lastAnsweredQuizDocument = await fetchLastAnsweredQuizDocument(
+      currentUser.lastAnsweredQuizId,
+    );
+
+
+    final documentList =
+    lastAnsweredQuizDocument == null
+        ? await repository.fetch()
+        : await repository.fetchMore(startAfterDocument: lastAnsweredQuizDocument);
     final quizList = documentList.map((document) => document.entity).whereType<Quiz>().toList();
-    // //前回の回答日時より新しいクイズを取得するため最初は除く
-    // final firstQuizId = quizList[0].id;
-    // final list = quizList.where((quiz) => quiz.id != firstQuizId).toList();
     state = AsyncData([
       ...quizList,
     ]);
+    print(quizList.length);
     return quizList;
+  }
+
+
+  Future<DocumentSnapshot<Map<String, dynamic>>?> fetchLastAnsweredQuizDocument(String quizId) async {
+    if(quizId.isEmpty) {
+      return null;
+    }
+    final snap = await FirebaseFirestore.instance.doc(Quiz.docPath(quizId)).get();
+    return snap;
   }
 
 
@@ -157,7 +174,8 @@ class QuizController extends _$QuizController {
     final quizList = state.value;
     final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     final currentUser = await ref.read(appUserControllerProvider.future);
-    final lastAnsweredQuizCreatedAt = currentUser?.lastAnsweredQuizCreatedAt;
+    final lastAnsweredQuiz = quizList?.firstWhere((quiz) => quiz.id == currentUser?.lastAnsweredQuizId);
+    final lastAnsweredQuizCreatedAt = lastAnsweredQuiz?.createdAt;
     if(quizList == null || userId == null || currentUser == null || lastAnsweredQuizCreatedAt == null) {
       throw AppException.irregular();
     }

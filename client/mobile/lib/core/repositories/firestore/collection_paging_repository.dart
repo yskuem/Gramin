@@ -71,15 +71,13 @@ class CollectionPagingRepository<T extends Object> {
   }
 
   Future<List<Document<T>>> fetchMore({
+    DocumentSnapshot<Map<String, dynamic>>? startAfterDocument,
     Source source = Source.serverAndCache,
   }) async {
-    if (_startAfterDocument == null) {
-      return [];
-    }
     final documents = await _fetch(
       source: source,
       limit: pagingLimit,
-      startAfterDocument: _startAfterDocument,
+      startAfterDocument: startAfterDocument ?? _startAfterDocument,
     );
     return documents
         .map(
