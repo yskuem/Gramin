@@ -1,0 +1,5 @@
+.venv
+boot_server.sh
+setup_env.sh
+.DS_Store
+._*
