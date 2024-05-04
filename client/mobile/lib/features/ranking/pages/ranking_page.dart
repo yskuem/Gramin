@@ -1,12 +1,10 @@
 
-
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/ranking/parts/ranking_tile.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
+import '../../../core/custom_hooks/use_refresh_controller.dart';
 import '../../app_wrapper/pages/main_page.dart';
 import '../use_case/ranking_user_controller.dart';
 
@@ -20,73 +18,55 @@ class RankingPage extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final rankingUserList = ref.watch(rankingUserControllerProvider);
     final rankingUserLength = rankingUserList.value?.length ?? 0;
-    final isFinishedFetch = useState(false);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: rankingUserLength + 1,
-                itemBuilder: (context, index) {
-                  if(index == rankingUserLength) {
-                    return _bottomWidget(ref,isFinishedFetch);
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical:8, horizontal:10),
-                    child: RankingTile(
-                        index: index,
-                        height: MediaQuery.sizeOf(context).height * 1/7,
-                        width: MediaQuery.sizeOf(context).width * 8/10,
-                    ),
-                  );
-                },
-              ),
-            ],
+    final refreshController = useRefreshController();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'ランキング',
+          style: TextStyle(
+              color: Colors.black,
           ),
         ),
+        backgroundColor: Colors.transparent,
       ),
-    );
-  }
-
-  Widget _bottomWidget(WidgetRef ref,ValueNotifier<bool> isFinishedFetch) {
-    final rankingUserList = ref.watch(rankingUserControllerProvider);
-    if(rankingUserList.isLoading) {
-      return const CircularProgressIndicator();
-    }
-    if(isFinishedFetch.value) {
-      return const Padding(
-        padding: EdgeInsets.all(8),
-        child: TransparentCard(
-            child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    'ユーザは以上です',style: TextStyle(fontSize: 18),
-                  ),
-                ),
-            ),
+      backgroundColor: Colors.transparent,
+      body: SmartRefresher(
+        controller: refreshController,
+        header: const WaterDropMaterialHeader(),
+        physics: const BouncingScrollPhysics(),
+        enablePullUp: true,
+        enablePullDown: false,
+        footer: CustomFooter(
+          builder: (context, mode) {
+            return SizedBox(
+              height: 55,
+              child: mode == LoadStatus.idle
+                  ? const SizedBox.shrink()
+                  : const Center(child: CircularProgressIndicator()),
+            );
+          },
         ),
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue[500],
-        ),
-        onPressed: () async {
-          final isFinished = await ref.read(rankingUserControllerProvider.notifier).fetchMoreRankingUser();
-          isFinishedFetch.value = isFinished;
+        onLoading: () async {
+          await ref.read(rankingUserControllerProvider.notifier).fetchMoreRankingUser();
+          refreshController.loadComplete();
         },
-        child: const Text('もっと見る'),
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: rankingUserLength,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical:8, horizontal:10),
+              child: RankingTile(
+                index: index,
+                height: MediaQuery.sizeOf(context).height * 1/7,
+                width: MediaQuery.sizeOf(context).width * 8/10,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 }
+
