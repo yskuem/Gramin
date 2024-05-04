@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/app_user/use_case/app_user_controller.dart';
+import 'package:flutter_app_template/features/ranking/use_case/ranking_user_controller.dart';
 import 'package:flutter_app_template/features/user_profile/constant/constant.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -100,14 +101,21 @@ class EditUserProfilePage extends HookConsumerWidget {
                           updateIconUrl = await ImageOperations.upLoadImage(userState.authId, upLoadImage);
                         }
 
-                        await ref.read(appUserControllerProvider.notifier).onUpdate(
-                          userState.copyWith(
-                            iconUrl: updateIconUrl ?? userState.iconUrl,
-                            name: userNameTextFormKey.currentState?.value ?? userState.name,
-                            displayId: userIdTextFormKey.currentState?.value ?? userState.displayId,
-                            description: selfIntroductionTextFormKey.currentState?.value ?? userState.description,
-                          ),
+                        final updateUser = userState.copyWith(
+                          iconUrl: updateIconUrl ?? userState.iconUrl,
+                          name: userNameTextFormKey.currentState?.value ?? userState.name,
+                          displayId: userIdTextFormKey.currentState?.value ?? userState.displayId,
+                          description: selfIntroductionTextFormKey.currentState?.value ?? userState.description,
                         );
+
+                        //マイプロフィールのアップデート
+                        await ref.read(appUserControllerProvider.notifier).onUpdate(updateUser);
+
+                        //ランキングのプロフィールアップデート
+                        await ref.read(rankingUserControllerProvider.notifier).updateRankingUser(
+                            user: updateUser,
+                        );
+
                         dismissIndicator(context);
                         context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
