@@ -87,7 +87,7 @@ class DrawerMenu extends HookConsumerWidget {
             ],
           ),
         ],
-      )
+      ),
     );
   }
 }

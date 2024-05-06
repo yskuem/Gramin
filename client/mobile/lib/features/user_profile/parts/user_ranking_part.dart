@@ -8,14 +8,14 @@ class UserRankingPart extends HookConsumerWidget {
 
   const UserRankingPart({
     super.key,
-    required this.userId,
+    required this.authId,
   });
-  final String userId;
+  final String authId;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final allUserCount = ref.watch(fetchAllUserCountProvider).value ?? 0;
-    final userRanking = ref.watch(fetchUserRankingProvider(userId: userId)).value ?? 0;
+    final userRanking = ref.watch(fetchUserRankingProvider(userId: authId)).value ?? 0;
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.9,
       height: MediaQuery.sizeOf(context).height * 0.2,

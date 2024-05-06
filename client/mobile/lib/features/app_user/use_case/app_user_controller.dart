@@ -45,7 +45,7 @@ class AppUserController extends _$AppUserController {
         data: newUser.copyWith(
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
-        ).toJson()
+        ).toJson(),
       );
       return newUser;
     });

@@ -6,6 +6,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import '../../../core/custom_hooks/use_refresh_controller.dart';
 import '../../app_wrapper/pages/main_page.dart';
+import '../../user_profile/pages/other_profile_page.dart';
 import '../use_case/ranking_user_controller.dart';
 
 class RankingPage extends HookConsumerWidget {
@@ -55,12 +56,20 @@ class RankingPage extends HookConsumerWidget {
           shrinkWrap: true,
           itemCount: rankingUserLength,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical:8, horizontal:10),
-              child: RankingTile(
-                index: index,
-                height: MediaQuery.sizeOf(context).height * 1/7,
-                width: MediaQuery.sizeOf(context).width * 8/10,
+            return GestureDetector(
+              onTap: () {
+                OtherProfilePage.push(
+                    context,
+                    id: rankingUserList.value?[index].authId ?? '',
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical:8, horizontal:10),
+                child: RankingTile(
+                  index: index,
+                  height: MediaQuery.sizeOf(context).height * 1/7,
+                  width: MediaQuery.sizeOf(context).width * 8/10,
+                ),
               ),
             );
           },

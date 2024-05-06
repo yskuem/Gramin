@@ -1,16 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/features/app_user/use_case/provide_target_user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../app_user/use_case/app_user_controller.dart';
 import 'constant.dart';
 
 
 class QuizScorePart extends HookConsumerWidget {
-  const QuizScorePart({super.key});
+  const QuizScorePart({super.key,required this.authId});
+
+  final String authId;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final appUser = ref.watch(appUserControllerProvider);
+    final appUser = ref.watch(provideTargetUserProvider(userId: authId));
     final correctCount = appUser.value?.correctCount ?? 0;
     final inCorrectCount = appUser.value?.inCorrectCount ?? 0;
     return SizedBox(
