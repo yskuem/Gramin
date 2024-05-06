@@ -13,10 +13,10 @@ class UserResultPart extends HookConsumerWidget {
 
   const UserResultPart({
     super.key,
-    required this.userId,
+    required this.authId,
   });
 
-  final String userId;
+  final String authId;
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     return SizedBox(
@@ -26,9 +26,9 @@ class UserResultPart extends HookConsumerWidget {
           opacity: 0.5,
           child: Column(
             children: [
-              UserRankingPart(userId: userId),
-              const QuizScorePart(),
-              MaxConsecutiveCountPart(userId: userId),
+              UserRankingPart(authId: authId),
+              QuizScorePart(authId: authId),
+              MaxConsecutiveCountPart(authId: authId),
             ],
           ),
       ),

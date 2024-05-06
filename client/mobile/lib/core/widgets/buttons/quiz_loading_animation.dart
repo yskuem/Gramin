@@ -2,13 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class QuizLoadingIndicator extends StatefulWidget {
-  const QuizLoadingIndicator({Key? key}) : super(key: key);
+  const QuizLoadingIndicator({super.key});
 
   @override
-  _QuizLoadingIndicatorState createState() => _QuizLoadingIndicatorState();
+  QuizLoadingIndicatorState createState() => QuizLoadingIndicatorState();
 }
 
-class _QuizLoadingIndicatorState extends State<QuizLoadingIndicator>
+class QuizLoadingIndicatorState extends State<QuizLoadingIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -59,9 +59,9 @@ class _QuizLoadingIndicatorState extends State<QuizLoadingIndicator>
 }
 
 class QuizLoadingPainter extends CustomPainter {
-  final double angle;
 
   QuizLoadingPainter(this.angle);
+  final double angle;
 
   @override
   void paint(Canvas canvas, Size size) {
