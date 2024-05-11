@@ -34,131 +34,133 @@ class QuizParts extends HookConsumerWidget {
     if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
       return const Center(child: QuizLoadingIndicator());
     }
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Visibility(
-                  visible: isCorrect.value != null,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () async {
-                          currentQuizIndex.value++;
-                          isCorrect.value = null;
-                          if(currentQuizIndex.value % 3 == 0) {
-                            await interstitialAd.value?.show();
-                          }
-                        },
-                        child: const Text(
-                          '次へ',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                if(isCorrect.value == null)
-                  const SizedBox(height: 50,),
-                TransparentCard(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
-                    child: Column(
+    return SafeArea(
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: isCorrect.value != null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if(isCorrect.value != null)
-                          _displayResult(isCorrect: isCorrect.value!),
-                        Column(
-                          children: [
-                            if(currentUser != null && isCorrect.value == null && currentUser.consecutiveCorrects > 0)
-                              _displayConsecutiveCorrects(
-                                consecutiveCorrects: currentUser.consecutiveCorrects,
-                                context: context,
-                                ref: ref,
-                              ),
-                            Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
-                          ],
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () async {
+                            currentQuizIndex.value++;
+                            isCorrect.value = null;
+                            if(currentQuizIndex.value % 3 == 0) {
+                              await interstitialAd.value?.show();
+                            }
+                          },
+                          child: const Text(
+                            '次へ',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 30,),
-                Visibility(
-                  visible: isCorrect.value == null,
-                  child: ButtonPart(
-                    quizIndex: currentQuizIndex,
-                    isCorrect: isCorrect,
-                    selectButtonIndex: selectButtonIndex,
-                    quizListData: quizListData,
-                    currentQuizIndex: currentQuizIndex,
-                    updateUserQuizStatus: () async {
-                      // ユーザーのステータスを更新
-                      final userNewState = await ref.read(appUserControllerProvider.notifier).userStateUpdate(
-                        quiz: quizListData[currentQuizIndex.value],
-                        isCorrect: isCorrect.value,
-                      );
-                      await Future.wait([
-
-                        // クイズを取得
-                        ref.read(quizControllerProvider.notifier).fetchMoreQuiz(),
-
-                        // クイズのステータスを更新
-                        ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
-                          quiz: quizListData[currentQuizIndex.value],
-                          selectButtonIndex: selectButtonIndex.value,
-                        ),
-
-                        // 回答済みクイズ記録を保存
-                        ref.read(answeredQuizControllerProvider.notifier).save(
-                          quizId: quizListData[currentQuizIndex.value].id,
-                          userSelectIndex: selectButtonIndex.value,
-                          isCorrect: isCorrect.value,
-                        ),
-                      ]);
-
-                      // ランキングのステータスを更新
-                      await ref.read(rankingUserControllerProvider.notifier).updateRankingUser(
-                        user: userNewState,
-                      );
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: isCorrect.value != null,
-                  child: TransparentCard(
-                    opacity: 0.6,
+                  const SizedBox(height: 20,),
+                  if(isCorrect.value == null)
+                    const SizedBox(height: 50,),
+                  TransparentCard(
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ExplanationPart(
-                        quizIndex: currentQuizIndex,
-                        selectButtonIndex: selectButtonIndex,
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
+                      child: Column(
+                        children: [
+                          if(isCorrect.value != null)
+                            _displayResult(isCorrect: isCorrect.value!),
+                          Column(
+                            children: [
+                              if(currentUser != null && isCorrect.value == null && currentUser.consecutiveCorrects > 0)
+                                _displayConsecutiveCorrects(
+                                  consecutiveCorrects: currentUser.consecutiveCorrects,
+                                  context: context,
+                                  ref: ref,
+                                ),
+                              Text(quizListData[currentQuizIndex.value].question,style: quizContentTextStyle,),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 30,),
+                  Visibility(
+                    visible: isCorrect.value == null,
+                    child: ButtonPart(
+                      quizIndex: currentQuizIndex,
+                      isCorrect: isCorrect,
+                      selectButtonIndex: selectButtonIndex,
+                      quizListData: quizListData,
+                      currentQuizIndex: currentQuizIndex,
+                      updateUserQuizStatus: () async {
+                        // ユーザーのステータスを更新
+                        final userNewState = await ref.read(appUserControllerProvider.notifier).userStateUpdate(
+                          quiz: quizListData[currentQuizIndex.value],
+                          isCorrect: isCorrect.value,
+                        );
+                        await Future.wait([
+      
+                          // クイズを取得
+                          ref.read(quizControllerProvider.notifier).fetchMoreQuiz(),
+      
+                          // クイズのステータスを更新
+                          ref.read(quizControllerProvider.notifier).answeredQuizUpdate(
+                            quiz: quizListData[currentQuizIndex.value],
+                            selectButtonIndex: selectButtonIndex.value,
+                          ),
+      
+                          // 回答済みクイズ記録を保存
+                          ref.read(answeredQuizControllerProvider.notifier).save(
+                            quizId: quizListData[currentQuizIndex.value].id,
+                            userSelectIndex: selectButtonIndex.value,
+                            isCorrect: isCorrect.value,
+                          ),
+                        ]);
+      
+                        // ランキングのステータスを更新
+                        await ref.read(rankingUserControllerProvider.notifier).updateRankingUser(
+                          user: userNewState,
+                        );
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: isCorrect.value != null,
+                    child: TransparentCard(
+                      opacity: 0.6,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ExplanationPart(
+                          quizIndex: currentQuizIndex,
+                          selectButtonIndex: selectButtonIndex,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const Align(
-            alignment: Alignment.bottomCenter,
-            child: BannerAdPart(),
-        ),
-      ],
+          const Align(
+              alignment: Alignment.bottomCenter,
+              child: BannerAdPart(),
+          ),
+        ],
+      ),
     );
   }
 
