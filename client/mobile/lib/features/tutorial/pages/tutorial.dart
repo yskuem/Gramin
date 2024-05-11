@@ -66,7 +66,7 @@ class _TutorialPageState extends State<TutorialPage> with TickerProviderStateMix
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Assets.images.tutorialPic2.path, width: 500, height: 500),
+            Image.asset(Assets.images.tutorialPic2.path, width: 300, height: 300),
             const SizedBox(height: 50),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
@@ -87,7 +87,7 @@ class _TutorialPageState extends State<TutorialPage> with TickerProviderStateMix
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Assets.images.tutorialPic3.path, width: 500, height: 500),
+            Image.asset(Assets.images.tutorialPic3.path, width: 300, height: 300),
             const SizedBox(height: 50),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
