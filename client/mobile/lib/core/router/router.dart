@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_app_template/features/aggregation/pages/firestore_aggregation_page.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
 import 'package:flutter_app_template/features/ranking/pages/ranking_page.dart';
 import 'package:flutter_app_template/features/start_up/pages/register_name_page.dart';
 import 'package:flutter_app_template/features/tutorial/pages/tutorial.dart';
+import 'package:flutter_app_template/features/user_profile/pages/other_profile_page.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:flutter_app_template/features/user_profile/parts/drawer_menu.dart';
 import 'package:go_router/go_router.dart';
@@ -90,7 +89,7 @@ final routerProvider = Provider((ref) {
                 path: DrawerMenu.pageName,
                 builder: (_, __) => const DrawerMenu(),
               ),
-            ]
+            ],
           ),
           GoRoute(
             name: UserProfilePage.pageName,
@@ -108,107 +107,14 @@ final routerProvider = Provider((ref) {
             name: RankingPage.pageName,
             path: RankingPage.pageName,
             builder: (_, __) => const RankingPage(),
-          ),
-          /// ローカルカウンター
-          GoRoute(
-            path: LocalCounterPage.pageName,
-            name: LocalCounterPage.pageName,
-            builder: (_, __) => const LocalCounterPage(),
-          ),
-
-          /// Firestoreカウンター
-          GoRoute(
-            path: FirestoreCounterPage.pageName,
-            name: FirestoreCounterPage.pageName,
-            builder: (_, __) => const FirestoreCounterPage(),
-          ),
-
-          /// メールアドレス認証
-          GoRoute(
-            path: TopEmailFeaturePage.pageName,
-            name: TopEmailFeaturePage.pageName,
-            builder: (_, __) => const TopEmailFeaturePage(),
             routes: [
-              /// サインアップ
               GoRoute(
-                path: SignUpWithEmailPage.pageName,
-                name: SignUpWithEmailPage.pageName,
-                builder: (_, __) => const SignUpWithEmailPage(),
-              ),
-
-              /// サインイン
-              GoRoute(
-                path: SignInWithEmailPage.pageName,
-                name: SignInWithEmailPage.pageName,
-                builder: (_, __) => const SignInWithEmailPage(),
-              ),
-
-              /// パスワード変更
-              GoRoute(
-                path: ChangeEmailPasswordPage.pageName,
-                name: ChangeEmailPasswordPage.pageName,
-                builder: (_, __) => const ChangeEmailPasswordPage(),
-              ),
-
-              /// パスワードリセット
-              GoRoute(
-                path: ResetEmailPasswordPage.pageName,
-                name: ResetEmailPasswordPage.pageName,
-                builder: (_, __) => const ResetEmailPasswordPage(),
-              ),
-
-              /// メールアドレスの変更
-              GoRoute(
-                path: ChangeEmailAddressPage.pageName,
-                name: ChangeEmailAddressPage.pageName,
-                builder: (_, __) => const ChangeEmailAddressPage(),
-              ),
-
-              /// メールアドレス本人認証
-              GoRoute(
-                path: EmailVerificationPage.pageName,
-                name: EmailVerificationPage.pageName,
-                builder: (_, __) => const EmailVerificationPage(),
-              ),
-            ],
-          ),
-
-          /// Firestore Aggregation
-          GoRoute(
-            path: FirestoreAggregationPage.pageName,
-            name: FirestoreAggregationPage.pageName,
-            builder: (_, __) => const FirestoreAggregationPage(),
-          ),
-
-          /// タイムライン
-          GoRoute(
-            path: TimelinePage.pageName,
-            name: TimelinePage.pageName,
-            builder: (_, __) => const TimelinePage(),
-            routes: [
-              /// 投稿の作成・更新・削除
-              GoRoute(
-                path: EditPostPage.pageName,
-                name: EditPostPage.pageName,
-                pageBuilder: (_, state) {
-                  final args = state.extra as EditPostPageArgs?;
-                  return MaterialPage(
-                    key: state.pageKey,
-                    fullscreenDialog: true,
-                    child: EditPostPage(args: args),
-                  );
-                },
-              ),
-
-              /// 投稿詳細
-              GoRoute(
-                path: PostDetailPage.pageName,
-                name: PostDetailPage.pageName,
+                name: OtherProfilePage.pageName,
+                path: OtherProfilePage.pageName,
                 builder: (_, state) {
-                  final args = state.extra! as (String posterId, String postId);
-                  return PostDetailPage(
-                    posterId: args.$1,
-                    postId: args.$2,
+                  final userId = state.extra as String?;
+                  return OtherProfilePage(
+                    authId: userId ?? '',
                   );
                 },
               ),

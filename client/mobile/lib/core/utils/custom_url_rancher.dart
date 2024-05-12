@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomUrlLauncher {
   CustomUrlLauncher._();
   static Future<void> jumpToLink({
-    required String url
+    required String url,
   }) async {
     try {
       final uri = Uri.parse(url);

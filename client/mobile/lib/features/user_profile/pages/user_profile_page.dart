@@ -2,21 +2,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/user_profile/parts/profile_part.dart';
 import 'package:flutter_app_template/features/user_profile/parts/user_result_part.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../app_user/use_case/app_user_controller.dart';
+import '../../../core/repositories/firebase_auth/firebase_auth_repository.dart';
 import '../../app_wrapper/pages/main_page.dart';
 import '../parts/drawer_menu.dart';
 import 'edit_user_profile_page.dart';
 
 class UserProfilePage extends HookConsumerWidget {
-  const UserProfilePage({super.key});
+  const UserProfilePage({
+    super.key,
+  });
+
+
+  static void push(
+      BuildContext context, {
+        required String id,
+      }) {
+    context.push(
+      pagePath,
+      extra: id,
+    );
+  }
 
   static String get pageName => 'user_profile';
   static String get pagePath => '${MainPage.pagePath}/$pageName';
 
+
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final userId = ref.watch(appUserControllerProvider).value?.authId;
+    final authId = ref.watch(firebaseAuthRepositoryProvider).loggedInUserId;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -58,11 +73,15 @@ class UserProfilePage extends HookConsumerWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                const ProfilePart(),
+                ProfilePart(
+                  authId: authId ?? '',
+                ),
                 const SizedBox(
                   height: 30,
                 ),
-                UserResultPart(userId: userId ?? ''),
+                UserResultPart(
+                    authId: authId ?? '',
+                ),
               ],
             ),
           ),
