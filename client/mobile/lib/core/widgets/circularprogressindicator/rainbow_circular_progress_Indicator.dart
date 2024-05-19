@@ -106,3 +106,5 @@ class RainbowCircularProgressPainter extends CustomPainter {
       oldDelegate.progress != progress;
 }
 
+
+
