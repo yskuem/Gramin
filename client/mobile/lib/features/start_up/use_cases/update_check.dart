@@ -42,5 +42,3 @@ String _getLatestAppVersion (FirebaseRemoteConfig remoteConfig) {
     return remoteConfig.getString('android_latest_app_version');
   }
 }
-
-

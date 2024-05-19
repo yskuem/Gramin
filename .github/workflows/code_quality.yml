@@ -1,0 +1,24 @@
+
+
+name: Check and test the source code
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    name: Check the source code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          flutter-version: '3.19.6'
+      - name: Install packages
+        run: flutter pub get
+        working-directory: client/mobile
+      - name: Linter
+        run: flutter analyze
+        working-directory: client/mobile

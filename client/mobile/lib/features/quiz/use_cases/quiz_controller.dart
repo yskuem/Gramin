@@ -76,7 +76,6 @@ class QuizController extends _$QuizController {
     state = AsyncData([
       ...quizList,
     ]);
-    print(quizList.length);
     return quizList;
   }
 

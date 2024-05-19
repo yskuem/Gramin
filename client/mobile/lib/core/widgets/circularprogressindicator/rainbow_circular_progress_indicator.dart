@@ -31,6 +31,7 @@ class RainbowCircularProgressIndicatorState
       duration: const Duration(seconds: 2),
       vsync: this,
     )..repeat();
+    // ignore: prefer_int_literals
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
   }
 
@@ -105,4 +106,3 @@ class RainbowCircularProgressPainter extends CustomPainter {
   bool shouldRepaint(RainbowCircularProgressPainter oldDelegate) =>
       oldDelegate.progress != progress;
 }
-

@@ -35,4 +35,3 @@ class UserResultPart extends HookConsumerWidget {
     );
   }
 }
-
