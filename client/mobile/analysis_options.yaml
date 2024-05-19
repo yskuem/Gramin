@@ -9,6 +9,12 @@ analyzer:
     - lib/**/l10n/*.dart
     - lib/gen/*.dart
     - lib/**/gen/*.dart
+    - android/key.properties
+    - android/app/gradle.properties
+    - lib/features/advertisement/constant/admob_ids.dart
+    - ios/Runner.xcodeproj/project.pbxproj
+    - lib/features/advertisement/use_case/interstitial_ad_controller.dart
+    - lib/features/advertisement/parts/banner_ad.dart
   errors:
     invalid_annotation_target: ignore
 linter:

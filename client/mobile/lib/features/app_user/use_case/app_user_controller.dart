@@ -33,7 +33,6 @@ class AppUserController extends _$AppUserController {
     );
     final appUser = doc.entity;
     state = AsyncData(appUser);
-    print(appUser);
     return appUser;
   }
 
@@ -107,9 +106,3 @@ class AppUserController extends _$AppUserController {
     return currentExp + correctPoint + consecutivePoint;
   }
 }
-
-
-
-
-
-

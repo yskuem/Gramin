@@ -104,4 +104,3 @@ class AnsweredQuizController extends _$AnsweredQuizController {
     });
   }
 }
-

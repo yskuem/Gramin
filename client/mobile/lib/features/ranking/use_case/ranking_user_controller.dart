@@ -71,7 +71,3 @@ class RankingUserController extends _$RankingUserController {
     state = AsyncData(sortUpdateList);
   }
 }
-
-
-
-

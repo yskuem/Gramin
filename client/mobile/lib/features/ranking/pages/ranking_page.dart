@@ -78,4 +78,3 @@ class RankingPage extends HookConsumerWidget {
     );
   }
 }
-
