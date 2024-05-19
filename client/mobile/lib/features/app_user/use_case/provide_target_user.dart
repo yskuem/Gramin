@@ -32,5 +32,3 @@ Future<AppUser?> provideTargetUser(//userIdからどのユーザかを特定す�
   final targetUser = rankinUser.firstWhere((element) => element.authId == userId);
   return targetUser;
 }
-
-

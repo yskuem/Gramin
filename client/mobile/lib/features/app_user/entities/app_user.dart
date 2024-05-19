@@ -16,7 +16,7 @@ class AppUser with _$AppUser {
     required String authId,
     required String displayId,
     required String name,
-    @Default(defaultImageUrl) String iconUrl,//TODO: デフォルトの画像URLを追加
+    @Default(defaultImageUrl) String iconUrl,
     @Default('') String description,
     @Default('') String lastAnsweredQuizId,
     @Default(0) int exPoint,//合計経験値

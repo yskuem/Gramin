@@ -10,6 +10,3 @@ TextStyle get contentTextStyle => const TextStyle(
   fontSize: 35,
   fontWeight: FontWeight.w500,
 );
-
-
-

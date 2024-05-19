@@ -62,11 +62,3 @@ class RankingTile extends HookConsumerWidget {
     );
   }
 }
-
-
-
-
-
-
-
-

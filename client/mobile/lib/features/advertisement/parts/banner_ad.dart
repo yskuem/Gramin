@@ -31,7 +31,7 @@ class _BannerAdPartState extends State<BannerAdPart> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
+          debugPrint('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),
@@ -49,10 +49,3 @@ class _BannerAdPartState extends State<BannerAdPart> {
     );
   }
 }
-
-
-
-
-
-
-

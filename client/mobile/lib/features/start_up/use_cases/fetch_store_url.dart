@@ -15,7 +15,3 @@ Future<String> fetchStoreUrl(FetchStoreUrlRef ref) async {
   final storeUrl = remoteConfig.getString(key);
   return storeUrl;
 }
-
-
-
-

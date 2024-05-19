@@ -106,7 +106,8 @@ class MainPage extends HookConsumerWidget {
             ),
           ),
           bottomNavigationBar: NavigationBar(
-            backgroundColor: Colors.white.withOpacity(0.3),//TODO Themeに移行する
+            backgroundColor: Colors.white.withOpacity(0.3),// TODO(yskuem): Themeに移行する.
+
             onDestinationSelected: (int index) {
               /// 同じタブが選択されたことを通知する
               if (index == selectedTabIndex) {

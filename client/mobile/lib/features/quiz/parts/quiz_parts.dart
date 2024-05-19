@@ -249,13 +249,3 @@ class QuizParts extends HookConsumerWidget {
     }, [currentQuizIndex.value],);
   }
 }
-
-
-
-
-
-
-
-
-
-

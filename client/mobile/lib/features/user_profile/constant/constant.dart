@@ -7,8 +7,3 @@ const userNameKey = 'ユーザーネーム';
 
 const userIdKey = 'ユーザーID';
 const userIdMaxLength = 10;
-
-
-
-
-

@@ -31,7 +31,3 @@ class AppColors {
     return const Color(0xFFFF4500); // レッドオレンジ
   }
 }
-
-
-
-
