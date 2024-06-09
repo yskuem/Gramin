@@ -6,7 +6,7 @@ part of 'update_check.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isUpdateNeededHash() => r'ecdc40c049583b52ee7a5873265c816194862f00';
+String _$isUpdateNeededHash() => r'03eecb3c1ba2a8d2bbb63bc650a72e4cf8014ea9';
 
 /// See also [isUpdateNeeded].
 @ProviderFor(isUpdateNeeded)
