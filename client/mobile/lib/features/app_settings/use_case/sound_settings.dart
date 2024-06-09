@@ -28,6 +28,3 @@ class SoundSetting extends _$SoundSetting {
     state = AsyncData(!isSoundOn);
   }
 }
-
-
-

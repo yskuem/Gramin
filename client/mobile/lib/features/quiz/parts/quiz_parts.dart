@@ -248,7 +248,7 @@ class QuizParts extends HookConsumerWidget {
 
   void _soundEffect(
       WidgetRef ref,
-      ValueNotifier<bool?> isCorrect
+      ValueNotifier<bool?> isCorrect,
   ) {
     final audioPlayer = AudioPlayer();
     useEffect(() {
