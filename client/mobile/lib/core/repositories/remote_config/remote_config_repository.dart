@@ -35,4 +35,5 @@ class RemoteConfigRepository {
   Future<bool> fetchAndActivate() => _remoteConfig.fetchAndActivate();
 
   String getString(RemoteConfigKey value) => _remoteConfig.getString(value.key);
+  int getInt(RemoteConfigKey value) => _remoteConfig.getInt(value.key);
 }

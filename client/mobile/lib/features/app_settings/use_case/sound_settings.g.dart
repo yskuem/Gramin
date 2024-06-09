@@ -6,7 +6,7 @@ part of 'sound_settings.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$soundSettingHash() => r'03b4a4589c6ea752aa65b883621735793606100b';
+String _$soundSettingHash() => r'6c286d2827954aca9219823f767d08b2930abfba';
 
 /// See also [SoundSetting].
 @ProviderFor(SoundSetting)
