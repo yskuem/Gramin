@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/advertisement/parts/banner_ad.dart';
+import 'package:flutter_app_template/features/advertisement/use_case/ad_interval_setting.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/answered_quiz_controller.dart';
@@ -29,6 +30,7 @@ class QuizParts extends HookConsumerWidget {
     final interstitialAd = ref.watch(interstitialAdControllerProvider);
     final currentUser = ref.watch(appUserControllerProvider).value;
     final isSoundOn = ref.watch(soundSettingProvider);
+    final adIntervalCount = ref.watch(adIntervalCountProvider).value ?? 5;
 
     _soundEffect(ref,isCorrect);
     _loadAdEffect(ref, currentQuizIndex);
@@ -80,7 +82,7 @@ class QuizParts extends HookConsumerWidget {
                             onPressed: () async {
                               currentQuizIndex.value++;
                               isCorrect.value = null;
-                              if(currentQuizIndex.value % 3 == 0) {
+                              if(currentQuizIndex.value % adIntervalCount == 0) {
                                 await interstitialAd.value?.show();
                               }
                             },
