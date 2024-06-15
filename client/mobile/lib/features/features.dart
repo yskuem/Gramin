@@ -7,6 +7,4 @@ export 'authentication/pages/sign_in_with_email_page.dart';
 export 'authentication/pages/sign_up_with_email_page.dart';
 export 'authentication/pages/top_email_feature_page.dart';
 export 'error/pages/error_page.dart';
-export 'setting/pages/setting_page.dart';
-export 'setting/pages/web_view_page.dart';
 export 'start_up/pages/start_up_page.dart';

@@ -23,8 +23,7 @@ mixin _$AppUser {
   String get authId => throw _privateConstructorUsedError;
   String get displayId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get iconUrl =>
-      throw _privateConstructorUsedError; //TODO: デフォルトの画像URLを追加
+  String get iconUrl => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get lastAnsweredQuizId => throw _privateConstructorUsedError;
   int get exPoint => throw _privateConstructorUsedError; //合計経験値
@@ -354,7 +353,6 @@ class _$AppUserImpl extends _AppUser with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final String iconUrl;
-//TODO: デフォルトの画像URLを追加
   @override
   @JsonKey()
   final String description;
@@ -550,7 +548,7 @@ abstract class _AppUser extends AppUser {
   String get name;
   @override
   String get iconUrl;
-  @override //TODO: デフォルトの画像URLを追加
+  @override
   String get description;
   @override
   String get lastAnsweredQuizId;

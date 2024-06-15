@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/widgets/card/transparent_card.dart';
 import 'package:flutter_app_template/features/advertisement/parts/banner_ad.dart';
+import 'package:flutter_app_template/features/advertisement/use_case/ad_interval_setting.dart';
 import 'package:flutter_app_template/features/quiz/constants/constants.dart';
 import 'package:flutter_app_template/features/quiz/parts/button_part.dart';
 import 'package:flutter_app_template/features/quiz/use_cases/answered_quiz_controller.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../core/widgets/buttons/quiz_loading_animation.dart';
 import '../../advertisement/use_case/interstitial_ad_controller.dart';
+import '../../app_settings/use_case/sound_settings.dart';
 import '../../app_user/use_case/app_user_controller.dart';
 import '../entities/quiz.dart';
 import 'explanation_part.dart';
@@ -27,8 +29,10 @@ class QuizParts extends HookConsumerWidget {
     final isCorrect = useState<bool?>(null);
     final interstitialAd = ref.watch(interstitialAdControllerProvider);
     final currentUser = ref.watch(appUserControllerProvider).value;
+    final isSoundOn = ref.watch(soundSettingProvider);
+    final adIntervalCount = ref.watch(adIntervalCountProvider).value ?? 5;
 
-    _soundEffect(isCorrect);
+    _soundEffect(ref,isCorrect);
     _loadAdEffect(ref, currentQuizIndex);
 
     if(quizListData.isEmpty || quizListData.length <= currentQuizIndex.value) {
@@ -40,39 +44,64 @@ class QuizParts extends HookConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Visibility(
-                visible: isCorrect.value != null,
+              SizedBox(
+                height: 50,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: IconButton(
+                        onPressed: () {
+                          ref.read(soundSettingProvider.notifier).toggleSoundSetting();
+                        },
+                        icon: isSoundOn.value ?? false
+                            ? const Icon(
+                                Icons.volume_up,
+                                color: Colors.white,
+                                size: 30,
+                            )
+                            : const Icon(
+                                Icons.volume_off,
+                                color: Colors.white,
+                                size: 30,
+                              ),
                       ),
-                      onPressed: () async {
-                        currentQuizIndex.value++;
-                        isCorrect.value = null;
-                        if(currentQuizIndex.value % 3 == 0) {
-                          await interstitialAd.value?.show();
-                        }
-                      },
-                      child: const Text(
-                        '次へ',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    Visibility(
+                      visible: isCorrect.value != null,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () async {
+                              currentQuizIndex.value++;
+                              isCorrect.value = null;
+                              if(currentQuizIndex.value % adIntervalCount == 0) {
+                                await interstitialAd.value?.show();
+                              }
+                            },
+                            child: const Text(
+                              '次へ',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 10,),
-              if(isCorrect.value == null)
-                const SizedBox(height: 20,),
               TransparentCard(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
@@ -219,13 +248,18 @@ class QuizParts extends HookConsumerWidget {
     );
   }
 
-  void _soundEffect(ValueNotifier<bool?> isCorrect) {
+  void _soundEffect(
+      WidgetRef ref,
+      ValueNotifier<bool?> isCorrect,
+  ) {
     final audioPlayer = AudioPlayer();
     useEffect(() {
       final value = isCorrect.value;
-      if(value == null) {
+      final isSoundOn = ref.read(soundSettingProvider).value ?? false;
+      if(value == null || !isSoundOn) {
         return;
       }
+
       if(value) {
         audioPlayer.play(AssetSource('sound/correct.mp3'));
       } else {

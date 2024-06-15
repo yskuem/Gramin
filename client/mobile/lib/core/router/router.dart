@@ -57,17 +57,6 @@ final routerProvider = Provider((ref) {
         },
       ),
 
-
-      /// WebView
-      GoRoute(
-        path: WebViewPage.pagePath,
-        name: WebViewPage.pageName,
-        builder: (_, state) {
-          final args = state.extra! as WebViewArgs;
-          return WebViewPage(args: args);
-        },
-      ),
-
       /// メイン
       GoRoute(
         path: MainPage.pagePath,
