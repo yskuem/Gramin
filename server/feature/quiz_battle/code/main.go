@@ -36,7 +36,7 @@ func init() {
 
 	// Firebase Admin SDK の初期化
 	ctx := context.Background()
-	firebaseOpt := option.WithCredentialsFile("path/to/your/serviceAccountKey.json") // サービスアカウントキーのパスを設定
+	firebaseOpt := option.WithCredentialsFile("gramin-dev-firebasesdk.json")
 	app, err := firebase.NewApp(ctx, nil, firebaseOpt)
 	if err != nil {
 		log.Fatalf("Firebase の初期化エラー: %v", err)
