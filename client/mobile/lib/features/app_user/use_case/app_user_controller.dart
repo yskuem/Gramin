@@ -23,11 +23,11 @@ class AppUserController extends _$AppUserController {
 
 
   Future<AppUser?> onFetch() async {
-    final userId = ref.watch(firebaseAuthRepositoryProvider).loggedInUserId;
+    final userId = ref.read(firebaseAuthRepositoryProvider).loggedInUserId;
     if (userId == null) {
       throw AppException(title: 'ログインしてください');
     }
-    final doc = await ref.watch(documentRepositoryProvider).fetch<AppUser>(
+    final doc = await ref.read(documentRepositoryProvider).fetch<AppUser>(
         AppUser.docPath(userId),
         decode: AppUser.fromJson,
     );
