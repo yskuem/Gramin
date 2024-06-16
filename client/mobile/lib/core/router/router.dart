@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
+import 'package:flutter_app_template/features/quiz_buttle/pages/quiz_battle_pages.dart';
 import 'package:flutter_app_template/features/ranking/pages/ranking_page.dart';
 import 'package:flutter_app_template/features/start_up/pages/register_name_page.dart';
 import 'package:flutter_app_template/features/tutorial/pages/tutorial.dart';
@@ -79,6 +80,11 @@ final routerProvider = Provider((ref) {
                 builder: (_, __) => const DrawerMenu(),
               ),
             ],
+          ),
+          GoRoute(
+            name: QuizBattlePages.pageName,
+            path: QuizBattlePages.pageName,
+            builder: (_, __) => const QuizBattlePages(),
           ),
           GoRoute(
             name: UserProfilePage.pageName,

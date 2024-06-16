@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/quiz/pages/quiz_page.dart';
+import 'package:flutter_app_template/features/quiz_buttle/pages/quiz_battle_pages.dart';
 import 'package:flutter_app_template/features/ranking/pages/ranking_page.dart';
 import 'package:flutter_app_template/features/user_profile/pages/user_profile_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -56,14 +57,18 @@ class MainPage extends HookConsumerWidget {
         ),
         (
           GlobalKey<NavigatorState>(),
+          QuizBattlePages.pageName,
+          const QuizBattlePages()
+        ),
+        (
+          GlobalKey<NavigatorState>(),
           UserProfilePage.pageName,
           const UserProfilePage(),
         ),
-
         (
-        GlobalKey<NavigatorState>(),
-        RankingPage.pageName,
-        const RankingPage(),
+          GlobalKey<NavigatorState>(),
+          RankingPage.pageName,
+          const RankingPage(),
         ),
       ],
     );
@@ -128,13 +133,18 @@ class MainPage extends HookConsumerWidget {
                 label: 'クイズ',
               ),
               NavigationDestination(
+                selectedIcon: Icon(Icons.emoji_flags),
+                icon: Icon(Icons.emoji_flags_outlined),
+                label: 'クイズ対戦',
+              ),
+              NavigationDestination(
                 selectedIcon: Icon(Icons.people),
                 icon: Icon(Icons.people_outlined),
                 label: 'プロフィール',
               ),
               NavigationDestination(
-                selectedIcon: Icon(Icons.people),
-                icon: Icon(Icons.people_outlined),
+                selectedIcon: Icon(Icons.emoji_events),
+                icon: Icon(Icons.emoji_events_outlined),
                 label: 'ランキング',
               ),
             ],
