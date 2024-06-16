@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"sync"
 
+	"firebase.google.com/go/auth"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
@@ -24,6 +27,8 @@ var ctx = context.Background()
 var connections = make(map[string]*websocket.Conn)
 var connectionsMutex sync.Mutex
 var waitingUserMutex sync.Mutex
+
+var authClient *auth.Client
 
 func init() {
 
@@ -50,6 +55,15 @@ func init() {
 	}
 }
 
+func verifyIDToken(ctx context.Context, idToken string) (*auth.Token, error) {
+	// ID トークンの検証
+	token, err := authClient.VerifyIDToken(ctx, idToken)
+	if err != nil {
+		return nil, fmt.Errorf("ID トークンの検証エラー: %v", err)
+	}
+	return token, nil
+}
+
 func setWaitingUser(userID string) error {
 	return rdb.Set(ctx, "waitingUser", userID, 0).Err()
 }
@@ -63,6 +77,28 @@ func deleteWaitingUser() error {
 }
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
+
+	ctx := r.Context()
+
+	// Authorization ヘッダーから ID トークンを取得
+	authHeader := r.Header.Get("Authorization")
+	if authHeader == "" {
+		http.Error(w, "Authorization ヘッダーがありません", http.StatusUnauthorized)
+		return
+	}
+	idToken := strings.TrimPrefix(authHeader, "Bearer ")
+
+	// ID トークンの検証
+	token, err := verifyIDToken(ctx, idToken)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	// 検証に成功した場合の処理 (例: ユーザー情報取得)
+	uid := token.UID
+	print(uid)
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("Upgrade error:", err)
