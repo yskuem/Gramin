@@ -9,10 +9,12 @@ import (
 	"strings"
 	"sync"
 
+	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
+	"google.golang.org/api/option"
 )
 
 var upgrader = websocket.Upgrader{
@@ -32,7 +34,20 @@ var authClient *auth.Client
 
 func init() {
 
-	err := godotenv.Load()
+	// Firebase Admin SDK の初期化
+	ctx := context.Background()
+	firebaseOpt := option.WithCredentialsFile("path/to/your/serviceAccountKey.json") // サービスアカウントキーのパスを設定
+	app, err := firebase.NewApp(ctx, nil, firebaseOpt)
+	if err != nil {
+		log.Fatalf("Firebase の初期化エラー: %v", err)
+	}
+
+	_, err = app.Auth(ctx)
+	if err != nil {
+		log.Fatalf("Firebase Authentication の初期化エラー: %v", err)
+	}
+
+	err = godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
@@ -42,11 +57,11 @@ func init() {
 		log.Fatalf("REDIS_URL environment variable not set")
 	}
 
-	opt, err := redis.ParseURL(redisURL)
+	redisOpt, err := redis.ParseURL(redisURL)
 	if err != nil {
 		log.Fatalf("Could not parse Redis URL: %v", err)
 	}
-	rdb = redis.NewClient(opt)
+	rdb = redis.NewClient(redisOpt)
 
 	// Redisサーバーに接続できるか確認
 	_, err = rdb.Ping(ctx).Result()
