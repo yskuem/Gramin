@@ -2,14 +2,19 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"sync"
 
+	firebase "firebase.google.com/go"
+	"firebase.google.com/go/auth"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
+	"google.golang.org/api/option"
 )
 
 var upgrader = websocket.Upgrader{
@@ -25,9 +30,24 @@ var connections = make(map[string]*websocket.Conn)
 var connectionsMutex sync.Mutex
 var waitingUserMutex sync.Mutex
 
+var authClient *auth.Client
+
 func init() {
 
-	err := godotenv.Load()
+	// Firebase Admin SDK の初期化
+	ctx := context.Background()
+	firebaseOpt := option.WithCredentialsFile("gramin-dev-firebasesdk.json")
+	app, err := firebase.NewApp(ctx, nil, firebaseOpt)
+	if err != nil {
+		log.Fatalf("Firebase の初期化エラー: %v", err)
+	}
+
+	_, err = app.Auth(ctx)
+	if err != nil {
+		log.Fatalf("Firebase Authentication の初期化エラー: %v", err)
+	}
+
+	err = godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
@@ -37,17 +57,26 @@ func init() {
 		log.Fatalf("REDIS_URL environment variable not set")
 	}
 
-	opt, err := redis.ParseURL(redisURL)
+	redisOpt, err := redis.ParseURL(redisURL)
 	if err != nil {
 		log.Fatalf("Could not parse Redis URL: %v", err)
 	}
-	rdb = redis.NewClient(opt)
+	rdb = redis.NewClient(redisOpt)
 
 	// Redisサーバーに接続できるか確認
 	_, err = rdb.Ping(ctx).Result()
 	if err != nil {
 		log.Fatalf("Could not connect to Redis: %v", err)
 	}
+}
+
+func verifyIDToken(ctx context.Context, idToken string) (*auth.Token, error) {
+	// ID トークンの検証
+	token, err := authClient.VerifyIDToken(ctx, idToken)
+	if err != nil {
+		return nil, fmt.Errorf("ID トークンの検証エラー: %v", err)
+	}
+	return token, nil
 }
 
 func setWaitingUser(userID string) error {
@@ -63,6 +92,28 @@ func deleteWaitingUser() error {
 }
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
+
+	ctx := r.Context()
+
+	// Authorization ヘッダーから ID トークンを取得
+	authHeader := r.Header.Get("Authorization")
+	if authHeader == "" {
+		http.Error(w, "Authorization ヘッダーがありません", http.StatusUnauthorized)
+		return
+	}
+	idToken := strings.TrimPrefix(authHeader, "Bearer ")
+
+	// ID トークンの検証
+	token, err := verifyIDToken(ctx, idToken)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	// 検証に成功した場合の処理 (例: ユーザー情報取得)
+	uid := token.UID
+	print(uid)
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("Upgrade error:", err)
