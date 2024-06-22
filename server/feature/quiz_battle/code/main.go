@@ -33,7 +33,6 @@ var waitingUserMutex sync.Mutex
 var authClient *auth.Client
 
 func init() {
-
 	// Firebase Admin SDK の初期化
 	ctx := context.Background()
 	firebaseOpt := option.WithCredentialsFile("gramin-dev-firebasesdk.json")
@@ -42,7 +41,7 @@ func init() {
 		log.Fatalf("Firebase の初期化エラー: %v", err)
 	}
 
-	_, err = app.Auth(ctx)
+	authClient, err = app.Auth(ctx)
 	if err != nil {
 		log.Fatalf("Firebase Authentication の初期化エラー: %v", err)
 	}
@@ -92,8 +91,13 @@ func deleteWaitingUser() error {
 }
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
-
 	ctx := r.Context()
+
+	if authClient == nil {
+		log.Println("Firebase Authentication client is not initialized")
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	// Authorization ヘッダーから ID トークンを取得
 	authHeader := r.Header.Get("Authorization")
@@ -112,7 +116,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 
 	// 検証に成功した場合の処理 (例: ユーザー情報取得)
 	uid := token.UID
-	print(uid)
+	log.Printf("Authenticated user: %s", uid)
 
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -120,7 +124,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := conn.RemoteAddr().String()
+	userID := uid // Use Firebase UID instead of connection address
 	connectionsMutex.Lock()
 	connections[userID] = conn
 	connectionsMutex.Unlock()
