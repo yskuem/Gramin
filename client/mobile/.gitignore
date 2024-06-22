@@ -54,7 +54,6 @@ ios/**/GoogleService-Info.plist
 # Mason
 mason-lock.json
 .mason
-.fvm/flutter_sdk
 
 # Test
 coverage/
@@ -62,3 +61,6 @@ coverage/
 /lib/features/advertisement/constant/admob_ids.dart
 /android/app/gradle.properties
 /android/key.properties
+
+# FVM Version Cache
+.fvm/
