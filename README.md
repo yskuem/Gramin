@@ -1,6 +1,6 @@
 # Gramin
 [App Store](https://apps.apple.com/jp/app/gramin-%E3%82%B2%E3%83%BC%E3%83%A0%E6%84%9F%E8%A6%9A%E3%81%A7%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%96%87%E6%B3%95%E3%82%92%E5%8B%89%E5%BC%B7%E3%81%A7%E3%81%8D%E3%82%8B/id6499072709)
-<br>
+<br><br>
 [Google Play](https://play.google.com/store/apps/details?id=app.yskuem.gramin)
 
 <br>
@@ -34,6 +34,14 @@ Admob
 Firebase Analytics、Firebase Remote Config
 <br>
 <br>
+## 今後実装したいこと
+- 他ユーザーと英文法クイズの早押し対決ができる機能
+- 広告を見たら選択肢を絞れる機能
+- 問題の難易度の調整機能
+- 問題のコメント機能
+- テストコードを書くこと
+- CI、CDパイプラインを構築すること
+
 ## 画面
 
 ![imege1.png](./doc/images/image1.png)
