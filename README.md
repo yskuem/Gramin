@@ -35,13 +35,12 @@ Firebase Analytics、Firebase Remote Config
 <br>
 <br>
 ## 画面
-<img src="./doc/images/image1.png" alt="image1" width="200">
-<img src="./doc/images/image2.png" alt="image2" width="200">
-<img src="./doc/images/image3.png" alt="image3" width="200">
-<img src="./doc/images/image4.png" alt="image4" width="200">
-<img src="./doc/images/image5.png" alt="image5" width="200">
 
-
+![imege1.png](./doc/images/image1.png)
+![imege2.png](./doc/images/image2.png)
+![imege3.png](./doc/images/image3.png)
+![imege4.png](./doc/images/image4.png)
+![imege5.png](./doc/images/image5.png)
 
 
 
