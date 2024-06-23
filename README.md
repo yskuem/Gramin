@@ -3,14 +3,19 @@
 <br>
 [Google Play](https://play.google.com/store/apps/details?id=app.yskuem.gramin)
 
+<br>
+
 ## アプリ内容
 英語の文法をゲーム感覚で学習する目的で制作したアプリ
+
+<br>
 
 ## 機能
 - OpenAIのAPIを使用して無限に新しい英文法問題を作成する機能
 - 文法問題の正誤によってポイントが上下する機能（正解したら+2、不正解だと-1、連続で問題に正解すると連続正解数のポイントが付与される)
 - ポイントによってユーザーのランキングを出す機能
 
+<br>
 
 ## 主な使用技術
 ### モバイル
@@ -28,13 +33,15 @@ Admob
 ### その他
 Firebase Analytics、Firebase Remote Config
 <br>
-
+<br>
 ## 画面
-![image_1](./doc/images/image1.png)
-![image_2](./doc/images/image2.png)
-![image_3](./doc/images/image3.png)
-![image_4](./doc/images/image4.png)
-![image_5](./doc/images/image5.png)
+<img src="./doc/images/image1.png" alt="image1" width="200">
+<img src="./doc/images/image2.png" alt="image2" width="200">
+<img src="./doc/images/image3.png" alt="image3" width="200">
+<img src="./doc/images/image4.png" alt="image4" width="200">
+<img src="./doc/images/image5.png" alt="image5" width="200">
+
+
 
 
 
