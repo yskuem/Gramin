@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -40,14 +41,23 @@ func init() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	firebaseCredentials := os.Getenv("Firebase_SDK")
-	if firebaseCredentials == "" {
-		log.Fatalf("FIREBASE_CREDENTIALS environment variable not set")
+	firebaseCredentialsPath := os.Getenv("Firebase_SDK")
+	if firebaseCredentialsPath == "" {
+		log.Fatalf("Firebase_SDK environment variable not set")
 	}
+
+	// カレントディレクトリを取得
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatalf("カレントディレクトリの取得に失敗: %v", err)
+	}
+
+	// 相対パスを絶対パスに変換
+	absolutePath := filepath.Join(currentDir, firebaseCredentialsPath)
 
 	// Firebase Admin SDK の初期化
 	ctx := context.Background()
-	firebaseOpt := option.WithCredentialsJSON([]byte(firebaseCredentials))
+	firebaseOpt := option.WithCredentialsFile(absolutePath)
 	app, err := firebase.NewApp(ctx, nil, firebaseOpt)
 	if err != nil {
 		log.Fatalf("Firebase の初期化エラー: %v", err)
