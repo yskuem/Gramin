@@ -271,7 +271,6 @@ func handleMatch(user1, user2 *websocket.Conn) {
 
 func main() {
 	http.HandleFunc("/ws", handleConnections)
-	port := "8080"
-	log.Printf("Server started on :%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Println("Server started on :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
