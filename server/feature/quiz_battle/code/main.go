@@ -35,9 +35,19 @@ var authClient *auth.Client
 var firestoreClient *firestore.Client
 
 func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	firebaseCredentials := os.Getenv("Firebase_SDK")
+	if firebaseCredentials == "" {
+		log.Fatalf("FIREBASE_CREDENTIALS environment variable not set")
+	}
+
 	// Firebase Admin SDK の初期化
 	ctx := context.Background()
-	firebaseOpt := option.WithCredentialsFile("gramin-dev-firebasesdk.json")
+	firebaseOpt := option.WithCredentialsJSON([]byte(firebaseCredentials))
 	app, err := firebase.NewApp(ctx, nil, firebaseOpt)
 	if err != nil {
 		log.Fatalf("Firebase の初期化エラー: %v", err)
@@ -51,11 +61,6 @@ func init() {
 	firestoreClient, err = app.Firestore(ctx)
 	if err != nil {
 		log.Fatalf("Firestore の初期化エラー: %v", err)
-	}
-
-	err = godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
 	}
 
 	redisURL := os.Getenv("REDIS_URL")
@@ -256,11 +261,7 @@ func handleMatch(user1, user2 *websocket.Conn) {
 
 func main() {
 	http.HandleFunc("/ws", handleConnections)
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // ローカル開発のためのデフォルトポート
-	}
-
+	port := "8080"
 	log.Printf("Server started on :%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
