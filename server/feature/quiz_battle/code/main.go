@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 
+	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
 	"github.com/go-redis/redis/v8"
@@ -31,6 +32,7 @@ var connectionsMutex sync.Mutex
 var waitingUserMutex sync.Mutex
 
 var authClient *auth.Client
+var firestoreClient *firestore.Client
 
 func init() {
 	// Firebase Admin SDK の初期化
@@ -44,6 +46,11 @@ func init() {
 	authClient, err = app.Auth(ctx)
 	if err != nil {
 		log.Fatalf("Firebase Authentication の初期化エラー: %v", err)
+	}
+
+	firestoreClient, err = app.Firestore(ctx)
+	if err != nil {
+		log.Fatalf("Firestore の初期化エラー: %v", err)
 	}
 
 	err = godotenv.Load()
@@ -90,6 +97,15 @@ func deleteWaitingUser() error {
 	return rdb.Del(ctx, "waitingUser").Err()
 }
 
+func fetchUserData(ctx context.Context, uid string) (map[string]interface{}, error) {
+	docRef := firestoreClient.Collection("users").Doc(uid)
+	doc, err := docRef.Get(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("ユーザーデータの取得エラー: %v", err)
+	}
+	return doc.Data(), nil
+}
+
 func handleConnections(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -114,9 +130,20 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 検証に成功した場合の処理 (例: ユーザー情報取得)
-	uid := token.UID
-	log.Printf("Authenticated user: %s", uid)
+	userID := token.UID // Use Firebase UID instead of connection address
+
+	log.Printf("Authenticated user: %s", userID)
+
+	// Firestoreからユーザーデータを取得
+	userData, err := fetchUserData(ctx, userID)
+	if err != nil {
+		log.Printf("ユーザーデータの取得に失敗: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// ユーザーデータの利用例（ログに出力）
+	log.Printf("User data: %v", userData)
 
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -124,7 +151,6 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID := uid // Use Firebase UID instead of connection address
 	connectionsMutex.Lock()
 	connections[userID] = conn
 	connectionsMutex.Unlock()
@@ -230,6 +256,11 @@ func handleMatch(user1, user2 *websocket.Conn) {
 
 func main() {
 	http.HandleFunc("/ws", handleConnections)
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // ローカル開発のためのデフォルトポート
+	}
+
+	log.Printf("Server started on :%s", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
