@@ -2,7 +2,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../entities/quiz_battle_page_state.dart';
-part 'quiz_battle_page_state.g.dart';
+part 'quiz_battle_page_state_controller.g.dart';
 
 
 

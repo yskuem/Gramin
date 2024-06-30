@@ -7,7 +7,7 @@ part of 'websocket_repository.dart';
 // **************************************************************************
 
 String _$webSocketRepositoryHash() =>
-    r'354e81714c214f1a04a3da261d1735e1b32f18e1';
+    r'88ec8ca96b6c4f1ce43b2a53aa3af05933f0c0f3';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,9 +42,11 @@ class WebSocketRepositoryFamily extends Family<WebSocketRepository> {
   /// See also [webSocketRepository].
   WebSocketRepositoryProvider call({
     required String endPoint,
+    required String initialToken,
   }) {
     return WebSocketRepositoryProvider(
       endPoint: endPoint,
+      initialToken: initialToken,
     );
   }
 
@@ -54,6 +56,7 @@ class WebSocketRepositoryFamily extends Family<WebSocketRepository> {
   ) {
     return call(
       endPoint: provider.endPoint,
+      initialToken: provider.initialToken,
     );
   }
 
@@ -77,10 +80,12 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
   /// See also [webSocketRepository].
   WebSocketRepositoryProvider({
     required String endPoint,
+    required String initialToken,
   }) : this._internal(
           (ref) => webSocketRepository(
             ref as WebSocketRepositoryRef,
             endPoint: endPoint,
+            initialToken: initialToken,
           ),
           from: webSocketRepositoryProvider,
           name: r'webSocketRepositoryProvider',
@@ -92,6 +97,7 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
           allTransitiveDependencies:
               WebSocketRepositoryFamily._allTransitiveDependencies,
           endPoint: endPoint,
+          initialToken: initialToken,
         );
 
   WebSocketRepositoryProvider._internal(
@@ -102,9 +108,11 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.endPoint,
+    required this.initialToken,
   }) : super.internal();
 
   final String endPoint;
+  final String initialToken;
 
   @override
   Override overrideWith(
@@ -120,6 +128,7 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         endPoint: endPoint,
+        initialToken: initialToken,
       ),
     );
   }
@@ -131,13 +140,16 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
 
   @override
   bool operator ==(Object other) {
-    return other is WebSocketRepositoryProvider && other.endPoint == endPoint;
+    return other is WebSocketRepositoryProvider &&
+        other.endPoint == endPoint &&
+        other.initialToken == initialToken;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, endPoint.hashCode);
+    hash = _SystemHash.combine(hash, initialToken.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -146,6 +158,9 @@ class WebSocketRepositoryProvider extends Provider<WebSocketRepository> {
 mixin WebSocketRepositoryRef on ProviderRef<WebSocketRepository> {
   /// The parameter `endPoint` of this provider.
   String get endPoint;
+
+  /// The parameter `initialToken` of this provider.
+  String get initialToken;
 }
 
 class _WebSocketRepositoryProviderElement
@@ -154,6 +169,9 @@ class _WebSocketRepositoryProviderElement
 
   @override
   String get endPoint => (origin as WebSocketRepositoryProvider).endPoint;
+  @override
+  String get initialToken =>
+      (origin as WebSocketRepositoryProvider).initialToken;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

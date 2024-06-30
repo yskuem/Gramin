@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'quiz_battle_page_state.dart';
+part of 'quiz_battle_page_state_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator

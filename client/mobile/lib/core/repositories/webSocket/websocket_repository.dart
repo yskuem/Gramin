@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_app_template/core/extensions/exception_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -39,8 +42,8 @@ class WebSocketRepository {
         },
       );
       await _channel?.ready;
-    } on Exception catch (e){
-      throw Exception('Failed to connect to $_url: $e');
+    } on WebSocketException catch (e){
+      throw Exception('Failed to connect to $_url: ${e.errorMessage}');
     }
   }
 
