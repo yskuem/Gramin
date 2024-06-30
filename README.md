@@ -7,7 +7,6 @@
 
 ## アプリ内容
 英語の文法をゲーム感覚で学習する目的で制作したアプリ
-
 <br>
 
 ## 機能
@@ -15,6 +14,10 @@
 - 文法問題の正誤によってポイントが上下する機能（正解したら+2、不正解だと-1、連続で問題に正解すると連続正解数のポイントが付与される)
 - ポイントによってユーザーのランキングを出す機能
 
+## 主なコード内容
+[Moble](https://github.com/yskuem/Gramin/tree/main/client/mobile/lib)
+<br><br>
+[Backend](https://github.com/yskuem/Gramin/tree/main/server)
 <br>
 
 ## 主な使用技術
