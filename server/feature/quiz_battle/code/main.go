@@ -15,7 +15,6 @@ import (
 	"firebase.google.com/go/auth"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/websocket"
-	"github.com/joho/godotenv"
 	"google.golang.org/api/option"
 )
 
@@ -36,10 +35,6 @@ var authClient *auth.Client
 var firestoreClient *firestore.Client
 
 func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
 
 	firebaseCredentialsPath := os.Getenv("Firebase_SDK")
 	if firebaseCredentialsPath == "" {
