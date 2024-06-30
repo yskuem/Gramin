@@ -108,7 +108,7 @@ func deleteWaitingUser() error {
 }
 
 func fetchUserData(ctx context.Context, uid string) (map[string]interface{}, error) {
-	docRef := firestoreClient.Collection("users").Doc(uid)
+	docRef := firestoreClient.Collection("user").Doc(uid)
 	doc, err := docRef.Get(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("ユーザーデータの取得エラー: %v", err)
