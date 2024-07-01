@@ -35,7 +35,7 @@ class AnsweredQuizController extends _$AnsweredQuizController {
     if(userId == null) {
       throw AppException(title: 'ログインしてください');
     }
-    final repository = ref.watch(
+    final repository = ref.read(
       answeredQuizCollectionPagingRepositoryProvider(
         CollectionParam<AnsweredQuiz>(
           query: AnsweredQuiz.colRef(userId).orderBy('createdAt',descending: true),
