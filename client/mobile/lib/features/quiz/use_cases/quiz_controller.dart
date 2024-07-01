@@ -51,7 +51,7 @@ class QuizController extends _$QuizController {
       throw AppException(title: 'ユーザー情報が取得できませんでした');
     }
 
-    final repository = ref.watch(
+    final repository = ref.read(
       quizCollectionPagingRepositoryProvider(
         CollectionParam<Quiz>(
           query: Quiz.colRef.orderBy('createdAt',descending: false),
