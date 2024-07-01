@@ -21,18 +21,19 @@ class BattleInitialPage extends HookConsumerWidget {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final token = await ref.read(firebaseAuthRepositoryProvider).idToken;
                 ref.read(quizBattlePageStateControllerProvider.notifier).changePageState(nextState: const Waiting());
-                if(token == null) {
-                  return;
-                }
-
-                await ref.read(
-                  webSocketRepositoryProvider(
-                    initialToken: token,
-                    endPoint: 'wss://quiz-battle-dev-bw7moalaaa-an.a.run.app/ws',
-                  ),
-                ).connect();
+                // final token = await ref.read(firebaseAuthRepositoryProvider).idToken;
+                // ref.read(quizBattlePageStateControllerProvider.notifier).changePageState(nextState: const Waiting());
+                // if(token == null) {
+                //   return;
+                // }
+                //
+                // await ref.read(
+                //   webSocketRepositoryProvider(
+                //     initialToken: token,
+                //     endPoint: 'wss://quiz-battle-dev-bw7moalaaa-an.a.run.app/ws',
+                //   ),
+                // ).connect();
               },
               child: const Text('はじめる'),
             ),
