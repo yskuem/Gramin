@@ -4,9 +4,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 
-import 'dart:async';
-import 'package:flutter/material.dart';
-
 class CountdownScreen extends StatefulWidget {
   const CountdownScreen({super.key});
   @override
@@ -20,10 +17,10 @@ class CountdownScreenState extends State<CountdownScreen> with SingleTickerProvi
   late Animation<Color?> _colorAnimation;
 
   final List<Color> _pastelColors = [
-    Color(0xFFFFB3BA), // パステルピンク
-    Color(0xFFFFDFBA), // パステルオレンジ
-    Color(0xFFFFFFBA), // パステルイエロー
-    Color(0xFFBAFFBA), // パステルグリーン
+    const Color(0xFFFFB3BA), // パステルピンク
+    const Color(0xFFFFDFBA), // パステルオレンジ
+    const Color(0xFFFFFFBA), // パステルイエロー
+    const Color(0xFFBAFFBA), // パステルグリーン
   ];
 
   @override
@@ -85,4 +82,3 @@ class CountdownScreenState extends State<CountdownScreen> with SingleTickerProvi
     super.dispose();
   }
 }
-
